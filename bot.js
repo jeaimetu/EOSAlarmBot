@@ -26,7 +26,7 @@ bot.hears('ymca', (ctx) => {
 
 bot.hears(/torino/i, (ctx) => { 
     
-    ctx.reply("Someone said Torino!, ${ ctx.session.date }?")});
+    ctx.reply(`Someone said Torino!, ${ctx.session.date}?`)});
 
 // Inline query support (@yourbot query). Can be used anywhere, even in groups. It works just like @gif bot.
 bot.on('inline_query', ctx => {
