@@ -21,7 +21,7 @@ bot.command('start', (ctx) => ctx.reply('Bot started.'));
 // Hears, instead of command, check if the given word or regexp is CONTAINED in user input and not necessarly at beginning.
 bot.hears('ymca', (ctx) => {
     console.log("saving sessiong");
-    ctx.session.ymca = "Test";
+    ctx.session.date = new Date();
     ctx.reply("*sing* It's fun to stay at the Y.M.C.A.!")});
 
 bot.hears(/torino/i, (ctx) => ctx.reply("Someone said Torino!?"));
