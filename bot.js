@@ -20,11 +20,13 @@ bot.command('start', (ctx) => ctx.reply('Bot started.'));
 
 // Hears, instead of command, check if the given word or regexp is CONTAINED in user input and not necessarly at beginning.
 bot.hears('ymca', (ctx) => {
-    console.log("saving sessiong");
+    console.log("saving session");
     ctx.session.date = new Date();
     ctx.reply("*sing* It's fun to stay at the Y.M.C.A.!")});
 
-bot.hears(/torino/i, (ctx) => ctx.reply("Someone said Torino!?"));
+bot.hears(/torino/i, (ctx) => { 
+    
+    ctx.reply("Someone said Torino! ${ctx.session.date}?")});
 
 // Inline query support (@yourbot query). Can be used anywhere, even in groups. It works just like @gif bot.
 bot.on('inline_query', ctx => {
