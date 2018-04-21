@@ -1,8 +1,12 @@
 const Telegraf = require('telegraf');   // Module to use Telegraf API.
 const {Extra, Markup} = Telegraf;   // Extract Extra, Markups from Telegraf module.
 const config = require('./config'); // Configuration file that holds telegraf_token API key.
+const session = require('telegraf/session')
 
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
+
+// // Register session middleware
+bot.use(session())
 
 // We can get bot nickname from bot informations. This is particularly useful for groups.
 bot.telegram.getMe().then((bot_informations) => {
@@ -15,7 +19,11 @@ bot.telegram.getMe().then((bot_informations) => {
 bot.command('start', (ctx) => ctx.reply('Bot started.'));
 
 // Hears, instead of command, check if the given word or regexp is CONTAINED in user input and not necessarly at beginning.
-bot.hears('ymca', (ctx) => ctx.reply("*sing* It's fun to stay at the Y.M.C.A.!"));
+bot.hears('ymca', (ctx) => {
+    console.log("saving sessiong");
+    ctx.session.ymca = "Test";
+    ctx.reply("*sing* It's fun to stay at the Y.M.C.A.!")});
+
 bot.hears(/torino/i, (ctx) => ctx.reply("Someone said Torino!?"));
 
 // Inline query support (@yourbot query). Can be used anywhere, even in groups. It works just like @gif bot.
