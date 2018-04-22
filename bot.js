@@ -22,22 +22,22 @@ stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /nex
 const superWizard = new WizardScene('super-wizard',
   (ctx) => {
     ctx.reply('Step 1', Markup.inlineKeyboard([
-      Markup.urlButton('❤️Join KakaoTalk Group', 'http://telegraf.js.org'),
+      Markup.urlButton('❤️Join KakaoTalk Group', 'https://open.kakao.com/o/gj8CwMH'),
       Markup.callbackButton('➡️ Next', 'next')
     ]).extra())
     return ctx.wizard.next()
   },
   //stepHandler,
   (ctx) => {
-    ctx.reply('Step 1', Markup.inlineKeyboard([
-      Markup.urlButton('❤️Join Naver Cafe', 'http://telegraf.js.org'),
+    ctx.reply('Step 2', Markup.inlineKeyboard([
+      Markup.urlButton('❤️Join Naver Cafe', 'http://cafe.naver.com/eoscafekorea'),
       Markup.callbackButton('➡️ Next', 'next')
     ]).extra())
     return ctx.wizard.next()
   },
   (ctx) => {
-    ctx.reply('Step 1', Markup.inlineKeyboard([
-      Markup.urlButton('❤️Join Discord', 'http://telegraf.js.org'),
+    ctx.reply('Step 3', Markup.inlineKeyboard([
+      Markup.urlButton('❤️Join Discord', 'https://discord.gg/BHEDGvx'),
       Markup.callbackButton('➡️ Next', 'next')
     ]).extra())
     return ctx.wizard.next()
@@ -62,7 +62,7 @@ const superWizard = new WizardScene('super-wizard',
     //console.log("birshare id", ctx.message.text);
   ctx.session.etw = ctx.message.text;
 
-    ctx.reply('Done')
+    ctx.reply('Done', ctx.session.etw, ctx.session.bts, ctx.session.email);
     console.log(ctx.session.etw, ctx.session.bts, ctx.session.email);
     return ctx.scene.leave()
   }
