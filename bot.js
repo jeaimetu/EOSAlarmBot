@@ -61,8 +61,9 @@ const superWizard = new WizardScene('super-wizard',
   (ctx) => {
     //console.log("birshare id", ctx.message.text);
   ctx.session.etw = ctx.message.text;
+  finalResult = ctx.session.etw + ctx.session.bts + ctx.session.email
 
-    ctx.reply('Done', ctx.session.etw, ctx.session.bts, ctx.session.email);
+    ctx.reply('Done' + finalResult);
     console.log(ctx.session.etw, ctx.session.bts, ctx.session.email);
     return ctx.scene.leave()
   }
