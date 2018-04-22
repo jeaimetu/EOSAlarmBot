@@ -61,7 +61,9 @@ const superWizard = new WizardScene('super-wizard',
   (ctx) => {
     //console.log("birshare id", ctx.message.text);
   ctx.session.etw = ctx.message.text;
-  finalResult = "Check your information carefully";
+  
+   finalResult = "\n"  
+  finalResult += "Check your information carefully";
       finalResult += "\n"  
   finalResult += "Your Email Address :"
   finalResult += ctx.session.email;
@@ -80,7 +82,7 @@ const superWizard = new WizardScene('super-wizard',
 )
 
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
-const stage = new Stage([superWizard], { default: 'super-wizard' })
+//const stage = new Stage([superWizard], { default: 'super-wizard' })
 
 // // Register session middleware
 bot.use(session())
@@ -118,6 +120,7 @@ bot.on('/ddd', msg => {
 });
 
 bot.command('custom', ({ reply }) => {
+  const stage = new Stage([superWizard], { default: 'super-wizard' })
   return reply('Custom buttons keyboard', Markup
     .keyboard([
       ['🔍 Search', '😎 Popular'], // Row1 with 2 buttons
