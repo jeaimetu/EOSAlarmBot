@@ -18,7 +18,7 @@ bot.telegram.getMe().then((bot_informations) => {
 // Context data includes message info, timestamp, etc; check the official documentation or print ctx.
 bot.command('start', (ctx) => ctx.reply('Bot started.'));
 
-bot.on('/start', msg => {
+bot.on('/ddd', msg => {
 
     const id = msg.from.id;
 
