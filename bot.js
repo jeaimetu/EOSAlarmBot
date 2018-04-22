@@ -8,6 +8,7 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 
 // // Register session middleware
 bot.use(session())
+bot.use(Telegraf.log()
 
 const keyboard = Markup.inlineKeyboard([
   Markup.urlButton('카카오톡', 'http://telegraf.js.org'),
@@ -38,6 +39,19 @@ bot.on('/ddd', msg => {
     return bot.sendMessage(id, 'What is your email?', {ask: 'email'});
 
 });
+
+bot.command('custom', ({ reply }) => {
+  return reply('Custom buttons keyboard', Markup
+    .keyboard([
+      ['🔍 Search', '😎 Popular'], // Row1 with 2 buttons
+      ['☸ Setting', '📞 Feedback'], // Row2 with 2 buttons
+      ['📢 Ads', '⭐️ Rate us', '👥 Share'] // Row3 with 3 buttons
+    ])
+    .oneTime()
+    .resize()
+    .extra()
+  )
+})
 
 // Hears, instead of command, check if the given word or regexp is CONTAINED in user input and not necessarly at beginning.
 bot.hears('ymca', (ctx) => {
