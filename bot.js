@@ -8,6 +8,12 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 // // Register session middleware
 bot.use(session())
 
+const keyboard = Markup.inlineKeyboard([
+  Markup.urlButton('❤️', 'http://telegraf.js.org'),
+  Markup.callbackButton('Delete', 'delete')
+])
+
+
 // We can get bot nickname from bot informations. This is particularly useful for groups.
 bot.telegram.getMe().then((bot_informations) => {
     bot.options.username = bot_informations.username;
@@ -17,7 +23,10 @@ bot.telegram.getMe().then((bot_informations) => {
 // Command example, pretty easy. Each callback passes as parameter the context.
 // Context data includes message info, timestamp, etc; check the official documentation or print ctx.
 bot.command('start', (ctx) => ctx.reply('Bot started.'));
+bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard)))
+bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
+//this did not work I think this need registration.
 bot.on('/ddd', msg => {
 
     const id = msg.from.id;
