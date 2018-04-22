@@ -8,7 +8,7 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 
 // // Register session middleware
 bot.use(session())
-bot.use(Telegraf.log()
+bot.use(Telegraf.log())
 
 const keyboard = Markup.inlineKeyboard([
   Markup.urlButton('카카오톡', 'http://telegraf.js.org'),
