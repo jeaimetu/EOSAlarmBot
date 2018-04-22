@@ -6,7 +6,7 @@ const Markup = require('telegraf/markup')
 const Composer = require('telegraf/composer')
 const WizardScene = require('telegraf/scenes/wizard')
 const Stage = require('telegraf/stage')
-
+/*
 const stepHandler = new Composer()
 stepHandler.action('next', (ctx) => {
   ctx.reply('Step 2. Via inline button')
@@ -17,24 +17,34 @@ stepHandler.command('next', (ctx) => {
   return ctx.wizard.next()
 })
 stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /next'))
+*/
 
 const superWizard = new WizardScene('super-wizard',
   (ctx) => {
     ctx.reply('Step 1', Markup.inlineKeyboard([
-      Markup.urlButton('❤️', 'http://telegraf.js.org'),
+      Markup.urlButton('❤️Join KakaoTalk Group', 'http://telegraf.js.org'),
       Markup.callbackButton('➡️ Next', 'next')
     ]).extra())
     return ctx.wizard.next()
   },
   stepHandler,
   (ctx) => {
-    ctx.reply('Step 3')
+    ctx.reply('Step 2 : Join Naver Cafe')
     return ctx.wizard.next()
   },
   (ctx) => {
-    ctx.reply('Step 4')
+    ctx.reply('Step 3 : Join Discord')
     return ctx.wizard.next()
   },
+    (ctx) => {
+    ctx.reply('Step 4 : Your email')
+    return ctx.wizard.next()
+  },        
+      (ctx) => {
+    ctx.reply('Step 5 : Your Bitshare id')
+  console.log("birshare id", ctx.message);
+    return ctx.wizard.next()
+  },                                         
   (ctx) => {
     ctx.reply('Done')
     return ctx.scene.leave()
