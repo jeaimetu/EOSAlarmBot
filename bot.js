@@ -27,7 +27,7 @@ bot.telegram.getMe().then((bot_informations) => {
 // Command example, pretty easy. Each callback passes as parameter the context.
 // Context data includes message info, timestamp, etc; check the official documentation or print ctx.
 bot.command('start', (ctx) => ctx.reply('Bot started.'));
-bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard)))
+//bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard)))
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
 //this did not work I think this need registration.
