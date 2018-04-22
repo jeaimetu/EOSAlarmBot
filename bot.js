@@ -12,6 +12,7 @@ bot.use(session())
 const keyboard = Markup.inlineKeyboard([
   Markup.urlButton('카카오톡', 'http://telegraf.js.org'),
   Markup.urlButton('네이버카페', 'http://telegraf.js.org'),
+  Markup.urlButton('Discord', 'http://telegraf.js.org'),
   Markup.callbackButton('Delete', 'delete')
 ])
 
