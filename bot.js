@@ -10,7 +10,8 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 bot.use(session())
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.urlButton('❤️', 'http://telegraf.js.org'),
+  Markup.urlButton('카카오톡', 'http://telegraf.js.org'),
+  Markup.urlButton('', 'http://telegraf.js.org'),
   Markup.callbackButton('Delete', 'delete')
 ])
 
