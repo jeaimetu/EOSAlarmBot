@@ -42,10 +42,11 @@ const superWizard = new WizardScene('super-wizard',
   },        
       (ctx) => {
     ctx.reply('Step 5 : Your Bitshare id')
-  console.log("birshare id", ctx.message);
+
     return ctx.wizard.next()
   },                                         
   (ctx) => {
+    console.log("birshare id", ctx.message.text);
     ctx.reply('Done')
     return ctx.scene.leave()
   }
