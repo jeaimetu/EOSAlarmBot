@@ -27,7 +27,7 @@ const superWizard = new WizardScene('super-wizard',
     ]).extra())
     return ctx.wizard.next()
   },
-  stepHandler,
+  //stepHandler,
   (ctx) => {
     ctx.reply('Step 2 : Join Naver Cafe')
     return ctx.wizard.next()
