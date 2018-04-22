@@ -87,7 +87,8 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 // // Register session middleware
 bot.use(session())
 bot.use(Telegraf.log())
-bot.use(stage.middleware())
+//bot.use(stage.middleware())
+
 
 const keyboard = Markup.inlineKeyboard([
   Markup.urlButton('카카오톡', 'http://telegraf.js.org'),
@@ -121,6 +122,7 @@ bot.on('/ddd', msg => {
 
 bot.command('custom', ({ reply }) => {
   const stage = new Stage([superWizard], { default: 'super-wizard' })
+  bot.use(stage.middleware())
   return reply('Custom buttons keyboard', Markup
     .keyboard([
       ['🔍 Search', '😎 Popular'], // Row1 with 2 buttons
