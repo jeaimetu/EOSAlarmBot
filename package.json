@@ -9,7 +9,8 @@
   "author": "Finalgalaxy",
   "license": "ISC",
   "dependencies": {
-    "telegraf": "^3.6.4"
+    "telegraf": "^3.6.4",
+    "mongodb": "3.0.7"
   },
   "devDependencies": {},
   "repository": {
