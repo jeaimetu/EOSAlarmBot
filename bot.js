@@ -12,6 +12,7 @@ var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGODB_URI;
 
+/*
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("heroku_9cf4z9w3");
@@ -22,6 +23,7 @@ MongoClient.connect(url, function(err, db) {
     db.close();
   });
 });
+*/
 
 /*
 const stepHandler = new Composer()
@@ -94,6 +96,18 @@ const superWizard = new WizardScene('super-wizard',
 
     ctx.reply('Done' + finalResult);
     console.log(ctx.session.etw, ctx.session.bts, ctx.session.email);
+  
+  MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("heroku_9cf4z9w3");
+  var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: "eoscafe", ispaid: "no"};
+  dbo.collection("customers").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+});
+  
     return ctx.scene.leave()
   }
 )
