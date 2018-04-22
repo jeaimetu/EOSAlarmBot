@@ -6,6 +6,23 @@ const Markup = require('telegraf/markup')
 const Composer = require('telegraf/composer')
 const WizardScene = require('telegraf/scenes/wizard')
 const Stage = require('telegraf/stage')
+
+var mongo = require('mongodb');
+
+var MongoClient = require('mongodb').MongoClient;
+var url = process.env.MONGODB_URI;
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var myobj = { email: "test@lge.com", bitshare: "Highway 37, eth: "0xddddddddd", telegram: " eoscafe", ispaid: "no"};
+  dbo.collection("customers").insertOne(myobj, function(err, res) {
+    if (err) throw err;
+    console.log("1 document inserted");
+    db.close();
+  });
+});
+
 /*
 const stepHandler = new Composer()
 stepHandler.action('next', (ctx) => {
