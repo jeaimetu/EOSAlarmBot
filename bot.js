@@ -1,7 +1,8 @@
 const Telegraf = require('telegraf');   // Module to use Telegraf API.
-const {Extra, Markup} = Telegraf;   // Extract Extra, Markups from Telegraf module.
 const config = require('./config'); // Configuration file that holds telegraf_token API key.
 const session = require('telegraf/session')
+const Extra = require('telegraf/extra')
+const Markup = require('telegraf/markup')
 
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
 
