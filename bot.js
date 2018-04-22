@@ -15,7 +15,7 @@ var url = process.env.MONGODB_URI;
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  var myobj = { email: "test@lge.com", bitshare: "Highway 37, eth: "0xddddddddd", telegram: " eoscafe", ispaid: "no"};
+  var myobj = { email: "test@lge.com", bitshare: "Highway 37", eth: "0xddddddddd", telegram: "eoscafe", ispaid: "no"};
   dbo.collection("customers").insertOne(myobj, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
