@@ -29,11 +29,17 @@ const superWizard = new WizardScene('super-wizard',
   },
   //stepHandler,
   (ctx) => {
-    ctx.reply('Step 2 : Join Naver Cafe')
+    ctx.reply('Step 1', Markup.inlineKeyboard([
+      Markup.urlButton('❤️Join Naver Cafe', 'http://telegraf.js.org'),
+      Markup.callbackButton('➡️ Next', 'next')
+    ]).extra())
     return ctx.wizard.next()
   },
   (ctx) => {
-    ctx.reply('Step 3 : Join Discord')
+    ctx.reply('Step 1', Markup.inlineKeyboard([
+      Markup.urlButton('❤️Join Discord', 'http://telegraf.js.org'),
+      Markup.callbackButton('➡️ Next', 'next')
+    ]).extra())
     return ctx.wizard.next()
   },
     (ctx) => {
@@ -41,13 +47,23 @@ const superWizard = new WizardScene('super-wizard',
     return ctx.wizard.next()
   },        
       (ctx) => {
+  ctx.session.email = ctx.message.text;
     ctx.reply('Step 5 : Your Bitshare id')
 
     return ctx.wizard.next()
-  },                                         
+  },
+        (ctx) => {
+  ctx.session.bts = ctx.message.text;
+    ctx.reply('Step 6 : Your Ether Wallet Address(ERC20 Wallet)')
+
+    return ctx.wizard.next()
+  },                                    
   (ctx) => {
-    console.log("birshare id", ctx.message.text);
+    //console.log("birshare id", ctx.message.text);
+  ctx.session.etw = ctx.message.text;
+
     ctx.reply('Done')
+    console.log(ctx.session.etw, ctx.session.bts, ctx.session.email);
     return ctx.scene.leave()
   }
 )
