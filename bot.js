@@ -61,7 +61,16 @@ const superWizard = new WizardScene('super-wizard',
   (ctx) => {
     //console.log("birshare id", ctx.message.text);
   ctx.session.etw = ctx.message.text;
-  finalResult = ctx.session.etw + ctx.session.bts + ctx.session.email
+  finalResult = "Check your information carefully<BR>";
+  finalResult += "Your Email Address :"
+  finalResul t+= ctx.session.email;
+    finalResult += "<BR>"  
+  finalResult += "Your Bitshare ID :"
+  finalResul t+= ctx.session.bts
+    finalResult += "<BR>"
+  finalResult += "Your Ethereum Wallet :"
+  finalResult += ctx.session.etw
+
 
     ctx.reply('Done' + finalResult);
     console.log(ctx.session.etw, ctx.session.bts, ctx.session.email);
