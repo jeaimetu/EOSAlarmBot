@@ -18,6 +18,15 @@ bot.telegram.getMe().then((bot_informations) => {
 // Context data includes message info, timestamp, etc; check the official documentation or print ctx.
 bot.command('start', (ctx) => ctx.reply('Bot started.'));
 
+bot.on('/start', msg => {
+
+    const id = msg.from.id;
+
+    // Ask user name
+    return bot.sendMessage(id, 'What is your email?', {ask: 'email'});
+
+});
+
 // Hears, instead of command, check if the given word or regexp is CONTAINED in user input and not necessarly at beginning.
 bot.hears('ymca', (ctx) => {
     console.log("saving session");
