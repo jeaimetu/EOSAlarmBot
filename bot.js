@@ -44,7 +44,16 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 
 
 //first entry
-bot.command('start', (ctx) => ctx.reply('Bot started.'));
+bot.command('start', (ctx) => {
+  ctx.reply('Bot started.',Markup.inlineKeyboard([
+      Markup.callbackButton('Start', 'start')
+      ]).extra());
+  if(ctx.data != "start")
+    return;
+
+});
+
+            
     
 
 const superWizard = new WizardScene('super-wizard',
