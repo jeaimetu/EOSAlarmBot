@@ -108,14 +108,15 @@ const superWizard = new WizardScene('super-wizard',
     dbo.collection("customer").findOne(query, function(err, result){
       var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
       ispaid: "no",language: ctx.session.language, date: creationDate};
-      if(err){
+      if(err)        throw err;
+      if(result != undefined){
             //if it not replicated, then insert        
         dbo.collection("customers").insertOne(myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document inserted");
               db.close();
         });
-        throw err;
+
       }else{
         var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
         ispaid: "no",language: ctx.session.language, date: creationDate}};
