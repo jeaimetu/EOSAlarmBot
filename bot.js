@@ -98,7 +98,7 @@ const superWizard = new WizardScene('super-wizard',
       Markup.callbackButton('Confirm', 'confirm')
     ]).extra())
   
-  if(ctx.data == "first)
+  if(ctx.data == "first")
      ctx.scene.selectStep(0);
   
   
