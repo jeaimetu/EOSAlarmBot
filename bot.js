@@ -140,11 +140,13 @@ const superWizard = new WizardScene('super-wizard',
   finalResult += "Your Ethereum Wallet :"
   finalResult += ctx.session.etw
   
-
+  ctx.reply('Final step' + finalResult + "Airdrop will be done in a few day");
+/*
       ctx.reply('Final step' + finalResult + "Airdrop will be done in a few day", Markup.inlineKeyboard([
       //Markup.callbackButton('Go To First', 'first'),
-      Markup.callbackButton('Confirm', 'confirm')
+      Markup.callbackButton('Confirm', 'confirm') //this trigger first step of wizard, so removed.
     ]).extra())
+    */
   /* this prevent language detection so it goes to return state
   if(ctx.data == "first")
      return ctx.wizard.selectStep(ctx.session.step);
