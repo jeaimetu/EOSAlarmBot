@@ -50,7 +50,7 @@ bot.command('start', (ctx) => {
       ]).extra());
   if(ctx.text != "start")
     //return;
-    bot.startPolling();
+    return;
 
 });
 
