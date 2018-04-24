@@ -49,7 +49,8 @@ bot.command('start', (ctx) => {
       Markup.callbackButton('Start', 'start')
       ]).extra());
   if(ctx.data != "start")
-    return;
+    //return;
+    bot.startPolling();
 
 });
 
