@@ -109,7 +109,7 @@ const superWizard = new WizardScene('super-wizard',
       var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
       ispaid: "no",language: ctx.session.language, date: creationDate};
       if(err)        throw err;
-      if(result != undefined){
+      if(result == undefined){
             //if it not replicated, then insert        
         dbo.collection("customers").insertOne(myobj, function(err, res) {
         if (err) throw err;
