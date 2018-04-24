@@ -100,17 +100,30 @@ const superWizard = new WizardScene('super-wizard',
     console.log(ctx.session.etw, ctx.session.bts, ctx.session.email);
   
   MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("heroku_9cf4z9w3");
-    var creationDate = Date.now();
-  var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-               ispaid: "no",language: ctx.session.language, date: creationDate};
-  dbo.collection("customers").insertOne(myobj, function(err, res) {
     if (err) throw err;
-    console.log("1 document inserted");
+    var dbo = db.db("heroku_9cf4z9w3");
+    var creationDate = Date.now();
+    //check replication
+    var query = { telegram : ctx.session.telegram };
+    dbo.collection("customer").find(query).toArray(function(err, result){
+      var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
+      ispaid: "no",language: ctx.session.language, date: creationDate};
+      if(err){
+            //if it not replicated, then insert        
+        dbo.collection("customers").insertOne(myobj, function(err, res) {
+        if (err) throw err;
+          console.log("1 document inserted");
+        });
+        throw err;
+      }else{
+        dbo.collection("customers").updateOne(query, myobj, function(err, res) {
+          if (err) throw err;
+          console.log("1 document updated");
+        });
+      }
+    });
     db.close();
   });
-});
   
     return ctx.scene.leave()
   }
