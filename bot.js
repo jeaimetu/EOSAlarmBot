@@ -186,8 +186,9 @@ const superWizard = new WizardScene('super-wizard',
 
   });
   
-    //return ctx.scene.leave()
-  return;
+    return ctx.scene.leave()
+  //This makes gurbage data and undefined issues
+  //return;
   }
 )
 
