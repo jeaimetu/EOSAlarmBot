@@ -68,9 +68,9 @@ const superWizard = new WizardScene('super-wizard',
     ]).extra())
     return ctx.wizard.next()
   },
-  //stepHandler,/*
+  //stepHandler,
   (ctx) => {
-  
+  /*
       //check korean or not. If not, then just return to step 1
   if(ctx.message.from.language_code != "undefined")
   if(ctx.message.from.language_code != "ko-KR"){
