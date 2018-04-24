@@ -116,8 +116,8 @@ const superWizard = new WizardScene('super-wizard',
         });
         throw err;
       }else{
-        var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-      ispaid: "no",language: ctx.session.language, date: creationDate}};
+        var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
+        ispaid: "no",language: ctx.session.language, date: creationDate}};
         dbo.collection("customers").updateOne(query, newobj, function(err, res) {
           if (err) throw err;
           console.log("1 document updated");
