@@ -102,9 +102,9 @@ const superWizard = new WizardScene('super-wizard',
   MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("heroku_9cf4z9w3");
-    
+    var creationDate = Date.now();
   var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-               ispaid: "no",language: ctx.session.language};
+               ispaid: "no",language: ctx.session.language, date:};
   dbo.collection("customers").insertOne(myobj, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
