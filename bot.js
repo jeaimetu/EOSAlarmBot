@@ -68,7 +68,7 @@ const superWizard = new WizardScene('super-wizard',
     ]).extra())
     return ctx.wizard.next()
   },
-  //stepHandler,
+  //stepHandler,/*
   (ctx) => {
   
       //check korean or not. If not, then just return to step 1
@@ -86,7 +86,7 @@ const superWizard = new WizardScene('super-wizard',
     ctx.reply("Only Korean can apply the airdrop, please wait for your country turn");
     return ctx.scene.leave()
   }
-  
+  */
 
   
     ctx.reply('Step 2', Markup.inlineKeyboard([
