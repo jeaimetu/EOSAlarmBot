@@ -94,7 +94,7 @@ const superWizard = new WizardScene('super-wizard',
     //console.log("birshare id", ctx.message.text);
   ctx.session.etw = ctx.message.text;
       ctx.reply('Final Step', Markup.inlineKeyboard([
-      Markup.urlButton('Go To First', 'first'),
+      Markup.callbackButton('Go To First', 'first'),
       Markup.callbackButton('Confirm', 'confirm')
     ]).extra())
   
