@@ -40,12 +40,6 @@ stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /nex
 
 //bot init
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
-const stage = new Stage([superWizard], { default: 'super-wizard' })
-
-// // Register session middleware
-bot.use(session())
-bot.use(Telegraf.log())
-bot.use(stage.middleware())
 
 
 
@@ -277,6 +271,12 @@ bot.on('inline_query', ctx => {
         }
     }
 })
+const stage = new Stage([superWizard], { default: 'super-wizard' })
+
+// // Register session middleware
+bot.use(session())
+bot.use(Telegraf.log())
+bot.use(stage.middleware())
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
