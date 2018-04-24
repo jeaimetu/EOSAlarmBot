@@ -113,6 +113,7 @@ const superWizard = new WizardScene('super-wizard',
         dbo.collection("customers").insertOne(myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document inserted");
+              db.close();
         });
         throw err;
       }else{
@@ -121,10 +122,11 @@ const superWizard = new WizardScene('super-wizard',
         dbo.collection("customers").updateOne(query, newobj, function(err, res) {
           if (err) throw err;
           console.log("1 document updated");
+              db.close();
         });
       }
     });
-    db.close();
+
   });
   
     return ctx.scene.leave()
