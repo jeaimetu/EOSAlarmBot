@@ -43,7 +43,8 @@ const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot u
 
 
 
-//first entry
+//first entry, this have sometimes undefined error of text
+/*
 bot.command('start', (ctx) => {
   ctx.reply('Bot started.',Markup.inlineKeyboard([
       Markup.callbackButton('Start', 'start')
@@ -53,7 +54,7 @@ bot.command('start', (ctx) => {
     return;
 
 });
-
+*/
             
     
 
