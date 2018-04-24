@@ -93,7 +93,8 @@ const superWizard = new WizardScene('super-wizard',
   },                                    
   (ctx) => {
     //console.log("birshare id", ctx.message.text);
-  
+  //save ethereum wallet address
+    ctx.session.etw = ctx.message.text;
   
   
    finalResult = "\n"  
@@ -108,14 +109,14 @@ const superWizard = new WizardScene('super-wizard',
   finalResult += "Your Ethereum Wallet :"
   finalResult += ctx.session.etw
   
-  ctx.session.etw = ctx.message.text;
+
       ctx.reply('Final step' + finalResult + "Airdrop will be done in a few day", Markup.inlineKeyboard([
       Markup.callbackButton('Go To First', 'first'),
       Markup.callbackButton('Confirm', 'confirm')
     ]).extra())
   
   if(ctx.data == "first")
-     ctx.wizard.selectStep(ctx.session.step);
+     return ctx.wizard.selectStep(ctx.session.step);
 
 
     //ctx.reply('Done' + finalResult + "Airdrop will be done in a few day");
