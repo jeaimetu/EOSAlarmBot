@@ -48,6 +48,7 @@ const superWizard = new WizardScene('super-wizard',
     console.log("not Korean case");
     ctx.reply("Only Korean can apply the airdrop, please wait for your country turn");
     return ctx.scene.leave()
+  }
     
 
     ctx.reply('Step 1', Markup.inlineKeyboard([
