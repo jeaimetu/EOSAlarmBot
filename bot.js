@@ -105,7 +105,7 @@ const superWizard = new WizardScene('super-wizard',
     var creationDate = Date.now();
     //check replication
     var query = { telegram : ctx.session.telegram };
-    dbo.collection("customer").findone(query, function(err, result){
+    dbo.collection("customer").findOne(query, function(err, result){
       var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
       ispaid: "no",language: ctx.session.language, date: creationDate};
       if(err){
