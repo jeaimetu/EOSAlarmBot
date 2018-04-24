@@ -110,7 +110,7 @@ const superWizard = new WizardScene('super-wizard',
       ispaid: "no",language: ctx.session.language, date: creationDate};
       if(err)        throw err;
       console.log("finding result",result);
-      if(result == undefined){
+      if(result == null){
             //if it not replicated, then insert        
         dbo.collection("customers").insertOne(myobj, function(err, res) {
         if (err) throw err;
