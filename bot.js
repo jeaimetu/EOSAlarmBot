@@ -51,6 +51,7 @@ const superWizard = new WizardScene('super-wizard',
   }
     
 
+  ctx.session.step = 0;
     ctx.reply('Step 1', Markup.inlineKeyboard([
       Markup.urlButton('❤️Join KakaoTalk Group', 'https://open.kakao.com/o/gj8CwMH'),
       Markup.callbackButton('➡️ Next', 'next')
@@ -92,14 +93,7 @@ const superWizard = new WizardScene('super-wizard',
   },                                    
   (ctx) => {
     //console.log("birshare id", ctx.message.text);
-  ctx.session.etw = ctx.message.text;
-      ctx.reply('Final Step', Markup.inlineKeyboard([
-      Markup.callbackButton('Go To First', 'first'),
-      Markup.callbackButton('Confirm', 'confirm')
-    ]).extra())
   
-  if(ctx.data == "first")
-     ctx.scene.selectStep(0);
   
   
    finalResult = "\n"  
@@ -113,9 +107,18 @@ const superWizard = new WizardScene('super-wizard',
     finalResult += "\n"  
   finalResult += "Your Ethereum Wallet :"
   finalResult += ctx.session.etw
+  
+  ctx.session.etw = ctx.message.text;
+      ctx.reply('Final step' + finalResult + "Airdrop will be done in a few day", Markup.inlineKeyboard([
+      Markup.callbackButton('Go To First', 'first'),
+      Markup.callbackButton('Confirm', 'confirm')
+    ]).extra())
+  
+  if(ctx.data == "first")
+     ctx.wizard.selectStep(ctx.session.step);
 
 
-    ctx.reply('Done' + finalResult + "Airdrop will be done in a few day");
+    //ctx.reply('Done' + finalResult + "Airdrop will be done in a few day");
     console.log(ctx.session.etw, ctx.session.bts, ctx.session.email);
   
   MongoClient.connect(url, function(err, db) {
