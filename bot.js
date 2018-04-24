@@ -38,6 +38,17 @@ stepHandler.command('next', (ctx) => {
 stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /next'))
 */
 
+//bot init
+const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
+const stage = new Stage([superWizard], { default: 'super-wizard' })
+
+// // Register session middleware
+bot.use(session())
+bot.use(Telegraf.log())
+bot.use(stage.middleware())
+
+
+
 //first entry
 bot.command('start', (ctx) => ctx.reply('Bot started.'));
     
@@ -163,13 +174,7 @@ const superWizard = new WizardScene('super-wizard',
   }
 )
 
-const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
-const stage = new Stage([superWizard], { default: 'super-wizard' })
 
-// // Register session middleware
-bot.use(session())
-bot.use(Telegraf.log())
-bot.use(stage.middleware())
 
 
 const keyboard = Markup.inlineKeyboard([
