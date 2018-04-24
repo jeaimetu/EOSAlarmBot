@@ -38,8 +38,18 @@ stepHandler.command('next', (ctx) => {
 stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /next'))
 */
 
+
+    
+
 const superWizard = new WizardScene('super-wizard',
   (ctx) => {
+    //check korean or not. If not, then just return to step 1
+  if(ctx.message.from.language_code != "ko-KR"){
+    console.log("not Korean case");
+    ctx.reply("Only Korean can apply the airdrop, please wait for your country turn");
+    return ctx.scene.leave()
+    
+
     ctx.reply('Step 1', Markup.inlineKeyboard([
       Markup.urlButton('❤️Join KakaoTalk Group', 'https://open.kakao.com/o/gj8CwMH'),
       Markup.callbackButton('➡️ Next', 'next')
@@ -145,9 +155,9 @@ bot.use(stage.middleware())
 
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.urlButton('카카오톡', 'http://telegraf.js.org'),
-  Markup.urlButton('네이버카페', 'http://telegraf.js.org'),
-  Markup.urlButton('Discord', 'http://telegraf.js.org'),
+  Markup.urlButton('카카오톡 입장하기', 'http://telegraf.js.org'),
+  Markup.urlButton('네이버카페 가입하기', 'http://telegraf.js.org'),
+  Markup.urlButton('Discord ', 'http://telegraf.js.org'),
   Markup.callbackButton('Delete', 'delete')
 ])
 
