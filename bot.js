@@ -140,7 +140,7 @@ const superWizard = new WizardScene('super-wizard',
   finalResult += "Your Ethereum Wallet :"
   finalResult += ctx.session.etw
   
-  ctx.reply('Final step' + finalResult + "Airdrop will be done in a few day");
+  ctx.reply('Final step\n' + finalResult + "\nAirdrop will be done in a few day");
 /*
       ctx.reply('Final step' + finalResult + "Airdrop will be done in a few day", Markup.inlineKeyboard([
       //Markup.callbackButton('Go To First', 'first'),
