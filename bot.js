@@ -68,7 +68,7 @@ const superWizard = new WizardScene('super-wizard',
       (ctx) => {
   ctx.session.email = ctx.message.text;
   ctx.session.telegram = ctx.message.chat.username;
-  ctx.session.language = ctx.message.from.languange_code;
+  ctx.session.language = ctx.message.from.language_code;
     ctx.reply('Step 5 : Your Bitshare id')
 
     return ctx.wizard.next()
@@ -104,7 +104,7 @@ const superWizard = new WizardScene('super-wizard',
   var dbo = db.db("heroku_9cf4z9w3");
     var creationDate = Date.now();
   var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-               ispaid: "no",language: ctx.session.language, date:};
+               ispaid: "no",language: ctx.session.language, date: creationDate};
   dbo.collection("customers").insertOne(myobj, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
