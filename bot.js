@@ -38,7 +38,8 @@ stepHandler.command('next', (ctx) => {
 stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /next'))
 */
 
-
+//first entry
+bot.command('start', (ctx) => ctx.reply('Bot started.'));
     
 
 const superWizard = new WizardScene('super-wizard',
@@ -114,12 +115,13 @@ const superWizard = new WizardScene('super-wizard',
   
 
       ctx.reply('Final step' + finalResult + "Airdrop will be done in a few day", Markup.inlineKeyboard([
-      Markup.callbackButton('Go To First', 'first'),
+      //Markup.callbackButton('Go To First', 'first'),
       Markup.callbackButton('Confirm', 'confirm')
     ]).extra())
-  
+  /* this prevent language detection so it goes to return state
   if(ctx.data == "first")
      return ctx.wizard.selectStep(ctx.session.step);
+     */
 
 
     //ctx.reply('Done' + finalResult + "Airdrop will be done in a few day");
@@ -186,7 +188,7 @@ bot.telegram.getMe().then((bot_informations) => {
 
 // Command example, pretty easy. Each callback passes as parameter the context.
 // Context data includes message info, timestamp, etc; check the official documentation or print ctx.
-bot.command('start', (ctx) => ctx.reply('Bot started.'));
+
 //bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard)))
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
