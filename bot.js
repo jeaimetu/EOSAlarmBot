@@ -93,6 +93,14 @@ const superWizard = new WizardScene('super-wizard',
   (ctx) => {
     //console.log("birshare id", ctx.message.text);
   ctx.session.etw = ctx.message.text;
+      ctx.reply('Final Step', Markup.inlineKeyboard([
+      Markup.urlButton('Go To First', 'first'),
+      Markup.callbackButton('Confirm', 'confirm')
+    ]).extra())
+  
+  if(ctx.data == "first)
+     ctx.scene.selectStep(0);
+  
   
    finalResult = "\n"  
   finalResult += "Check your information carefully";
@@ -107,7 +115,7 @@ const superWizard = new WizardScene('super-wizard',
   finalResult += ctx.session.etw
 
 
-    ctx.reply('Done' + finalResult);
+    ctx.reply('Done' + finalResult + "Airdrop will be done in a few day");
     console.log(ctx.session.etw, ctx.session.bts, ctx.session.email);
   
   MongoClient.connect(url, function(err, db) {
