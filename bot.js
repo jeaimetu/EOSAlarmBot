@@ -48,7 +48,7 @@ bot.command('start', (ctx) => {
   ctx.reply('Bot started.',Markup.inlineKeyboard([
       Markup.callbackButton('Start', 'start')
       ]).extra());
-  if(ctx.data != "start")
+  if(ctx.text != "start")
     //return;
     bot.startPolling();
 
