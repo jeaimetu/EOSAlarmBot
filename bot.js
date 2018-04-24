@@ -72,11 +72,22 @@ const superWizard = new WizardScene('super-wizard',
   (ctx) => {
   
       //check korean or not. If not, then just return to step 1
-  if(ctx.message.from.language_code != "ko-KR" || ctx.message.from.callback_query.from.language_code != "ko_KR"){
+  if(ctx.message.from.language_code != undeifned)
+  if(ctx.message.from.language_code != "ko-KR"){
     console.log("not Korean case");
     ctx.reply("Only Korean can apply the airdrop, please wait for your country turn");
     return ctx.scene.leave()
   }
+  
+  
+  if(ctx.message.from.callback_query.from.language_code != undeifned)
+  if(ctx.message.from.callback_query.from.language_code != "ko_KR"){
+    console.log("not Korean case");
+    ctx.reply("Only Korean can apply the airdrop, please wait for your country turn");
+    return ctx.scene.leave()
+  }
+  
+
   
     ctx.reply('Step 2', Markup.inlineKeyboard([
       Markup.urlButton('❤️Join Naver Cafe', 'http://cafe.naver.com/eoscafekorea'),
