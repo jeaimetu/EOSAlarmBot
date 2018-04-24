@@ -67,6 +67,8 @@ const superWizard = new WizardScene('super-wizard',
   },        
       (ctx) => {
   ctx.session.email = ctx.message.text;
+  ctx.session.telegram = ctx.message.chat.username;
+  ctx.session.language = ctx.message.from.languange_code;
     ctx.reply('Step 5 : Your Bitshare id')
 
     return ctx.wizard.next()
@@ -100,7 +102,9 @@ const superWizard = new WizardScene('super-wizard',
   MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("heroku_9cf4z9w3");
-  var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: "eoscafe", ispaid: "no"};
+    
+  var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
+               ispaid: "no",language: ctx.session.language};
   dbo.collection("customers").insertOne(myobj, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
