@@ -321,12 +321,12 @@ bot.on('inline_query', ctx => {
         }
     }
 })
-const stage = new Stage([superWizard], { default: 'super-wizard' })
+//const stage = new Stage([superWizard], { default: 'super-wizard' })
 
 // // Register session middleware
 bot.use(session())
-bot.use(Telegraf.log())
-bot.use(stage.middleware())
+//bot.use(Telegraf.log())
+//bot.use(stage.middleware())
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
