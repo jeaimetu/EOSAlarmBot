@@ -56,7 +56,8 @@ bot.command('start', (ctx) => {
 });
 */
 
-bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message));
+//bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message));
+bot.on('message', (ctx) => console.log(ctx.message));
 
             
     
