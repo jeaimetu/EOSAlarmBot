@@ -65,7 +65,7 @@ const superWizard = new WizardScene('super-wizard',
 
   ctx.session.step = 0;
     ctx.reply('1단계', Markup.inlineKeyboard([
-      Markup.urlButton('카카오톡 오픈그룹에 가입해주세요.', 'https://open.kakao.com/o/gj8CwMH'),
+      Markup.urlButton('카톡 오픈챗에 가입', 'https://open.kakao.com/o/gj8CwMH'),
       Markup.callbackButton('➡️ 다음', 'next')
     ]).extra())
     return ctx.wizard.next()
@@ -92,7 +92,7 @@ const superWizard = new WizardScene('super-wizard',
 
   
     ctx.reply('2단계', Markup.inlineKeyboard([
-      Markup.urlButton('네이버카페 가입.', 'http://cafe.naver.com/eoscafekorea'),
+      Markup.urlButton('네이버카페 가입', 'http://cafe.naver.com/eoscafekorea'),
       Markup.callbackButton('➡️ 다음', 'next')
     ]).extra())
     return ctx.wizard.next()
@@ -151,12 +151,14 @@ const superWizard = new WizardScene('super-wizard',
     finalResult += "\n"  
   finalResult += "Your Ethereum Wallet :"
   finalResult += ctx.session.etw
+  finalResult += "\n"  
       finalResult += "Your Naver ID :"
   finalResult += ctx.session.ncafe
+  finalResult += "\n"  
       finalResult += "Your referer :"
   finalResult += ctx.session.refer
   
-  ctx.reply("마지막 단계" + "\n" + finalResult + "\n"+ "몇일안에 에어드랍이 완료 됩니다.");
+  ctx.reply("마지막 단계" + "\n" + finalResult + "\n"+ "\n"+ "몇일안에 에어드랍이 완료 됩니다.");
 /*
       ctx.reply('Final step' + finalResult + "Airdrop will be done in a few day", Markup.inlineKeyboard([
       //Markup.callbackButton('Go To First', 'first'),
