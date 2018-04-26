@@ -127,6 +127,7 @@ const superWizard = new WizardScene('super-wizard',
     ctx.reply('7단계 : 네이버 ID를 알려주세요.')
 
     return ctx.wizard.next()
+},
             (ctx) => {
   ctx.session.ncafe = ctx.message.text;
     ctx.reply('8단계 : 추천인 id를 알려주세요. 없으면 없음 이라고써주세요.')
@@ -179,7 +180,7 @@ const superWizard = new WizardScene('super-wizard',
     var findquery = { telegram : ctx.session.telegram };
     dbo.collection("customers").findOne(findquery, function(err, result){
       var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-      ispaid: "no",language: ctx.session.language, date: creationDate};
+      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer};
       if(err)        throw err;
       console.log("finding result",result);
       if(result == null){
@@ -192,7 +193,7 @@ const superWizard = new WizardScene('super-wizard',
 
       }else{
         var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
-        ispaid: "no",language: ctx.session.language, date: creationDate}};
+        ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer}};
         dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
           if (err) throw err;
           console.log("1 document updated");
