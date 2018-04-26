@@ -68,6 +68,10 @@ const superWizard = new WizardScene('super-wizard',
       Markup.urlButton('카톡 오픈챗에 가입', 'https://open.kakao.com/o/gj8CwMH'),
       Markup.callbackButton('➡️ 다음', 'next')
     ]).extra())
+  
+    ctx.session.telegram = ctx.message.chat.username;
+  ctx.session.language = ctx.message.from.language_code;
+  
     return ctx.wizard.next()
   },
   //stepHandler,
@@ -110,8 +114,7 @@ const superWizard = new WizardScene('super-wizard',
   },        
       (ctx) => {
   ctx.session.email = ctx.message.text;
-  ctx.session.telegram = ctx.message.chat.username;
-  ctx.session.language = ctx.message.from.language_code;
+
     ctx.reply('5단계 : Bitshare id를 입력해주세요.')
 
     return ctx.wizard.next()
