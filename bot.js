@@ -64,9 +64,9 @@ const superWizard = new WizardScene('super-wizard',
     
 
   ctx.session.step = 0;
-    ctx.reply('Step 1', Markup.inlineKeyboard([
-      Markup.urlButton('❤️Join KakaoTalk Group', 'https://open.kakao.com/o/gj8CwMH'),
-      Markup.callbackButton('➡️ Next', 'next')
+    ctx.reply('1단계', Markup.inlineKeyboard([
+      Markup.urlButton('카카오톡 오픈그룹에 가입해주세요.', 'https://open.kakao.com/o/gj8CwMH'),
+      Markup.callbackButton('➡️ 다음', 'next')
     ]).extra())
     return ctx.wizard.next()
   },
@@ -91,45 +91,56 @@ const superWizard = new WizardScene('super-wizard',
   */
 
   
-    ctx.reply('Step 2', Markup.inlineKeyboard([
-      Markup.urlButton('❤️Join Naver Cafe', 'http://cafe.naver.com/eoscafekorea'),
-      Markup.callbackButton('➡️ Next', 'next')
+    ctx.reply('2단계', Markup.inlineKeyboard([
+      Markup.urlButton('네이버카페 가입.', 'http://cafe.naver.com/eoscafekorea'),
+      Markup.callbackButton('➡️ 다음', 'next')
     ]).extra())
     return ctx.wizard.next()
   },
   (ctx) => {
-    ctx.reply('Step 3', Markup.inlineKeyboard([
-      Markup.urlButton('❤️Join Discord', 'https://discord.gg/BHEDGvx'),
-      Markup.callbackButton('➡️ Next', 'next')
+    ctx.reply('3단계', Markup.inlineKeyboard([
+      Markup.urlButton('디스코드에 가입', 'https://discord.gg/BHEDGvx'),
+      Markup.callbackButton('➡️ 다음', 'next')
     ]).extra())
     return ctx.wizard.next()
   },
     (ctx) => {
-    ctx.reply('Step 4 : Your email')
+    ctx.reply('4단계 : email을 입력해주세요.')
     return ctx.wizard.next()
   },        
       (ctx) => {
   ctx.session.email = ctx.message.text;
   ctx.session.telegram = ctx.message.chat.username;
   ctx.session.language = ctx.message.from.language_code;
-    ctx.reply('Step 5 : Your Bitshare id')
+    ctx.reply('5단계 : Bitshare id를 입력해주세요.')
 
     return ctx.wizard.next()
   },
         (ctx) => {
   ctx.session.bts = ctx.message.text;
-    ctx.reply('Step 6 : Your Ether Wallet Address(ERC20 Wallet)')
+    ctx.reply('6단계 : 이더리움 지갑 주소를 알려주세요.')
 
     return ctx.wizard.next()
-  },                                    
+  },         
+          (ctx) => {
+      ctx.session.etw = ctx.message.text;
+    ctx.reply('7단계 : 네이버 ID를 알려주세요.')
+
+    return ctx.wizard.next()
+            (ctx) => {
+  ctx.session.ncafe = ctx.message.text;
+    ctx.reply('8단계 : 추천인 id를 알려주세요. 없으면 없음 이라고써주세요.')
+
+    return ctx.wizard.next()
+  },                                          
   (ctx) => {
     //console.log("birshare id", ctx.message.text);
   //save ethereum wallet address
-    ctx.session.etw = ctx.message.text;
+    ctx.session.refer = ctx.message.text;
   
   
    finalResult = "\n"  
-  finalResult += "Check your information carefully";
+  finalResult += "입력하신 정보를 잘 확인해 주세요.";
       finalResult += "\n"  
   finalResult += "Your Email Address :"
   finalResult += ctx.session.email;
@@ -139,8 +150,12 @@ const superWizard = new WizardScene('super-wizard',
     finalResult += "\n"  
   finalResult += "Your Ethereum Wallet :"
   finalResult += ctx.session.etw
+      finalResult += "Your Naver ID :"
+  finalResult += ctx.session.ncafe
+      finalResult += "Your referer :"
+  finalResult += ctx.session.refer
   
-  ctx.reply('Final step\n' + finalResult + "\nAirdrop will be done in a few day");
+  ctx.reply("마지막 단계" + "\n" + finalResult + "\n"+ "몇일안에 에어드랍이 완료 됩니다.");
 /*
       ctx.reply('Final step' + finalResult + "Airdrop will be done in a few day", Markup.inlineKeyboard([
       //Markup.callbackButton('Go To First', 'first'),
