@@ -57,8 +57,15 @@ bot.command('start', (ctx) => {
 */
 
 //bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message));
-bot.on('message', (ctx) => console.log(ctx.message));
+//bot.on('message', (ctx) => console.log(ctx.message));
 
+bot.on('message', (msg) => {
+  bot.sendMessage(msg.chat.id, 'Hi, do you want to travel?', {
+    reply_markup: {
+      keyboard: [[trigger], ['Bulk option']]
+    }
+  });
+});
             
     
 
