@@ -62,9 +62,14 @@ bot.use(Telegraf.log())
 bot.start((ctx) => ctx.reply('Hello'))
 bot.help((ctx) => ctx.reply('Help message'))
 bot.on('message', (ctx) => {
-  if( ctx.entities != undefined && ctx.entities.type == email){
-    ctx.session.email = ctx.text;
-    console.log("email inputed", ctx.session.email);
+  console.log(ctx.entities);
+  if( ctx.entities != undefined){
+    if(ctx.entities.type == email){
+      ctx.session.email = ctx.text;
+      console.log("email inputed", ctx.session.email);
+    }else{
+      console.log("entities is not email);
+    }
   }
   ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))})
 
