@@ -68,7 +68,7 @@ bot.on('message', (ctx) => {
       ctx.session.email = ctx.text;
       console.log("email inputed", ctx.session.email);
     }else{
-      console.log("entities is not email);
+      console.log("entities is not email");
     }
   }
   ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))})
