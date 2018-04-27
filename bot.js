@@ -38,10 +38,20 @@ stepHandler.command('next', (ctx) => {
 stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /next'))
 */
 
+
+const keyboard = Markup.inlineKeyboard([
+  Markup.urlButton('❤️', 'http://telegraf.js.org'),
+  Markup.callbackButton('Delete', 'delete')
+])
+
 //bot init
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
 
 
+
+bot.start((ctx) => ctx.reply('Hello'))
+bot.help((ctx) => ctx.reply('Help message'))
+bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard)))
 
 //first entry, this have sometimes undefined error of text
 /*
@@ -59,16 +69,7 @@ bot.command('start', (ctx) => {
 //bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message));
 //bot.on('message', (ctx) => console.log(ctx.message));
 
-const trigger = 'I want to travel!';
 
-bot.on('message', (msg) => {
-  bot.sendMessage(msg.chat.id, 'Hi, do you want to travel?', {
-    reply_markup: {
-      keyboard: [[trigger], ['Bulk option']]
-    }
-  });
-});
-            
     
 
 const superWizard = new WizardScene('super-wizard',
