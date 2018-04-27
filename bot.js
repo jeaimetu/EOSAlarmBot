@@ -43,7 +43,8 @@ const keyboard = Markup.inlineKeyboard([
   Markup.urlButton('카카오톡 입장하기', 'http://telegraf.js.org'),
   Markup.urlButton('네이버카페 가입하기', 'http://telegraf.js.org'),
   Markup.urlButton('Discord ', 'http://telegraf.js.org'),
-  Markup.callbackButton('Delete', 'delete')
+  Markup.callbackButton('Delete', 'delete'),
+  Markup.callbackButton('Email','email')
 ])
 
 /*
@@ -253,6 +254,7 @@ bot.telegram.getMe().then((bot_informations) => {
 
 //bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard)))
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
+bot.action('email',({emailinput}) => return reply('input email'))
 
 //this did not work I think this need registration.
 bot.on('/ddd', msg => {
