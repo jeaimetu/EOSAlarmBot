@@ -62,10 +62,10 @@ bot.use(Telegraf.log())
 bot.start((ctx) => ctx.reply('Hello'))
 bot.help((ctx) => ctx.reply('Help message'))
 bot.on('message', (ctx) => {
-  console.log(ctx.entities);
-  if( ctx.entities != undefined){
-    if(ctx.entities.type == email){
-      ctx.session.email = ctx.text;
+  console.log(ctx.message.entities);
+  if( ctx.message.entities != undefined){
+    if(ctx.message.entities.type == email){
+      ctx.session.email = ctx.message.text;
       console.log("email inputed", ctx.session.email);
     }else{
       console.log("entities is not email");
