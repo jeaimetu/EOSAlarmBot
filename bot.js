@@ -62,7 +62,7 @@ bot.use(Telegraf.log())
 bot.start((ctx) => ctx.reply('Hello'))
 bot.help((ctx) => ctx.reply('Help message'))
 bot.on('message', (ctx) => {
-  if(ctx.entities.type == email){
+  if( ctx.entities != undifined && ctx.entities.type == email){
     ctx.session.email = ctx.text;
     console.log("email inputed", ctx.session.email);
   }
