@@ -59,6 +59,8 @@ bot.command('start', (ctx) => {
 //bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message));
 //bot.on('message', (ctx) => console.log(ctx.message));
 
+const trigger = 'I want to travel!';
+
 bot.on('message', (msg) => {
   bot.sendMessage(msg.chat.id, 'Hi, do you want to travel?', {
     reply_markup: {
