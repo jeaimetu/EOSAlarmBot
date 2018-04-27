@@ -66,7 +66,7 @@ bot.on('message', (ctx) => {
   ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
   if( ctx.message.entities != undefined){
     console.log(ctx.message.entities);
-    if(ctx.message.entities.type == email){
+    if(ctx.message.entities.type == "email"){
       ctx.session.email = ctx.message.text;
       console.log("email inputed", ctx.session.email);
     }else{
