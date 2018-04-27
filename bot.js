@@ -66,7 +66,7 @@ bot.on('message', (ctx) => {
   console.log(ctx.message.entities);
 
   if(ctx.message.entities != undefined){
-    console.log(ctx.message.entities);
+    console.log(ctx.message.entities.type);
     if(ctx.message.entities.type == 'email'){
       ctx.session.email = ctx.message.text;
       console.log("email inputed", ctx.session.email);
