@@ -61,7 +61,12 @@ bot.use(Telegraf.log())
 
 bot.start((ctx) => ctx.reply('Hello'))
 bot.help((ctx) => ctx.reply('Help message'))
-bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard)))
+bot.on('message', (ctx) => {
+  if(ctx.entities.type == email){
+    ctx.session.email = ctx.text;
+    console.log("email inputed", ctx.session.email);
+  }
+  ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))})
 
 //first entry, this have sometimes undefined error of text
 /*
