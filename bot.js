@@ -63,6 +63,7 @@ bot.start((ctx) => ctx.reply('Hello'))
 bot.help((ctx) => ctx.reply('Help message'))
 
 bot.on('message', (ctx) => {
+  console.log("input message", ctx);
   console.log(ctx.message.entities);
 
   if(ctx.message.entities != undefined){
