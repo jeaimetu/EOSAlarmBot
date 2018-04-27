@@ -63,6 +63,7 @@ bot.start((ctx) => ctx.reply('Hello'))
 bot.help((ctx) => ctx.reply('Help message'))
 bot.on('message', (ctx) => {
   console.log(ctx.message.entities);
+  ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
   if( ctx.message.entities != undefined){
     if(ctx.message.entities.type == email){
       ctx.session.email = ctx.message.text;
@@ -71,7 +72,7 @@ bot.on('message', (ctx) => {
       console.log("entities is not email");
     }
   }
-  ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))})
+  })
 
 //first entry, this have sometimes undefined error of text
 /*
@@ -354,6 +355,7 @@ bot.on('inline_query', ctx => {
 // // Register session middleware
 
 //bot.use(stage.middleware())
+
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
