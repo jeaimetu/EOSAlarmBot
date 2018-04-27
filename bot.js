@@ -40,10 +40,18 @@ stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /nex
 
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.urlButton('❤️', 'http://telegraf.js.org'),
+  Markup.urlButton('카카오톡 입장하기', 'http://telegraf.js.org'),
+  Markup.urlButton('네이버카페 가입하기', 'http://telegraf.js.org'),
+  Markup.urlButton('Discord ', 'http://telegraf.js.org'),
   Markup.callbackButton('Delete', 'delete')
 ])
 
+/*
+const keyboard = Markup.inlineKeyboard([
+  Markup.urlButton('❤️', 'http://telegraf.js.org'),
+  Markup.callbackButton('Delete', 'delete')
+])
+*/
 //bot init
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
 
@@ -232,12 +240,6 @@ const superWizard = new WizardScene('super-wizard',
 
 
 
-const keyboard = Markup.inlineKeyboard([
-  Markup.urlButton('카카오톡 입장하기', 'http://telegraf.js.org'),
-  Markup.urlButton('네이버카페 가입하기', 'http://telegraf.js.org'),
-  Markup.urlButton('Discord ', 'http://telegraf.js.org'),
-  Markup.callbackButton('Delete', 'delete')
-])
 
 
 // We can get bot nickname from bot informations. This is particularly useful for groups.
