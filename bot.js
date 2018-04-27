@@ -63,6 +63,7 @@ bot.start((ctx) => ctx.reply('Hello'))
 bot.help((ctx) => ctx.reply('Help message'))
 
 bot.on('message', (ctx) => {
+  /*
   console.log("input message", ctx);
   console.log(ctx.message.entities);
 
@@ -75,7 +76,7 @@ bot.on('message', (ctx) => {
     }else{
       console.log("entities is not email");
     }
-  }
+  }*/ // can not access entities with []
     ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
   })
 
