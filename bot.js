@@ -342,7 +342,7 @@ bot.on('inline_query', ctx => {
 
 // // Register session middleware
 bot.use(session())
-//bot.use(Telegraf.log())
+bot.use(Telegraf.log())
 //bot.use(stage.middleware())
 
 // Start bot polling in order to not terminate Node.js application.
