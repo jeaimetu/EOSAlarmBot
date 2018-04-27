@@ -254,7 +254,9 @@ bot.telegram.getMe().then((bot_informations) => {
 
 //bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard)))
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
-bot.action('email',({emailinput}) => return reply('input email'))
+bot.action('email',(ctx) => {
+  ctx.reply("input email please");
+});
 
 //this did not work I think this need registration.
 bot.on('/ddd', msg => {
