@@ -155,8 +155,11 @@ bot.start((ctx) => {
   
   var len = ctx.message.text.length;
   console.log("length", len);
-  ctx.session.refer = ctx.message.text.slice(7,len);
-  console.log("refer", ctx.session.refer);
+  var ref = ctx.message.text.slice(7,len);
+  if(ref.length != 0){
+    ctx.session.refer = ref;
+    console.log("refer", ctx.session.refer);
+  }
   //save referer
   //save etc values
   ctx.session.telegram = ctx.message.chat.username;
@@ -236,9 +239,12 @@ bot.action('confirm',(ctx) => {
   //DB Transaction processing
   if(checkData(ctx) == true){
     var msg;
-    msg = "Completed. Airdrop will be done in a few days.";
+    msg = "Completed.";
+    msg += "\n";
+    msg += "Airdrop will be done in a few days.";
     msg += "\n";
     msg += "Please use this referal link";
+    msg += "\n";
     msg += "https://t.me/eoscafebot?start=";
     msg += ctx.session.telegram;
     ctx.reply(msg);
