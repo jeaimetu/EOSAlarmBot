@@ -80,6 +80,19 @@ function initMessage(ctx){
   ctx.session.etw = "nil";
 }
 
+function checkData(ctx){
+  if(ctx.session.email == "nil")
+    return false;
+  if(ctx.session.etw == "nil")
+    return false;
+  if(ctx.session.bts == "nil")
+    return false;
+  if(ctx.session.ncafe == "nil")
+    return false;
+  return true;
+}
+
+
 
 function saveData(ctx){
   MongoClient.connect(url, function(err, db) {
