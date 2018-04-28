@@ -71,6 +71,14 @@ function makeMessage(ctx){
   return finalResult;
 }
 
+function initMessage(ctx){
+  ctx.session.email = "nil";
+  ctx.session.bts = "nil";
+  ctx.session.ncafe = "nil";
+  ctx.session.etw = "nil";
+}
+
+
 function saveData(ctx){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
@@ -138,6 +146,7 @@ bot.start((ctx) => {
   //save etc values
   ctx.session.telegram = ctx.message.chat.username;
   ctx.session.language = ctx.message.from.language_code;
+  initMessage(ctx);
   
   ctx.telegram.sendMessage(ctx.from.id, "OK", Extra.markup(keyboard))
   
@@ -210,8 +219,12 @@ bot.action('confirm',(ctx) => {
   //ctx.reply("input bitshare ID please");
   //ctx.session.step = 1;
   //DB Transaction processing
+  if(checkData(ctx) == true){
   ctx.reply("Completed. Airdrop will be done in a few days");
-  saveData(ctx);
+  saveData(ctx);}
+  else{
+    ctx.reply("Please input all data");
+  }
 });
 
     
