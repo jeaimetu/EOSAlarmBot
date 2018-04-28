@@ -53,12 +53,52 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Delete', 'delete')
 ])
 */
+function saveData(ctx){
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("heroku_9cf4z9w3");
+    var creationDate = Date.now();
+    //check replication
+    var findquery = { telegram : ctx.session.telegram };
+    dbo.collection("customers").findOne(findquery, function(err, result){
+      var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
+      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer};
+      if(err)        throw err;
+      console.log("finding result",result);
+      if(result == null){
+            //if it not replicated, then insert        
+        dbo.collection("customers").insertOne(myobj, function(err, res) {
+        if (err) throw err;
+          console.log("1 document inserted");
+              db.close();
+        });
 
+      }else{
+        var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
+        ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer}};
+        dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
+          if (err) throw err;
+          console.log("1 document updated");
+              db.close();
+        });
+      }
+    });
+
+  }); //end MongoClient
+}
+
+//check current step and save value to context
 function stepCheck(ctx){
   if(ctx.session.step == 4){
     console.log("email",ctx.message.text);
-  }
-  else{
+    ctx.session.email = ctx.message.text;
+  }else if(ctx.session.step == 3){
+        ctx.session.eth = ctx.message.text;
+  }else if(ctx.session.step == 2){
+        ctx.session.ncafe = ctx.message.text;
+  }else if(ctx.session.step == 1){
+        ctx.session.bts = ctx.message.text;
+  }else{
     console.log("other data");
   }
 }
@@ -77,7 +117,11 @@ bot.start((ctx) => {
   ctx.session.refer = ctx.message.text.slice(7,len);
   console.log("refer", ctx.session.refer);
   //save referer
+  //save etc values
+  ctx.session.telegram = ctx.message.chat.username;
+  ctx.session.language = ctx.message.from.language_code;
   ctx.reply('Hello')})
+
 bot.help((ctx) => ctx.reply('Help message'))
 
 bot.on('message', (ctx) => {
@@ -142,6 +186,7 @@ bot.action('confirm',(ctx) => {
   //ctx.reply("input bitshare ID please");
   //ctx.session.step = 1;
   //DB Transaction processing
+  saveData(ctx);
 });
 
     
@@ -157,8 +202,7 @@ const superWizard = new WizardScene('super-wizard',
       Markup.callbackButton('➡️ 다음', 'next')
     ]).extra())
   
-    ctx.session.telegram = ctx.message.chat.username;
-  ctx.session.language = ctx.message.from.language_code;
+
   
     return ctx.wizard.next()
   },
@@ -265,37 +309,7 @@ const superWizard = new WizardScene('super-wizard',
     //ctx.reply('Done' + finalResult + "Airdrop will be done in a few day");
     console.log(ctx.session.etw, ctx.session.bts, ctx.session.email);
   
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db("heroku_9cf4z9w3");
-    var creationDate = Date.now();
-    //check replication
-    var findquery = { telegram : ctx.session.telegram };
-    dbo.collection("customers").findOne(findquery, function(err, result){
-      var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer};
-      if(err)        throw err;
-      console.log("finding result",result);
-      if(result == null){
-            //if it not replicated, then insert        
-        dbo.collection("customers").insertOne(myobj, function(err, res) {
-        if (err) throw err;
-          console.log("1 document inserted");
-              db.close();
-        });
-
-      }else{
-        var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
-        ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer}};
-        dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
-          if (err) throw err;
-          console.log("1 document updated");
-              db.close();
-        });
-      }
-    });
-
-  }); //end MongoClient
+  
   
     return ctx.scene.leave()
   //This makes gurbage data and undefined issues
