@@ -58,7 +58,15 @@ bot.use(session())
 bot.use(Telegraf.log())
 
 
-bot.start((ctx) => ctx.reply('Hello'))
+bot.start((ctx) => {
+  //parameter parsing
+  
+  var len = ctx.message.text.length;
+  console.log("length", len);
+  ctx.session.refer = ctx.message.text.slice(7,len);
+  console.log("refer", ctx.session.refer);
+  //save referer
+  ctx.reply('Hello')})
 bot.help((ctx) => ctx.reply('Help message'))
 
 bot.on('message', (ctx) => {
