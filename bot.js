@@ -165,8 +165,8 @@ bot.start((ctx) => {
   ctx.session.telegram = ctx.message.chat.username;
   ctx.session.language = ctx.message.from.language_code;
   initMessage(ctx);
-  
-  ctx.telegram.sendMessage(ctx.from.id, "OK", Extra.markup(keyboard))
+  var msg = makeMessage(ctx);
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
   
   //ctx.reply('Hello')
 })
