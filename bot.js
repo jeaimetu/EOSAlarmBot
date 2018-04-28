@@ -146,7 +146,7 @@ bot.on('message', (ctx) => {
     }
   }*/ // can not access entities with []
     //ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
-  ctx.telegram.sendCopy(ctx.from.id, "OK", Extra.markup(keyboard))
+  ctx.telegram.sendMessage(ctx.from.id, "OK", Extra.markup(keyboard))
   })
 
 //first entry, this have sometimes undefined error of text
