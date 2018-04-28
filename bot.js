@@ -55,7 +55,9 @@ const keyboard = Markup.inlineKeyboard([
 */
 
 function makeMessage(ctx){
-    finalResult += "Your Email Address :"
+  
+  var finalResult;
+    finalResult = "Your Email Address :"
   finalResult += ctx.session.email;
     finalResult += "\n"  
   finalResult += "Your Bitshare ID :"
