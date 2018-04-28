@@ -100,12 +100,15 @@ function saveData(ctx){
     var dbo = db.db("heroku_9cf4z9w3");
     var creationDate = Date.now();
     //check replication
-    var findquery = { telegram : ctx.session.telegram };
+    //var findquery = { telegram : ctx.session.telegram }; //telegram username is optional
+    var findquery = { bitshare : ctx.session.bts };
     dbo.collection("customers").findOne(findquery, function(err, result){
       var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
       ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer};
+      
       if(err)        throw err;
       console.log("finding result",result);
+      
       if(result == null){
             //if it not replicated, then insert        
         dbo.collection("customers").insertOne(myobj, function(err, res) {
@@ -117,6 +120,7 @@ function saveData(ctx){
       }else{
         var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
         ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer}};
+        
         dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
           if (err) throw err;
           console.log("1 document updated");
