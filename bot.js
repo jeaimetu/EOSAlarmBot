@@ -53,6 +53,16 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Delete', 'delete')
 ])
 */
+
+function stepCheck(ctx){
+  if(ctx.session.step == 4){
+    console.log("email",ctx.message.text);
+  }
+  else{
+    console.log("other data");
+  }
+}
+
 //bot init
 const bot = new Telegraf(config.telegraf_token);    // Let's instantiate a bot using our token.
 bot.use(session())
@@ -71,12 +81,8 @@ bot.start((ctx) => {
 bot.help((ctx) => ctx.reply('Help message'))
 
 bot.on('message', (ctx) => {
-  if(ctx.session.step == 4){
-    console.log("email",ctx.message.text);
-  }
-  else{
-    console.log("other data");
-  }
+  stepCheck(ctx);
+
   /*
   console.log("input message", ctx);
   console.log(ctx.message.entities);
@@ -111,9 +117,31 @@ bot.command('start', (ctx) => {
 //bot.on('message', (ctx) => console.log(ctx.message));
 
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
+
 bot.action('email',(ctx) => {
   ctx.reply("input email please");
   ctx.session.step = 4;
+});
+
+bot.action('bts',(ctx) => {
+  ctx.reply("input bitshare ID please");
+  ctx.session.step = 1;
+});
+
+bot.action('naver',(ctx) => {
+  ctx.reply("input NAVER ID please");
+  ctx.session.step = 2;
+});
+
+bot.action('ether',(ctx) => {
+  ctx.reply("input Ethereum Wallet Address please");
+  ctx.session.step = 3;
+});
+
+bot.action('confirm',(ctx) => {
+  //ctx.reply("input bitshare ID please");
+  //ctx.session.step = 1;
+  //DB Transaction processing
 });
 
     
@@ -267,7 +295,7 @@ const superWizard = new WizardScene('super-wizard',
       }
     });
 
-  });
+  }); //end MongoClient
   
     return ctx.scene.leave()
   //This makes gurbage data and undefined issues
