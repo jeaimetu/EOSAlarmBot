@@ -191,6 +191,7 @@ bot.action('confirm',(ctx) => {
   //ctx.reply("input bitshare ID please");
   //ctx.session.step = 1;
   //DB Transaction processing
+  ctx.reply("Completed. Airdrop will be done in a few days");
   saveData(ctx);
 });
 
