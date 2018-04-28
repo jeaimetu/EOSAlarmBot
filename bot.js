@@ -40,11 +40,11 @@ stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /nex
 
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.callbackButton('❤️     Bitshare ID     ', 'bts'),
-  Markup.callbackButton('❤️     Naver ID     ', 'naver'),
-  Markup.callbackButton('❤️     Ether Address', 'ether'),
-  Markup.callbackButton('❤️     Email','email'),
-  Markup.callbackButton('❤️     Confirm','confirm')
+  Markup.callbackButton('Bitshare ID', 'bts'),
+  Markup.callbackButton('Naver ID', 'naver'),
+  Markup.callbackButton('Ether Address\\n', 'ether'),
+  Markup.callbackButton('Email\n','email'),
+  Markup.callbackButton('Confirm','confirm')
 ])
 
 /*
