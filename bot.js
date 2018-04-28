@@ -53,6 +53,24 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Delete', 'delete')
 ])
 */
+
+function makeMessage(ctx){
+    finalResult += "Your Email Address :"
+  finalResult += ctx.session.email;
+    finalResult += "\n"  
+  finalResult += "Your Bitshare ID :"
+  finalResult += ctx.session.bts
+    finalResult += "\n"  
+  finalResult += "Your Ethereum Wallet :"
+  finalResult += ctx.session.etw
+  finalResult += "\n"  
+      finalResult += "Your Naver ID :"
+  finalResult += ctx.session.ncafe
+  finalResult += "\n"  
+  
+  return finalResult;
+}
+
 function saveData(ctx){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
@@ -146,7 +164,8 @@ bot.on('message', (ctx) => {
     }
   }*/ // can not access entities with []
     //ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
-  ctx.telegram.sendMessage(ctx.from.id, "OK", Extra.markup(keyboard))
+  var msg = makeMessage(ctx);
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
   })
 
 //first entry, this have sometimes undefined error of text
