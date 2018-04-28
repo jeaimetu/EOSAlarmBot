@@ -45,7 +45,7 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Ether Address', 'ether'),
   Markup.callbackButton('Email','email'),
   Markup.callbackButton('Confirm','confirm')
-], {column: 2})
+], {column: 3})
 
 /*
 const keyboard = Markup.inlineKeyboard([
@@ -192,7 +192,7 @@ bot.on('message', (ctx) => {
   }*/ // can not access entities with []
     //ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
   var msg = makeMessage(ctx);
-  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
   })
 
 //first entry, this have sometimes undefined error of text
