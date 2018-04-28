@@ -123,7 +123,8 @@ bot.start((ctx) => {
   
   ctx.telegram.sendCopy(ctx.from.id, "OK", Extra.markup(keyboard))
   
-  //ctx.reply('Hello')})
+  //ctx.reply('Hello')
+})
 
 bot.help((ctx) => ctx.reply('Help message'))
 
