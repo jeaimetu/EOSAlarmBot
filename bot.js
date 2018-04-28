@@ -43,7 +43,8 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Bitshare ID', 'bts'),
   Markup.callbackButton('Naver ID', 'naver'),
   Markup.callbackButton('Ether Address', 'ether'),
-  Markup.callbackButton('Email','email')
+  Markup.callbackButton('Email','email'),
+  Markup.callbackButton('Confirm','confirm')
 ])
 
 /*
