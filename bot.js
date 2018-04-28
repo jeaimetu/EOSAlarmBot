@@ -40,10 +40,9 @@ stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /nex
 
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.urlButton('카카오톡 입장하기', 'http://telegraf.js.org'),
-  Markup.urlButton('네이버카페 가입하기', 'http://telegraf.js.org'),
-  Markup.urlButton('Discord ', 'http://telegraf.js.org'),
-  Markup.callbackButton('Delete', 'delete'),
+  Markup.callbackButton('Bitshare ID', 'bts'),
+  Markup.callbackButton('Naver ID', 'naver'),
+  Markup.callbackButton('Ether Address', 'ether'),
   Markup.callbackButton('Email','email')
 ])
 
@@ -63,6 +62,12 @@ bot.start((ctx) => ctx.reply('Hello'))
 bot.help((ctx) => ctx.reply('Help message'))
 
 bot.on('message', (ctx) => {
+  if(ctx.session.step == 4){
+    console.log("email",ctx.message.text);
+  }
+  else{
+    console.log("other data");
+  }
   /*
   console.log("input message", ctx);
   console.log(ctx.message.entities);
@@ -96,6 +101,11 @@ bot.command('start', (ctx) => {
 //bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message));
 //bot.on('message', (ctx) => console.log(ctx.message));
 
+bot.action('delete', ({ deleteMessage }) => deleteMessage())
+bot.action('email',(ctx) => {
+  ctx.reply("input email please");
+  ctx.session.step = 4;
+});
 
     
 
@@ -271,10 +281,7 @@ bot.telegram.getMe().then((bot_informations) => {
 // Context data includes message info, timestamp, etc; check the official documentation or print ctx.
 
 //bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard)))
-bot.action('delete', ({ deleteMessage }) => deleteMessage())
-bot.action('email',(ctx) => {
-  ctx.reply("input email please");
-});
+
 
 //this did not work I think this need registration.
 bot.on('/ddd', msg => {
