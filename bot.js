@@ -45,7 +45,7 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('Ether Address', 'ether'),
   Markup.callbackButton('Email','email'),
   Markup.callbackButton('Confirm','confirm')
-])
+], {column: 1})
 
 /*
 const keyboard = Markup.inlineKeyboard([
