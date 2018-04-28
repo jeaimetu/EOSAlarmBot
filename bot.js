@@ -57,18 +57,18 @@ const keyboard = Markup.inlineKeyboard([
 function makeMessage(ctx){
   
   var finalResult;
-    finalResult = "Your Email Address :"
-  finalResult += ctx.session.email;
-    finalResult += "\n"  
-  finalResult += "Your Bitshare ID :"
+ 
+  finalResult = "Your Bitshare ID :"
   finalResult += ctx.session.bts
+    finalResult += "\n"  
+      finalResult += "Your Naver ID :"
+  finalResult += ctx.session.ncafe
     finalResult += "\n"  
   finalResult += "Your Ethereum Wallet :"
   finalResult += ctx.session.etw
   finalResult += "\n"  
-      finalResult += "Your Naver ID :"
-  finalResult += ctx.session.ncafe
-  finalResult += "\n"  
+      finalResult += "Your Email Address :"
+  finalResult += ctx.session.email;
   
   return finalResult;
 }
@@ -235,8 +235,14 @@ bot.action('confirm',(ctx) => {
   //ctx.session.step = 1;
   //DB Transaction processing
   if(checkData(ctx) == true){
-  ctx.reply("Completed. Airdrop will be done in a few days");
-  saveData(ctx);}
+    var msg;
+    msg = "Completed. Airdrop will be done in a few days.";
+    msg += "\n";
+    msg += "Please use this referal link";
+    msg += "https://t.me/eoscafebot?start=";
+    msg += ctx.session.telegram;
+    ctx.reply(msg);
+    saveData(ctx);}
   else{
     ctx.reply("Please input all data");
   }
