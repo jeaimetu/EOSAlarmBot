@@ -93,7 +93,7 @@ function stepCheck(ctx){
     console.log("email",ctx.message.text);
     ctx.session.email = ctx.message.text;
   }else if(ctx.session.step == 3){
-        ctx.session.eth = ctx.message.text;
+        ctx.session.etw = ctx.message.text;
   }else if(ctx.session.step == 2){
         ctx.session.ncafe = ctx.message.text;
   }else if(ctx.session.step == 1){
@@ -120,7 +120,10 @@ bot.start((ctx) => {
   //save etc values
   ctx.session.telegram = ctx.message.chat.username;
   ctx.session.language = ctx.message.from.language_code;
-  ctx.reply('Hello')})
+  
+  ctx.telegram.sendCopy(ctx.from.id, "OK", Extra.markup(keyboard))
+  
+  //ctx.reply('Hello')})
 
 bot.help((ctx) => ctx.reply('Help message'))
 
@@ -141,7 +144,8 @@ bot.on('message', (ctx) => {
       console.log("entities is not email");
     }
   }*/ // can not access entities with []
-    ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
+    //ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
+  ctx.telegram.sendCopy(ctx.from.id, "OK", Extra.markup(keyboard))
   })
 
 //first entry, this have sometimes undefined error of text
