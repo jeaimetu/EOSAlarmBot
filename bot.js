@@ -128,7 +128,7 @@ function saveData(ctx, eos){
     var findquery = { bitshare : ctx.session.bts };
     dbo.collection("customers").findOne(findquery, function(err, result){
       var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer eos: eos};
+      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: eos};
       
       if(err)        throw err;
       console.log("finding result",result);
@@ -143,7 +143,7 @@ function saveData(ctx, eos){
 
       }else{
         var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
-        ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer eos: eos}};
+        ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: eos}};
         
         dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
           if (err) throw err;
