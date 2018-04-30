@@ -92,9 +92,33 @@ function checkData(ctx){
   return true;
 }
 
+function setEosBalance(ctx){
+  //get EOS balance
+  var api = require('etherscan-api').init(process.env.ETH_KEY);
+  var balance = api.account.tokenbalance("0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0","EOS",ctx.session.etw);
+  var eos = -1;
+  
+  //check result.
+  balance.then(function(balanceData){
+    console.log(balanceData);
+    //if NOT, then set -1
+    //if OK, then set the number after calculation
+    if(balanceData.message.toString() == "NOTOK"){
+      eos = -1;
+    }else{
+      eos = balanceData.result / 1000000000000000000;
+    }
+
+    //update the EOS data to DB
+    saveData(ctx, eos);
+    
+  });
+
+}
 
 
-function saveData(ctx){
+
+function saveData(ctx, eos){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("heroku_9cf4z9w3");
@@ -104,7 +128,7 @@ function saveData(ctx){
     var findquery = { bitshare : ctx.session.bts };
     dbo.collection("customers").findOne(findquery, function(err, result){
       var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer};
+      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer eos: eos};
       
       if(err)        throw err;
       console.log("finding result",result);
@@ -119,7 +143,7 @@ function saveData(ctx){
 
       }else{
         var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
-        ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer}};
+        ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer eos: eos}};
         
         dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
           if (err) throw err;
@@ -252,7 +276,7 @@ bot.action('confirm',(ctx) => {
     msg += "https://t.me/eoscafebot?start=";
     msg += ctx.session.telegram;
     ctx.reply(msg);
-    saveData(ctx);}
+    saveData(ctx, -1);}
   else{
     ctx.reply("Please input all data");
   }
