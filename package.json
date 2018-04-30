@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "telegraf": "^3.6.4",
-    "mongodb": "3.0.7"
+    "mongodb": "3.0.7",
+    "etherscan-api": "8.0.4"
   },
   "devDependencies": {},
   "repository": {
