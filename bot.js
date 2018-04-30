@@ -7,6 +7,8 @@ const Composer = require('telegraf/composer')
 const WizardScene = require('telegraf/scenes/wizard')
 const Stage = require('telegraf/stage')
 
+var api = require('etherscan-api').init(process.env.ETH_KEY);
+
 var mongo = require('mongodb');
 
 var MongoClient = require('mongodb').MongoClient;
@@ -94,7 +96,7 @@ function checkData(ctx){
 
 function setEosBalance(ctx){
   //get EOS balance
-  var api = require('etherscan-api').init(process.env.ETH_KEY);
+
   var balance = api.account.tokenbalance(ctx.session.etw, "EOS", "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0");
   var eos = -1;
   
