@@ -277,7 +277,7 @@ bot.action('confirm',(ctx) => {
     msg += "Please use this referal link";
     msg += "\n";
     msg += "https://t.me/eoscafebot?start=";
-    msg += ctx.session.telegram;
+    msg += ctx.session.bts;
     ctx.reply(msg);
     saveData(ctx, -1);
     setEosBalance(ctx);
