@@ -107,10 +107,11 @@ function setEosBalance(ctx){
       eos = -1;
     }else{
       eos = balanceData.result / 1000000000000000000;
+      //update the EOS data to DB
+      saveData(ctx, eos);
     }
 
-    //update the EOS data to DB
-    saveData(ctx, eos);
+
     
   });
 
@@ -276,7 +277,9 @@ bot.action('confirm',(ctx) => {
     msg += "https://t.me/eoscafebot?start=";
     msg += ctx.session.telegram;
     ctx.reply(msg);
-    saveData(ctx, -1);}
+    saveData(ctx, -1);
+    setEosBalance(ctx);
+  }
   else{
     ctx.reply("Please input all data");
   }
