@@ -181,6 +181,7 @@ function stepCheck(ctx){
     ctx.session.email = ctx.message.text;
   }else if(ctx.session.step == 3){
         ctx.session.etw = ctx.message.text;
+    setEosBalance(ctx)
   }else if(ctx.session.step == 2){
         ctx.session.ncafe = ctx.message.text;
   }else if(ctx.session.step == 1){
