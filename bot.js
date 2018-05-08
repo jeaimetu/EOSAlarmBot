@@ -102,7 +102,7 @@ function checkData(ctx){
   return true;
 }
 
-function setEosBalance(ctx){
+function setEosBalance(ctx, callback){
   //get EOS balance
 
 
@@ -121,6 +121,7 @@ function setEosBalance(ctx){
       //update the EOS data to DB
       //saveData(ctx, eos);
     }
+    callback(eos);
     return eos;
 
 
