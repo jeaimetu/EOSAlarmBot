@@ -102,7 +102,8 @@ function checkData(ctx){
   return true;
 }
 
-function setEosBalance(ctx, callback){
+//function setEosBalance(ctx, callback){
+var setEosBalance = (ctx, callback) => {
   //get EOS balance
 
 
