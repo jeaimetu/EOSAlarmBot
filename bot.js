@@ -91,6 +91,14 @@ function checkData(ctx){
     return false;
   if(ctx.session.ncafe == "nil")
     return false;
+  if(ctx.session.email == null)
+    return false;
+  if(ctx.session.etw == null)
+    return false;
+  if(ctx.session.bts == null)
+    return false;
+  if(ctx.session.ncafe == null)
+    return false;
   return true;
 }
 
