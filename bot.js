@@ -146,7 +146,7 @@ function saveData(ctx, eos){
 
       }else{
         var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
-        ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: eos}};
+        ispaid: result.ispaid ,language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: eos}};
         
         dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
           if (err) throw err;
