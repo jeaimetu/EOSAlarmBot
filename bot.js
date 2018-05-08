@@ -122,11 +122,11 @@ function setEosBalance(ctx){
       //update the EOS data to DB
       //saveData(ctx, eos);
     }
-    ctx.session.eos = eos;
-
-
-
-    
+    ctx.session.eos = eos;  
+  }, function(err){
+    eos = -1;
+    ctx.session.eos = eos; 
+    console.log("setEosBalance error", err);
   });
 
 }
