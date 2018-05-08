@@ -271,6 +271,7 @@ bot.action('confirm',(ctx) => {
   //ctx.session.step = 1;
   //DB Transaction processing
   if(checkData(ctx) == true){
+        saveData(ctx, -1);
     var msg;
     msg = "Completed.";
     msg += "\n";
@@ -281,7 +282,7 @@ bot.action('confirm',(ctx) => {
     msg += "https://t.me/eoscafebot?start=";
     msg += ctx.session.bts;
     ctx.reply(msg);
-    saveData(ctx, -1);
+
 
   }
   else{
