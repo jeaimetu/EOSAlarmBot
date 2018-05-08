@@ -112,7 +112,7 @@ function setEosBalance(ctx){
   
   //check result.
   balance.then(function(balanceData){
-    console.log(balanceData);
+    console.log("setEosBalance", balanceData, balanceData.message);
     //if NOT, then set -1
     //if OK, then set the number after calculation
     if(balanceData.message.toString() == "NOTOK"){
@@ -123,7 +123,7 @@ function setEosBalance(ctx){
       //saveData(ctx, eos);
     }
     ctx.session.eos = eos;
-    return eos;
+
 
 
     
