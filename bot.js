@@ -102,9 +102,9 @@ function checkData(ctx){
   return true;
 }
 
-function setEosBalance(otx){
+function setEosBalance(ctx){
   //get EOS balance
-  let ctx = Object.assign({}, otx);
+
 
   var balance = api.account.tokenbalance(ctx.session.etw, "", "0x86fa049857e0209aa7d9e616f7eb3b3b78ecfdb0");
   var eos = -1;
@@ -130,8 +130,8 @@ function setEosBalance(otx){
 
 
 
-function saveData(otx, eos){
-  let ctx = Object.assign({}, otx);
+function saveData(ctx, eos){
+
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("heroku_9cf4z9w3");
