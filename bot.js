@@ -142,6 +142,7 @@ function saveData(ctx, eos){
         if (err) throw err;
           console.log("1 document inserted");
               db.close();
+              setEosBalance(ctx);
         });
 
       }else{
@@ -152,6 +153,7 @@ function saveData(ctx, eos){
           if (err) throw err;
           console.log("1 document updated");
               db.close();
+              setEosBalance(ctx);
         });
       }
     });
@@ -280,7 +282,7 @@ bot.action('confirm',(ctx) => {
     msg += ctx.session.bts;
     ctx.reply(msg);
     saveData(ctx, -1);
-    setEosBalance(ctx);
+
   }
   else{
     ctx.reply("Please input all data");
