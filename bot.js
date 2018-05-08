@@ -119,8 +119,9 @@ function setEosBalance(ctx){
     }else{
       eos = balanceData.result / 1000000000000000000;
       //update the EOS data to DB
-      saveData(ctx, eos);
+      //saveData(ctx, eos);
     }
+    return eos;
 
 
     
@@ -152,7 +153,7 @@ function saveData(ctx, eos){
         if (err) throw err;
           console.log("1 document inserted");
               db.close();
-              setEosBalance(ctx);
+
         });
 
       }else{
@@ -163,7 +164,7 @@ function saveData(ctx, eos){
           if (err) throw err;
           console.log("1 document updated");
               db.close();
-              setEosBalance(ctx);
+
         });
       }
     });
@@ -281,7 +282,10 @@ bot.action('confirm',(ctx) => {
   //ctx.session.step = 1;
   //DB Transaction processing
   if(checkData(ctx) == true){
-        saveData(ctx, -1);
+                  setEosBalance(ctx, (result) => {
+                    saveData(ctx, result);
+                  });
+        //saveData(ctx, -1);
     var msg;
     msg = "Completed.";
     msg += "\n";
