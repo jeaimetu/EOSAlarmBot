@@ -102,8 +102,8 @@ function checkData(ctx){
   return true;
 }
 
-//function setEosBalance(ctx, callback){
-var setEosBalance = (ctx, callback) => {
+function setEosBalance(ctx){
+//var setEosBalance = (ctx, callback) => {
   //get EOS balance
 
 
@@ -122,7 +122,7 @@ var setEosBalance = (ctx, callback) => {
       //update the EOS data to DB
       //saveData(ctx, eos);
     }
-    callback(eos);
+    ctx.session.eos = eos;
     return eos;
 
 
@@ -133,7 +133,7 @@ var setEosBalance = (ctx, callback) => {
 
 
 
-function saveData(ctx, eos){
+function saveData(ctx){
 
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
@@ -144,7 +144,7 @@ function saveData(ctx, eos){
     var findquery = { bitshare : ctx.session.bts };
     dbo.collection("customers").findOne(findquery, function(err, result){
       var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: eos};
+      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: ctx.session.eos};
       
       if(err)        throw err;
       console.log("finding result",result);
@@ -160,7 +160,7 @@ function saveData(ctx, eos){
 
       }else{
         var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
-        ispaid: result.ispaid ,language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: eos}};
+        ispaid: result.ispaid ,language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: ctx.session.eos}};
         
         dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
           if (err) throw err;
@@ -284,9 +284,9 @@ bot.action('confirm',(ctx) => {
   //ctx.session.step = 1;
   //DB Transaction processing
   if(checkData(ctx) == true){
-                  setEosBalance(ctx, (result) => {
-                    saveData(ctx, result);
-                  });
+
+                    saveData(ctx);
+
         //saveData(ctx, -1);
     var msg;
     msg = "Completed.";
