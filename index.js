@@ -1,4 +1,4 @@
-//require('./bot');
+require('./bot');
 require('./eos');
 var http = require('http'); 
 
