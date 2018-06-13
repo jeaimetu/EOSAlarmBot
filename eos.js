@@ -29,4 +29,8 @@ eos.getAccount("gyydoojzgige").then(result => {console.log(result)})
 
 
 console.log("calling getAcion");
-eos.getActions("gyydoojzgige").then(result => {console.log(result)})
+eos.getActions("gyydoojzgige").then(result => {
+ console.log(result)
+ console.log(result.actions)
+ eos.getBlock(5000, callback);
+})
