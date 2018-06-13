@@ -42,10 +42,10 @@ stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /nex
 
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.callbackButton('Bitshare ID', 'bts'),
-  Markup.callbackButton('Naver ID', 'naver'),
-  Markup.callbackButton('Ether Address', 'ether'),
-  Markup.callbackButton('Email','email'),
+  Markup.callbackButton('ID', 'id'),
+  Markup.callbackButton('Price', 'price'),
+  Markup.callbackButton('Balance', 'balance'),
+  Markup.callbackButton('History','history'),
   Markup.callbackButton('Confirm','confirm')
 ], {column: 3})
 
@@ -60,18 +60,11 @@ function makeMessage(ctx){
   
   var finalResult;
  
-  finalResult = "Your Bitshare ID :"
-  finalResult += ctx.session.bts
-    finalResult += "\n"  
-      finalResult += "Your Naver ID :"
-  finalResult += ctx.session.ncafe
-    finalResult += "\n"  
-  finalResult += "Your Ethereum Wallet :"
-  finalResult += ctx.session.etw
-  finalResult += "\n"  
-      finalResult += "Your Email Address :"
-  finalResult += ctx.session.email;
-  
+  finalResult = "ID를 눌러서 EOS ID를 입력해 주세요.";
+  finalResult += "\n";
+  finalResult += "이후에는 메뉴 또는 변화가 생기면 자동으로 받아보실 수있습니다.";
+  finalResult += "\n";
+  finalResult += "Please support eoscafeblock and others by voting"
   return finalResult;
 }
 
@@ -200,14 +193,7 @@ bot.use(Telegraf.log())
 bot.start((ctx) => {
   //parameter parsing
   
-  var len = ctx.message.text.length;
-  console.log("length", len);
-  var ref = ctx.message.text.slice(7,len);
-  if(ref.length != 0){
-    ctx.session.refer = ref;
-    console.log("refer", ctx.session.refer);
-  }
-  //save referer
+
   //save etc values
   ctx.session.telegram = ctx.message.chat.username;
   ctx.session.language = ctx.message.from.language_code;
