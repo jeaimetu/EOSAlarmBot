@@ -26,3 +26,6 @@ eos.getBlock({block_num_or_id: 1}, callback)
 eos.getInfo({}).then(result => {console.log(result)})
 
 eos.getAccount("gyydoojzgige").then(result => {console.log(result)})
+
+
+eos.getActions("gyydoojzgige").then(result => {console.log(result)})
