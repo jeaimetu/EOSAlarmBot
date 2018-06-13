@@ -44,8 +44,8 @@ const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('ID', 'id'),
   Markup.callbackButton('Price', 'price'),
   Markup.callbackButton('Balance', 'balance'),
-  Markup.callbackButton('History','history'),
-  Markup.callbackButton('Confirm','confirm')
+  Markup.callbackButton('History','history')
+  //Markup.callbackButton('Confirm','confirm')
 ], {column: 3})
 
 /*
@@ -130,7 +130,7 @@ function saveData(ctx){
 
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-    var dbo = db.db("heroku_9cf4z9w3");
+    var dbo = db.db("heroku_dtfpf2m1");
     var creationDate = Date.now();
     //check replication
     //var findquery = { telegram : ctx.session.telegram }; //telegram username is optional
@@ -178,7 +178,9 @@ function stepCheck(ctx){
   }else if(ctx.session.step == 2){
         ctx.session.ncafe = ctx.message.text;
   }else if(ctx.session.step == 1){
-        ctx.session.bts = ctx.message.text;
+    ctx.session.id = ctx.message.text;
+    console.log("id",ctx.message.text);
+    //save id to mongo DB
   }else{
     console.log("other data");
   }
@@ -246,9 +248,9 @@ bot.command('start', (ctx) => {
 
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
-bot.action('email',(ctx) => {
-  ctx.reply("input email please");
-  ctx.session.step = 4;
+bot.action('id',(ctx) => {
+  ctx.reply("input EOS account, you can check account on http://eosflare.io with your EOS public key");
+  ctx.session.step = 1;
 });
 
 bot.action('bts',(ctx) => {
