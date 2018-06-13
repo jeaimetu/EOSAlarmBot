@@ -15,11 +15,11 @@ var url = process.env.MONGODB_URI;
 
 Eos = require('eosjs') // Eos = require('./src')
  
-config = {
+eosconfig = {
 httpEndpoint: "http://mainnet.eoscalgary.io"
 }
  
-eos = Eos(config) // 127.0.0.1:8888
+eos = Eos(eosconfig) // 127.0.0.1:8888
 
 /*
 MongoClient.connect(url, function(err, db) {
