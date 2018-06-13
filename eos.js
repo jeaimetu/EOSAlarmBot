@@ -25,4 +25,4 @@ eos.getBlock({block_num_or_id: 1}, callback)
 // Provide an empty object or a callback if an API call has no arguments
 eos.getInfo({}).then(result => {console.log(result)})
 
-eos.get_account("gyydoojzgige").then(result => {console.log(result)})
+eos.getaccount("gyydoojzgige").then(result => {console.log(result)})
