@@ -1,5 +1,5 @@
 require('./bot');
-require('./eos');
+//require('./eos');
 var http = require('http'); 
 
 // Create a function to handle every HTTP request
