@@ -13,6 +13,14 @@ var mongo = require('mongodb');
 var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGODB_URI;
 
+Eos = require('eosjs') // Eos = require('./src')
+ 
+config = {
+httpEndpoint: "http://mainnet.eoscalgary.io"
+}
+ 
+eos = Eos(config) // 127.0.0.1:8888
+
 /*
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
@@ -176,7 +184,11 @@ function stepCheck(ctx){
         ctx.session.etw = ctx.message.text;
     setEosBalance(ctx)
   }else if(ctx.session.step == 2){
-        ctx.session.ncafe = ctx.message.text;
+        //get balance
+    eos.getActions("gyydoojzgige", 1000, 0).then(result => {
+        ctx.telegram.sendMessage(ctx.from.id, result);
+})
+    
   }else if(ctx.session.step == 1){
     ctx.session.id = ctx.message.text;
     console.log("id",ctx.message.text);
@@ -253,9 +265,9 @@ bot.action('id',(ctx) => {
   ctx.session.step = 1;
 });
 
-bot.action('bts',(ctx) => {
+bot.action('price',(ctx) => {
   ctx.reply("input bitshare ID please");
-  ctx.session.step = 1;
+  ctx.session.step = 2;
 });
 
 bot.action('naver',(ctx) => {
