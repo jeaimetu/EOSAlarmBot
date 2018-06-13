@@ -28,4 +28,5 @@ eos.getInfo({}).then(result => {console.log(result)})
 eos.getAccount("gyydoojzgige").then(result => {console.log(result)})
 
 
+console.log("calling getAcion");
 eos.getActions("gyydoojzgige").then(result => {console.log(result)})
