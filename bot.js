@@ -185,7 +185,7 @@ function stepCheck(ctx){
     setEosBalance(ctx)
   }else if(ctx.session.step == 2){
         //get balance
-    eos.getActions("gyydoojzgige", 1000, 0).then(result => {
+    eos.getAccount(ctx.session.id).then(result => {
         ctx.telegram.sendMessage(ctx.from.id, result);
 })
     
