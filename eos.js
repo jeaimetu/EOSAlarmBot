@@ -4,7 +4,7 @@ config = {
 httpEndpoint: "http://mainnet.eoscalgary.io"
 }
  
-eos = Eos() // 127.0.0.1:8888
+eos = Eos(config) // 127.0.0.1:8888
  
 // All API methods print help when called with no-arguments.
 eos.getBlock()
