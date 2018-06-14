@@ -11,11 +11,11 @@ eos = Eos(config) // 127.0.0.1:8888
 const balance = eos.getCurrencyBalance("gyydoojzgige","gyydoojzgige")
 console.log('currency balance', balance);
 
-
+/*
 bithumb.ticker('EOS').then(function(response){
   console.log(response.data)
 })
-
+*/
 
  
 // All API methods print help when called with no-arguments.
