@@ -236,21 +236,21 @@ bot.action('balance',(ctx) => {
  console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
 v1 = result.self_delegated_bandwidth.net_weight.split(" ");
  v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
- console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
+ //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
    msg = "Total Balance : ";
-   msg += parseInt(v1[0],10) + parseInt(v2[0],10) + parseInt(v3[0],10);   
+   msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]);   
    msg += " EOS\n";
-   msg = "Unstaked : " + parseInt(v1[0],10);
+   msg += "Unstaked : " + parseFloat(v3[0]);
    msg += "\n";
-   msg += "staked for CPU : "
+   msg += "Staked for CPU : "
    msg += result.self_delegated_bandwidth.cpu_weight;
    msg += "\n";
-   msg += "staked for Bandwidth : "
+   msg += "Staked for Bandwidth : "
    msg += result.self_delegated_bandwidth.net_weight;
    msg += "\n";
    msg += "Refund:";
    msg += result.voter_info.unstaking;
-   ctx.telegram.sendMessage(ctx.from.id, msg);
+   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
 }) 
  })
  });
