@@ -1,6 +1,5 @@
 Eos = require('eosjs') // Eos = require('./src')
-var bithumbapi = require('bithumbapi');
-var bithumb = new bithumbapi();
+
  
 config = {
 httpEndpoint: "http://mainnet.eoscalgary.io"
@@ -8,14 +7,39 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
  
 eos = Eos(config) // 127.0.0.1:8888
 
-eos.getCurrencyBalance("eosio.token","gyydoojzgige").then(result => {console.log(result)})
-//console.log('currency balance', balance);
-eos.getAccount("gyydoojzgige").then(result => {
- console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
-v1 = result.self_delegated_bandwidth.net_weight.split(" ");
- v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
- console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
-})
+//getting starting block id
+var idx = 0;
+eos.getInfo({}).then(result => {
+ console.log(result);
+ startIndex = result.last_irreversible_block_num;
+ idx = startIndex;
+});
+ 
+
+ 
+function saveBlockInfo(){
+ eos.getBlock(idx).then(result => {
+ console.log(result.transactions[0].trx.transaction.actions[0]);
+  //save data to Mongo DB with block number
+  MongoClient.connect(url, function(err, db) {
+   if (err) throw err;
+   var dbo = db.db("heroku_9cf4z9w3");
+   var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
+   dbo.collection("eosblockinfo").insertOne(myobj, function(err, res) {
+        if (err) throw err;
+          console.log("1 document inserted");
+              db.close();
+    });
+   
+ });
+  idx++;
+}
+
+
+setInterval(saveBlockInfo, 5000);
+
+
+
 
 return;
 
