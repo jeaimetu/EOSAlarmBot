@@ -101,7 +101,7 @@ function setEosBalance(ctx){
 
 }
 
-function loadData(cb){
+function loadData(ctx, cb){
  MongoClient.connect(url, function(err, db) {
  var dbo = db.db("heroku_dtfpf2m1");
  var findquery = {chatid : ctx.chat.id};
@@ -253,7 +253,7 @@ bot.action('price',(ctx) => {
 
 bot.action('balance',(ctx) => {
   ctx.reply("계정 정보를 조회하고 있습니다.");
- loadData(function(id){
+ loadData(ctx, function(id){
   if(id != -1)
    ctx.session.id = id;
    eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
