@@ -170,7 +170,7 @@ function stepCheck(ctx){
     saveData(ctx);
     console.log("id",ctx.message.text);
    msg = ctx.session.id + "계정 입력이 완료되었습니다.";
-    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
+    ctx.telegram.sendMessage(ctx.from.id, msg)
     //save id to mongo DB
   }else{
     console.log("other data");
