@@ -53,7 +53,7 @@ function makeMessage(ctx){
   finalResult += "\n";
  finalResult += "\n";
   finalResult += "eoscafeblock, eosyskoreabp에 투표해 주세요.";
-   finalResult += "\n\";
+   finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
   return finalResult;
