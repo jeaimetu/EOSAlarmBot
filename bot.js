@@ -52,7 +52,7 @@ function makeMessage(ctx){
   finalResult += "다음 버전에서는 계정  변화가 생기면 자동으로 받아보실 수있습니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp에에 투표해 주세요.";
+  finalResult += "eoscafeblock, eosyskoreabp에 투표해 주세요.";
    finalResult += "\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
