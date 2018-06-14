@@ -220,12 +220,12 @@ bot.action('id',(ctx) => {
 });
 
 bot.action('price',(ctx) => {
-  ctx.reply("EOS시세를 조회하고 있습니다.");
+  ctx.reply("EOS시세를 조회하고 있습니다...");
   ctx.session.step = 2;
 });
 
 bot.action('balance',(ctx) => {
-  ctx.reply("계정 정보를 조회하고 있습니다.");
+  ctx.reply("계정 정보를 조회하고 있습니다...");
  loadData(ctx, function(id){
   if(id != -1)
    ctx.session.id = id;
@@ -242,9 +242,10 @@ v1 = result.self_delegated_bandwidth.net_weight.split(" ");
    msg += " EOS\n";
    msg += "staked for CPU:"
    msg += result.self_delegated_bandwidth.cpu_weight;
-   msg += "    ";
+   msg += "\n";
    msg += "staked for Bandwidth:"
    msg += result.self_delegated_bandwidth.net_weight;
+   msg += "\n";
    msg += "Refund:";
    msg += result.voter_info.unstaking;
    ctx.telegram.sendMessage(ctx.from.id, msg);
