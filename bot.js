@@ -239,7 +239,7 @@ bot.action('balance',(ctx) => {
  }else{
   ctx.reply("계정 정보를 조회하고 있습니다...");
  loadData(ctx, function(id){
-  if(id != -1)
+  
    ctx.session.id = id;
    eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
   console.log(result)
