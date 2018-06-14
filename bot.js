@@ -163,7 +163,7 @@ function stepCheck(ctx){
      */
    eos.getCurrencyBalance(ctx.session.id, ctx.session.id).then(result => {
         ctx.telegram.sendMessage(ctx.from.id, result);
-   }
+   })
   }else if(ctx.session.step == 2){
      //get price
         
