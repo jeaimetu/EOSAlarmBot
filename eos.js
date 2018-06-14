@@ -11,7 +11,7 @@ eos = Eos(config) // 127.0.0.1:8888
 eos.getCurrencyBalance("eosio.token","gyydoojzgige").then(result => {console.log(result)})
 //console.log('currency balance', balance);
 eos.getAccount("gyydoojzgige").then(result => {
- console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.unstaking)})
+ console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)})
 
 return;
 
