@@ -256,7 +256,7 @@ bot.action('balance',(ctx) => {
  eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
   console.log(result)
   v3 = result[0].split(" ");
-  eos.getAccount(ctx.sessionid).then(result => {
+  eos.getAccount(ctx.session.id).then(result => {
  console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
 v1 = result.self_delegated_bandwidth.net_weight.split(" ");
  v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
