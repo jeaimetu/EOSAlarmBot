@@ -5,6 +5,11 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
 }
  
 eos = Eos(config) // 127.0.0.1:8888
+
+const balance = await eos.getCurrencyBalance("gyydoojzgige","gyydoojzgige")
+console.log(currency balance', balance);
+
+
  
 // All API methods print help when called with no-arguments.
 eos.getBlock()
