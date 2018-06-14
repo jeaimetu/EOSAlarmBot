@@ -1,4 +1,6 @@
 Eos = require('eosjs') // Eos = require('./src')
+var bithumbapi = require('bithumbapi');
+var bithumb = new bithumbapi();
  
 config = {
 httpEndpoint: "http://mainnet.eoscalgary.io"
@@ -7,7 +9,12 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
 eos = Eos(config) // 127.0.0.1:8888
 
 const balance = eos.getCurrencyBalance("gyydoojzgige","gyydoojzgige")
-console.log(currency balance', balance);
+console.log('currency balance', balance);
+
+
+bithumb.ticker('eos').then(function(response){
+  console.log(response.data)
+})
 
 
  
