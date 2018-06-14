@@ -6,7 +6,7 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
  
 eos = Eos(config) // 127.0.0.1:8888
 
-const balance = await eos.getCurrencyBalance("gyydoojzgige","gyydoojzgige")
+const balance = eos.getCurrencyBalance("gyydoojzgige","gyydoojzgige")
 console.log(currency balance', balance);
 
 
