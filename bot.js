@@ -38,7 +38,7 @@ function makeMessage(ctx){
   var finalResult;
  
  if(ctx.session.id != "nil"){
-    finalResult += "곧 계정 history와 주기적 확인 기능이 추가 됩니다.";
+    finalResult = "곧 계정 history와 주기적 확인 기능이 추가 됩니다.";
   finalResult += "\n";
  finalResult += "\n";
   finalResult += "Please support eoscafeblock and others by voting"
