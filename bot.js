@@ -47,13 +47,13 @@ function makeMessage(ctx){
   
  }
  else{
-  finalResult = "아이디를 눌러서 EOS 를 입력해 주세요.";
+  finalResult = "아이디를 눌러서 EOS 아이디를 입력해 주세요.";
   finalResult += "\n";
   finalResult += "다음 버전에서는 계정  변화가 생기면 자동으로 받아보실 수있습니다.";
   finalResult += "\n";
  finalResult += "\n";
   finalResult += "eoscafeblock, eosyskoreabp에 투표해 주세요.";
-   finalResult += "\n";
+   finalResult += "\n\";
     finalResult += "copyright EOS.Cafe Korea";
  }
   return finalResult;
@@ -170,7 +170,7 @@ function stepCheck(ctx){
     ctx.session.id = ctx.message.text;
     saveData(ctx);
     console.log("id",ctx.message.text);
-   msg = ctx.session.id + "계정 입력이 완료되었습니다.";
+   msg = ctx.session.id + " 계정 입력이 완료되었습니다.";
     ctx.telegram.sendMessage(ctx.from.id, msg)
     //save id to mongo DB
   }else{
@@ -244,14 +244,19 @@ bot.action('balance',(ctx) => {
   
     eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
      console.log(result)
-     v3 = result[0].split(" ");
+     if(result != undefined){
+      v3 = result[0].split(" ");
+     }else{
+      v3 = 0;
+     }
      eos.getAccount(ctx.session.id).then(result => {
       console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
       v1 = result.self_delegated_bandwidth.net_weight.split(" ");
       v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
+      v4 = result.voter_info.unstaking.split(" ");
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
       msg = "총 잔고 : ";
-      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]);   
+      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]) + parseInt(v4[0]);   
       msg += " EOS\n";
       msg += "자유로운 거래 가능 양 : " + parseFloat(v3[0]);
       msg += " EOS\n";
