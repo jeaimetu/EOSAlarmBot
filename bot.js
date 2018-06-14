@@ -150,27 +150,15 @@ function stepCheck(ctx){
     ctx.session.email = ctx.message.text;
   }else if(ctx.session.step == 3){
         ctx.session.etw = ctx.message.text;
-   //get balance
-   /*
-    eos.getAccount(ctx.session.id).then(result => {
-     msg = "Network staked : ";
-     msg += result.self_delegated_bandwidth.net_weight
-     msg += "\n""
-     msg += "CPU staked " ";
-     msg += result.self_delegated_bandwidth.cpu_weight
-     
-   eos.getCurrencyBalance(ctx.session.id, ctx.session.id).then(result => {
-        ctx.telegram.sendMessage(ctx.from.id, result);
-   })
-   */
   }else if(ctx.session.step == 2){
-
-       
+   ;
     
   }else if(ctx.session.step == 1){
     ctx.session.id = ctx.message.text;
     saveData(ctx);
     console.log("id",ctx.message.text);
+   msg = ctx.session.id + "계정 입력이 완료되었습니다.";
+    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
     //save id to mongo DB
   }else{
     console.log("other data");
