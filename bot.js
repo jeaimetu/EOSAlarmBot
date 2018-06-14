@@ -245,10 +245,11 @@ bot.action('balance',(ctx) => {
     eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
      console.log(result)
      if(result != undefined && result != 'undefined' && result != null){
-      v3 = result[0].split(" ");
+      v3 = result.split(" ");
      }else{
       v3 = 0;
      }
+     console.log("calling getAccount", ctx.session.id);
      eos.getAccount(ctx.session.id).then(result => {
       console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
       v1 = result.self_delegated_bandwidth.net_weight.split(" ");
