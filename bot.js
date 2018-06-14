@@ -48,10 +48,7 @@ function makeMessage(ctx){
 }
 
 function initMessage(ctx){
-  ctx.session.email = "nil";
-  ctx.session.bts = "nil";
-  ctx.session.ncafe = "nil";
-  ctx.session.etw = "nil";
+ ctx.session.id = 'nil';
 }
 
 function checkData(ctx){
@@ -236,6 +233,10 @@ bot.action('price',(ctx) => {
 });
 
 bot.action('balance',(ctx) => {
+ if(ctx.session.id == "nil"){
+ msg = "계정 정보를 먼저 입력해 주세요";
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+ }else{
   ctx.reply("계정 정보를 조회하고 있습니다...");
  loadData(ctx, function(id){
   if(id != -1)
@@ -269,7 +270,7 @@ v1 = result.self_delegated_bandwidth.net_weight.split(" ");
 //console.log('currency balance', balance);
 
  
- 
+ }//end if 계정정보
   ctx.session.step = 3;
 });
 
