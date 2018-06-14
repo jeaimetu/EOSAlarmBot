@@ -43,7 +43,7 @@ function makeMessage(ctx){
  finalResult += "\n";
   finalResult += "eoscafeblock에 투표해 주세요.";
    finalResult += "\n";
-  finalResult += "copyright EOS.Cafe Korea DAC";
+  finalResult += "copyright EOS.Cafe Korea";
   
  }
  else{
@@ -54,7 +54,7 @@ function makeMessage(ctx){
  finalResult += "\n";
   finalResult += "eoscafeblock에 투표해 주세요.";
    finalResult += "\n";
-    finalResult += "copyright EOS.Cafe Korea DAC";
+    finalResult += "copyright EOS.Cafe Korea";
  }
   return finalResult;
 }
