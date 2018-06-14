@@ -13,7 +13,7 @@
     "mongodb": "3.0.7",
     "etherscan-api": "8.0.4",
     "eosjs" : "14.1.1",
-    "bithumbapi" : "1.0.0"
+    "bithumb" : "1.0.0"
   },
   "devDependencies": {},
   "repository": {
