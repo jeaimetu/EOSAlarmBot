@@ -266,12 +266,13 @@ bot.action('balance',(ctx) => {
       ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
      }); //end of get Account
   }); //end of getCurrencyBalance
+   }//end if 계정정보
  }); //end of first load data
 
 //console.log('currency balance', balance);
 
  
- }//end if 계정정보
+
   ctx.session.step = 3;
 }); //end of bot action
 
