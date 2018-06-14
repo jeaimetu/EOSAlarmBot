@@ -8,7 +8,7 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
  
 eos = Eos(config) // 127.0.0.1:8888
 
-eos.getCurrencyBalance("eosio","gyydoojzgige").then(result => {console.log(result)})
+eos.getCurrencyBalance("eosio.token","gyydoojzgige").then(result => {console.log(result)})
 //console.log('currency balance', balance);
 
 return;
