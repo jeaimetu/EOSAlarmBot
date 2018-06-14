@@ -1,5 +1,10 @@
 Eos = require('eosjs') // Eos = require('./src')
 
+var mongo = require('mongodb');
+
+var MongoClient = require('mongodb').MongoClient;
+var url = process.env.MONGODB_URI;
+
  
 config = {
 httpEndpoint: "http://mainnet.eoscalgary.io"
