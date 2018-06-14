@@ -244,7 +244,7 @@ bot.action('balance',(ctx) => {
   
     eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
      console.log(result)
-     if(result != undefined){
+     if(result != undefined && result != 'undefined' && result != null){
       v3 = result[0].split(" ");
      }else{
       v3 = 0;
