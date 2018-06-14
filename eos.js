@@ -19,7 +19,7 @@ eos.getInfo({}).then(result => {
  
 function saveBlockInfo(){
  eos.getBlock(idx).then(result => {
- console.log(result.transactions[0].trx.transaction.actions[0]);
+  //console.log(result.transactions[0].trx.transaction.actions[0]);
   //save data to Mongo DB with block number
   MongoClient.connect(url, function(err, db) {
    if (err) throw err;
@@ -29,12 +29,12 @@ function saveBlockInfo(){
         if (err) throw err;
           console.log("1 document inserted");
               db.close();
-    });
-   
- });
-  idx++;
-  )};
-}
+    }); //end of insert one
+   }); //end of connect
+   idx++;
+  }); // end of getblock
+} //end of function
+                        
 
 
 setInterval(saveBlockInfo, 5000);
