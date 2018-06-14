@@ -213,7 +213,7 @@ bot.on('message', (ctx) => {
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
 bot.action('id',(ctx) => {
-  ctx.reply("EOS계정을 넣어주세요. http://eosflare.io에서 EOS 퍼블릭키로 조회하실수 있습니다.");
+  ctx.reply("EOS계정을 넣어주세요. http://eosflare.io 에서 EOS 퍼블릭키로 조회하실수 있습니다.");
 
   ctx.session.step = 1;
 });
