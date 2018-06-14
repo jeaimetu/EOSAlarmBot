@@ -7,6 +7,8 @@ const Composer = require('telegraf/composer')
 const WizardScene = require('telegraf/scenes/wizard')
 const Stage = require('telegraf/stage')
 
+const Bithumb = require('bithumb.js')
+const bithumb = new Bithumb('', '');
 
 var mongo = require('mongodb');
 
@@ -166,6 +168,10 @@ function stepCheck(ctx){
    */
   }else if(ctx.session.step == 2){
      //get price
+   (async function () {
+  const orderBook = await bithumb.getTicker('EOS')
+  console.log(orderBook)
+}())
        
     
   }else if(ctx.session.step == 1){
@@ -241,7 +247,7 @@ v1 = result.self_delegated_bandwidth.net_weight.split(" ");
    msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]);   
    msg += " EOS\n";
    msg += "Unstaked : " + parseFloat(v3[0]);
-   msg += "\n";
+   msg += " EOS\n";
    msg += "Staked for CPU : "
    msg += result.self_delegated_bandwidth.cpu_weight;
    msg += "\n";
