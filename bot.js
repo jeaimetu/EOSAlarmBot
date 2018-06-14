@@ -167,11 +167,7 @@ function stepCheck(ctx){
    })
    */
   }else if(ctx.session.step == 2){
-     //get price
-   (async function () {
-  const orderBook = await bithumb.getTicker('EOS')
-  console.log(orderBook)
-}())
+
        
     
   }else if(ctx.session.step == 1){
@@ -227,6 +223,15 @@ bot.action('id',(ctx) => {
 
 bot.action('price',(ctx) => {
   ctx.reply("EOS시세를 조회하고 있습니다...");
+      //get price
+   (async function () {
+  const orderBook = await bithumb.getTicker('EOS')
+  console.log(orderBook)
+    msg = "팔자호가 : " + orderBook.data.sell_price + "\n";
+    msg+= "사자호가 : " + orderBook.data.buy_price + "\n";
+    msg += "Provided by Bithumb"
+    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+}())
   ctx.session.step = 2;
 });
 
