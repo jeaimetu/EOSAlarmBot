@@ -101,47 +101,43 @@ function setEosBalance(ctx){
 
 }
 
-
+function loadData(cb){
+ var dbo = db.db("heroku_dtfpf2m1");
+ var findquery = {chatid : ctx.chat.id};
+ dbo.collection("customers").findOne(findquery, function(err, result){
+  if(result == null){
+   cb(-1);
+  }else{
+   cb(result.eosid);
+  }
+ });
+}
 
 function saveData(ctx){
-  return;
-
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var dbo = db.db("heroku_dtfpf2m1");
-    var creationDate = Date.now();
-    //check replication
-    //var findquery = { telegram : ctx.session.telegram }; //telegram username is optional
-    var findquery = { bitshare : ctx.session.bts };
-    dbo.collection("customers").findOne(findquery, function(err, result){
-      var myobj = { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw, telegram: ctx.session.telegram, 
-      ispaid: "no",language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: ctx.session.eos};
-      
-      if(err)        throw err;
-      console.log("finding result",result);
-      
-      if(result == null){
-            //if it not replicated, then insert        
-        dbo.collection("customers").insertOne(myobj, function(err, res) {
+ 
+   var findquery = {chatid : ctx.chat.id};
+   dbo.collection("customers").findOne(findquery, function(err, result){
+    if(result == null){
+     //insert
+        var myobj = { chatid : ctx.chat.id, eosid : ctx.session.id }
+     dbo.collection("customers").insertOne(myobj, function(err, res) {
         if (err) throw err;
           console.log("1 document inserted");
               db.close();
-
         });
-
-      }else{
-        var newobj = {$set : { email: ctx.session.email, bitshare: ctx.session.bts, eth: ctx.session.etw,  
-        ispaid: result.ispaid ,language: ctx.session.language, date: creationDate, ncafe: ctx.session.ncafe, refer: ctx.session.refer, eos: ctx.session.eos}};
-        
-        dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
-          if (err) throw err;
+    }else{
+     //update
+     var newobj = {$set : {chatid : ctx.chat.id, eosid : ctx.session.id }};        
+     dbo.collection("customers").updateOne(findquery, newobj, function(err, res) {
+        if (err) throw err;
           console.log("1 document updated");
-              db.close();
-
+          db.close();
         });
-      }
-    });
-
+    } //end else
+   }); //end pf findquery
   }); //end MongoClient
 }
 
@@ -242,6 +238,7 @@ bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
 bot.action('id',(ctx) => {
   ctx.reply("input EOS account, you can check account on http://eosflare.io with your EOS public key");
+ saveData(ctx);
   ctx.session.step = 1;
 });
 
@@ -252,7 +249,10 @@ bot.action('price',(ctx) => {
 
 bot.action('balance',(ctx) => {
   ctx.reply("계정 정보를 조회하고 있습니다.");
- 
+ loadData(function(id){
+  if(id != -1)
+   ctx.session.id = id;
+ });
  eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
   console.log(result)
   v3 = result[0].split(" ");
