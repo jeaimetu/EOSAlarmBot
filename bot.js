@@ -118,6 +118,7 @@ function loadData(ctx, cb){
  var findquery = {chatid : ctx.chat.id};
  dbo.collection("customers").findOne(findquery, function(err, result){
   if(result == null){
+   //if result is null, then return -1
    cb(-1);
   }else{
    cb(result.eosid);
@@ -233,46 +234,46 @@ bot.action('price',(ctx) => {
 });
 
 bot.action('balance',(ctx) => {
- if(ctx.session.id == "nil"){
- msg = "계정 정보를 먼저 입력해 주세요";
+ loadData(ctx, function(id){
+  ctx.session.id = id;
+ if(ctx.session.id == -1){
+  msg = "계정 정보를 먼저 입력해 주세요";
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
  }else{
   ctx.reply("계정 정보를 조회하고 있습니다...");
- loadData(ctx, function(id){
   
-   ctx.session.id = id;
-   eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
-  console.log(result)
-  v3 = result[0].split(" ");
-  eos.getAccount(ctx.session.id).then(result => {
- console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
-v1 = result.self_delegated_bandwidth.net_weight.split(" ");
- v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
- //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
-   msg = "총 잔고 : ";
-   msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]);   
-   msg += " EOS\n";
-   msg += "자유로운 거래 가능 양 : " + parseFloat(v3[0]);
-   msg += " EOS\n";
-   msg += "CPU에 잠겨있는 양 : "
-   msg += result.self_delegated_bandwidth.cpu_weight;
-   msg += "\n";
-   msg += "네트워크에 잠겨있는 양 : "
-   msg += result.self_delegated_bandwidth.net_weight;
-   msg += "\n";
-   msg += "잠김 해제중인 양 : ";
-   msg += result.voter_info.unstaking;
-   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
-}) 
- })
- });
+    eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
+     console.log(result)
+     v3 = result[0].split(" ");
+     eos.getAccount(ctx.session.id).then(result => {
+      console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
+      v1 = result.self_delegated_bandwidth.net_weight.split(" ");
+      v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
+      //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
+      msg = "총 잔고 : ";
+      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]);   
+      msg += " EOS\n";
+      msg += "자유로운 거래 가능 양 : " + parseFloat(v3[0]);
+      msg += " EOS\n";
+      msg += "CPU에 잠겨있는 양 : "
+      msg += result.self_delegated_bandwidth.cpu_weight;
+      msg += "\n";
+      msg += "네트워크에 잠겨있는 양 : "
+      msg += result.self_delegated_bandwidth.net_weight;
+      msg += "\n";
+      msg += "잠김 해제중인 양 : ";
+      msg += result.voter_info.unstaking;
+      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+     }); //end of get Account
+  }); //end of getCurrencyBalance
+ }); //end of first load data
 
 //console.log('currency balance', balance);
 
  
  }//end if 계정정보
   ctx.session.step = 3;
-});
+}); //end of bot action
 
 bot.action('ether',(ctx) => {
   ctx.reply("input Ethereum Wallet Address please");
