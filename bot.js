@@ -38,10 +38,10 @@ function makeMessage(ctx){
   var finalResult;
  
  if(ctx.session.id != "nil"){
-    finalResult = "곧 계정 history와 주기적 확인 기능이 추가 됩니다.";
+    finalResult = "곧 계정 이력과 주기적 정보 확인 기능이 추가 됩니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "Please support eoscafeblock and others by voting"
+  finalResult += "eoscafeblock에 투표해 주세요."
  }
  else{
   finalResult = "ID를 눌러서 EOS ID를 입력해 주세요.";
@@ -49,7 +49,7 @@ function makeMessage(ctx){
   finalResult += "다음 버전에서는 계정  변화가 생기면 자동으로 받아보실 수있습니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "Please support eoscafeblock and others by voting"
+  finalResult += "eoscafeblock에 투표해 주세요."
  }
   return finalResult;
 }
@@ -208,7 +208,7 @@ bot.on('message', (ctx) => {
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
 bot.action('id',(ctx) => {
-  ctx.reply("input EOS account, you can check account on http://eosflare.io with your EOS public key");
+  ctx.reply("EOS계정을 넣어주세요. http://eosflare.io에서 EOS 퍼블릭키로 조회하실수 있습니다.");
 
   ctx.session.step = 1;
 });
@@ -219,8 +219,8 @@ bot.action('price',(ctx) => {
    (async function () {
   const orderBook = await bithumb.getTicker('EOS')
   console.log(orderBook)
-    msg = "팔자호가 : " + orderBook.data.sell_price + "\n";
-    msg+= "사자호가 : " + orderBook.data.buy_price + "\n";
+    msg = "EOS팔때 : " + orderBook.data.sell_price + "\n";
+    msg+= "EOS살때 : " + orderBook.data.buy_price + "\n";
     msg += "Provided by Bithumb"
     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
 }())
@@ -244,18 +244,18 @@ bot.action('balance',(ctx) => {
 v1 = result.self_delegated_bandwidth.net_weight.split(" ");
  v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
  //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
-   msg = "Total Balance : ";
+   msg = "총 잔고 : ";
    msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]);   
    msg += " EOS\n";
-   msg += "Unstaked : " + parseFloat(v3[0]);
+   msg += "자유로운 거래 가능 양 : " + parseFloat(v3[0]);
    msg += " EOS\n";
-   msg += "Staked for CPU : "
+   msg += "CPU에 잠겨있는 양 : "
    msg += result.self_delegated_bandwidth.cpu_weight;
    msg += "\n";
-   msg += "Staked for Bandwidth : "
+   msg += "네트워크에  : "
    msg += result.self_delegated_bandwidth.net_weight;
    msg += "\n";
-   msg += "Refund:";
+   msg += "잠김 해제중인 양";
    msg += result.voter_info.unstaking;
    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
 }) 
