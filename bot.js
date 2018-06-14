@@ -203,40 +203,13 @@ bot.help((ctx) => ctx.reply('Help message'))
 bot.on('message', (ctx) => {
   stepCheck(ctx);
 
-  /*
-  console.log("input message", ctx);
-  console.log(ctx.message.entities);
-
-  if(ctx.message.entities != undefined){
-    console.log(ctx.message.entities.type);
-    console.log(ctx.message.entities[2]);
-    if(ctx.message.entities.type.toString() == 'email'){
-      ctx.session.email = ctx.message.text;
-      console.log("email inputed", ctx.session.email);
-    }else{
-      console.log("entities is not email");
-    }
-  }*/ // can not access entities with []
-    //ctx.telegram.sendCopy(ctx.from.id, ctx.message, Extra.markup(keyboard))
   var msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
   })
 
-//first entry, this have sometimes undefined error of text
-/*
-bot.command('start', (ctx) => {
-  ctx.reply('Bot started.',Markup.inlineKeyboard([
-      Markup.callbackButton('Start', 'start')
-      ]).extra());
-  if(ctx.text != "start")
-    //return;
-    return;
 
-});
-*/
 
-//bot.on('message', (ctx) => ctx.telegram.sendCopy(ctx.from.id, ctx.message));
-//bot.on('message', (ctx) => console.log(ctx.message));
+
 
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
@@ -266,6 +239,14 @@ v1 = result.self_delegated_bandwidth.net_weight.split(" ");
  console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
    msg = "total EOS:";
    msg += parseInt(v1[0],10) + parseInt(v2[0],10) + parseInt(v3[0],10);
+   msg += " EOS\n";
+   msg += "staked for CPU:"
+   msg += result.self_delegated_bandwidth.cpu_weight;
+   msg += "    ";
+   msg += "staked for Bandwidth:"
+   msg += result.self_delegated_bandwidth.net_weight;
+   msg += "Refund:";
+   msg += result.voter_info.unstaking;
    ctx.telegram.sendMessage(ctx.from.id, msg);
 }) 
  })
