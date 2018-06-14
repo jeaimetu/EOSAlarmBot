@@ -166,8 +166,7 @@ function stepCheck(ctx){
    })
   }else if(ctx.session.step == 2){
      //get price
-        
-})
+       
     
   }else if(ctx.session.step == 1){
     ctx.session.id = ctx.message.text;
