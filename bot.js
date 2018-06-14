@@ -25,9 +25,9 @@ eos = Eos(eosconfig) // 127.0.0.1:8888
 
 
 const keyboard = Markup.inlineKeyboard([
-  Markup.callbackButton('ID', 'id'),
-  Markup.callbackButton('Price', 'price'),
-  Markup.callbackButton('Balance', 'balance')
+  Markup.callbackButton('아이디', 'id'),
+  Markup.callbackButton('EOS가격', 'price'),
+  Markup.callbackButton('EOS보유량', 'balance')
   //Markup.callbackButton('History','history')
   //Markup.callbackButton('Confirm','confirm')
 ], {column: 3})
@@ -41,18 +41,18 @@ function makeMessage(ctx){
     finalResult = "곧 계정 이력과 주기적 정보 확인 기능이 추가 됩니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock에 투표해 주세요.";
+  finalResult += "eoscafeblock, eosyskoreabp에 투표해 주세요.";
    finalResult += "\n";
   finalResult += "copyright EOS.Cafe Korea";
   
  }
  else{
-  finalResult = "ID를 눌러서 EOS ID를 입력해 주세요.";
+  finalResult = "아이디를 눌러서 EOS 를 입력해 주세요.";
   finalResult += "\n";
   finalResult += "다음 버전에서는 계정  변화가 생기면 자동으로 받아보실 수있습니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock에 투표해 주세요.";
+  finalResult += "eoscafeblock, eosyskoreabp에에 투표해 주세요.";
    finalResult += "\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
@@ -213,7 +213,7 @@ bot.on('message', (ctx) => {
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
 bot.action('id',(ctx) => {
-  ctx.reply("EOS계정을 넣어주세요. http://eosflare.io 에서 EOS 퍼블릭키로 조회하실수 있습니다.");
+  ctx.reply("EOS 아이디를 넣어주세요. http://eosflare.io 에서 EOS 퍼블릭키로 조회하실수 있습니다.");
 
   ctx.session.step = 1;
 });
