@@ -247,7 +247,7 @@ bot.action('balance',(ctx) => {
      if(result[0] != undefined && result[0] != 'undefined' && result[0] != null){
       v3 = result[0].split(" ");
      }else{
-      v3 = 0;
+      v3[0] = 0;
      }
      console.log("calling getAccount", ctx.session.id);
      eos.getAccount(ctx.session.id).then(result => {
