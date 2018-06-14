@@ -21,47 +21,15 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
  
 eos = Eos(eosconfig) // 127.0.0.1:8888
 
-/*
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("heroku_9cf4z9w3");
-  var myobj = { email: "test@lge.com", bitshare: "Highway 37", eth: "0xddddddddd", telegram: "eoscafe", ispaid: "no"};
-  dbo.collection("customers").insertOne(myobj, function(err, res) {
-    if (err) throw err;
-    console.log("1 document inserted");
-    db.close();
-  });
-});
-*/
-
-/*
-const stepHandler = new Composer()
-stepHandler.action('next', (ctx) => {
-  ctx.reply('Step 2. Via inline button')
-  return ctx.wizard.next()
-})
-stepHandler.command('next', (ctx) => {
-  ctx.reply('Step 2. Via command')
-  return ctx.wizard.next()
-})
-stepHandler.use((ctx) => ctx.replyWithMarkdown('Press `Next` button or type /next'))
-*/
-
 
 const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('ID', 'id'),
   Markup.callbackButton('Price', 'price'),
-  Markup.callbackButton('Balance', 'balance'),
-  Markup.callbackButton('History','history')
+  Markup.callbackButton('Balance', 'balance')
+  //Markup.callbackButton('History','history')
   //Markup.callbackButton('Confirm','confirm')
 ], {column: 3})
 
-/*
-const keyboard = Markup.inlineKeyboard([
-  Markup.urlButton('❤️', 'http://telegraf.js.org'),
-  Markup.callbackButton('Delete', 'delete')
-])
-*/
 
 function makeMessage(ctx){
   
@@ -69,8 +37,10 @@ function makeMessage(ctx){
  
   finalResult = "ID를 눌러서 EOS ID를 입력해 주세요.";
   finalResult += "\n";
-  finalResult += "이후에는 메뉴 또는 변화가 생기면 자동으로 받아보실 수있습니다.";
+  finalResult += "다음 버전에서는 계정  변화가 생기면 자동으로 받아보실 수있습니다.";
   finalResult += "\n";
+ finalResult += "\n";
+ finalResult += "\n";
   finalResult += "Please support eoscafeblock and others by voting"
   return finalResult;
 }
@@ -182,11 +152,21 @@ function stepCheck(ctx){
     ctx.session.email = ctx.message.text;
   }else if(ctx.session.step == 3){
         ctx.session.etw = ctx.message.text;
-    setEosBalance(ctx)
-  }else if(ctx.session.step == 2){
-        //get balance
+   //get balance
+   /*
     eos.getAccount(ctx.session.id).then(result => {
+     msg = "Network staked : ";
+     msg += result.self_delegated_bandwidth.net_weight
+     msg += "\n""
+     msg += "CPU staked " ";
+     msg += result.self_delegated_bandwidth.cpu_weight
+     */
+   eos.getCurrencyBalance(ctx.session.id, ctx.session.id).then(result => {
         ctx.telegram.sendMessage(ctx.from.id, result);
+   }
+  }else if(ctx.session.step == 2){
+     //get price
+        
 })
     
   }else if(ctx.session.step == 1){
@@ -266,13 +246,13 @@ bot.action('id',(ctx) => {
 });
 
 bot.action('price',(ctx) => {
-  ctx.reply("input bitshare ID please");
+  ctx.reply("EOS시세를 조회하고 있습니다.");
   ctx.session.step = 2;
 });
 
-bot.action('naver',(ctx) => {
-  ctx.reply("input NAVER ID please");
-  ctx.session.step = 2;
+bot.action('balance',(ctx) => {
+  ctx.reply("계정 정보를 조회하고 있습니다.");
+  ctx.session.step = 3;
 });
 
 bot.action('ether',(ctx) => {
