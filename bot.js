@@ -256,8 +256,7 @@ bot.action('balance',(ctx) => {
  loadData(function(id){
   if(id != -1)
    ctx.session.id = id;
- });
- eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
+   eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
   console.log(result)
   v3 = result[0].split(" ");
   eos.getAccount(ctx.session.id).then(result => {
@@ -268,11 +267,10 @@ v1 = result.self_delegated_bandwidth.net_weight.split(" ");
    msg = "total EOS:";
    msg += parseInt(v1[0],10) + parseInt(v2[0],10) + parseInt(v3[0],10);
    ctx.telegram.sendMessage(ctx.from.id, msg);
-})
-
- 
- 
+}) 
  })
+ });
+
 //console.log('currency balance', balance);
 
  
