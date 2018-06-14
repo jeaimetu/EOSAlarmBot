@@ -102,6 +102,7 @@ function setEosBalance(ctx){
 }
 
 function loadData(cb){
+ MongoClient.connect(url, function(err, db) {
  var dbo = db.db("heroku_dtfpf2m1");
  var findquery = {chatid : ctx.chat.id};
  dbo.collection("customers").findOne(findquery, function(err, result){
@@ -110,6 +111,8 @@ function loadData(cb){
   }else{
    cb(result.eosid);
   }
+  db.close();
+ });
  });
 }
 
@@ -167,6 +170,7 @@ function stepCheck(ctx){
     
   }else if(ctx.session.step == 1){
     ctx.session.id = ctx.message.text;
+    saveData(ctx);
     console.log("id",ctx.message.text);
     //save id to mongo DB
   }else{
@@ -238,7 +242,7 @@ bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
 bot.action('id',(ctx) => {
   ctx.reply("input EOS account, you can check account on http://eosflare.io with your EOS public key");
- saveData(ctx);
+
   ctx.session.step = 1;
 });
 
