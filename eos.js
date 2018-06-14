@@ -12,7 +12,7 @@ const balance = eos.getCurrencyBalance("gyydoojzgige","gyydoojzgige")
 console.log('currency balance', balance);
 
 
-bithumb.ticker('eos').then(function(response){
+bithumb.ticker('EOS').then(function(response){
   console.log(response.data)
 })
 
