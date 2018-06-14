@@ -8,8 +8,10 @@ httpEndpoint: "http://mainnet.eoscalgary.io"
  
 eos = Eos(config) // 127.0.0.1:8888
 
-const balance = eos.getCurrencyBalance("gyydoojzgige","gyydoojzgige")
-console.log('currency balance', balance);
+eos.getCurrencyBalance("gyydoojzgige","gyydoojzgige").then(result => {console.log(result)})
+//console.log('currency balance', balance);
+
+return;
 
 /*
 bithumb.ticker('EOS').then(function(response){
