@@ -160,10 +160,11 @@ function stepCheck(ctx){
      msg += "\n""
      msg += "CPU staked " ";
      msg += result.self_delegated_bandwidth.cpu_weight
-     */
+     
    eos.getCurrencyBalance(ctx.session.id, ctx.session.id).then(result => {
         ctx.telegram.sendMessage(ctx.from.id, result);
    })
+   */
   }else if(ctx.session.step == 2){
      //get price
        
@@ -251,6 +252,27 @@ bot.action('price',(ctx) => {
 
 bot.action('balance',(ctx) => {
   ctx.reply("계정 정보를 조회하고 있습니다.");
+ 
+ eos.getCurrencyBalance("eosio.token",ctx.session.id).then(result => {
+  console.log(result)
+  v3 = result.split(" ");
+  eos.getAccount(ctx.sessionid).then(result => {
+ console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
+v1 = result.self_delegated_bandwidth.net_weight.split(" ");
+ v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
+ console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
+   msg = "total EOS:";
+   msg += parseInt(v1[0],10) + parseInt(v2[0],10) + parseInt(v3[0],10);
+   ctx.telegram.sendMessage(ctx.from.id, msg);
+})
+
+ 
+ 
+ })
+//console.log('currency balance', balance);
+
+ 
+ 
   ctx.session.step = 3;
 });
 
