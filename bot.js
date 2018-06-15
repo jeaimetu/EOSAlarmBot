@@ -254,10 +254,26 @@ bot.action('balance',(ctx) => {
       console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
       v1 = result.self_delegated_bandwidth.net_weight.split(" ");
       v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
-      v4 = result.voter_info.unstaking.split(" ");
+      //calling gettable rows
+      eos.getTableRows({json : true,
+                 code : "eosio",
+                 scope: ctx.session.id,
+                 table: "refunds",
+                 limit: 500}).then(res => {
+        var refund;
+       if(res.rows.length == 0){
+        refund = 0;
+       }else{
+       var a = res.rows[0].net_amount.split(" ");
+       var b = res.rows[0].cpu_amount.split(" ");
+       refund = parseFloat(a[0]) + parseFloat(b[0]);
+      }
+ console.log("refund size", refund)
+      
+      //v4 = result.voter_info.unstaking.split(" ");
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
       msg = "총 잔고 : ";
-      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]) + parseInt(v4[0]);   
+      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]) + refund;   
       msg += " EOS\n";
       msg += "자유로운 거래 가능 양 : " + parseFloat(v3[0]);
       msg += " EOS\n";
@@ -267,9 +283,15 @@ bot.action('balance',(ctx) => {
       msg += "네트워크에 잠겨있는 양 : "
       msg += result.self_delegated_bandwidth.net_weight;
       msg += "\n";
+       if(refund == 0){
       msg += "잠김 해제중인 양 : ";
-      msg += result.voter_info.unstaking;
+      msg += refund;
+       }else{
+              msg += "잠김 해제중인 양 : ";
+      msg += refund;
+       }
       ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+      });
      }); //end of get Account
   }); //end of getCurrencyBalance
    }//end if 계정정보
