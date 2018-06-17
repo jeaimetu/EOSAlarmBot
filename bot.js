@@ -251,9 +251,14 @@ bot.action('balance',(ctx) => {
      }
      console.log("calling getAccount", ctx.session.id);
      eos.getAccount(ctx.session.id).then(result => {
+      if(result.self_delegated_bandwidth.length != 0){
       console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
       v1 = result.self_delegated_bandwidth.net_weight.split(" ");
       v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
+      }else{
+       v1 = ["0", "EOS"];
+       v2 = ["0", "EOS"];
+      }
       //calling gettable rows
       eos.getTableRows({json : true,
                  code : "eosio",
@@ -268,7 +273,7 @@ bot.action('balance',(ctx) => {
        var b = res.rows[0].cpu_amount.split(" ");
        refund = parseFloat(a[0]) + parseFloat(b[0]);
       }
- console.log("refund size", refund)
+      console.log("refund size", refund)
       
       //v4 = result.voter_info.unstaking.split(" ");
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
@@ -278,10 +283,10 @@ bot.action('balance',(ctx) => {
       msg += "자유로운 거래 가능 양 : " + parseFloat(v3[0]);
       msg += " EOS\n";
       msg += "CPU에 잠겨있는 양 : "
-      msg += result.self_delegated_bandwidth.cpu_weight;
+      msg += v2
       msg += "\n";
       msg += "네트워크에 잠겨있는 양 : "
-      msg += result.self_delegated_bandwidth.net_weight;
+      msg += v3
       msg += "\n";
        if(refund == 0){
       msg += "잠김 해제중인 양 : ";
