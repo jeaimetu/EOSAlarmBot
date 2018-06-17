@@ -251,7 +251,7 @@ bot.action('balance',(ctx) => {
      }
      console.log("calling getAccount", ctx.session.id);
      eos.getAccount(ctx.session.id).then(result => {
-      if(result.self_delegated_bandwidth.length != 0){
+      if(result.self_delegated_bandwidth != undefined){
       console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
       v1 = result.self_delegated_bandwidth.net_weight.split(" ");
       v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
