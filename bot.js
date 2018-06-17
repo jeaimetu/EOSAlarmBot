@@ -286,7 +286,7 @@ bot.action('balance',(ctx) => {
       msg += v2
       msg += "\n";
       msg += "네트워크에 잠겨있는 양 : "
-      msg += v3
+      msg += v1
       msg += "\n";
        if(refund == 0){
       msg += "잠김 해제중인 양 : ";
