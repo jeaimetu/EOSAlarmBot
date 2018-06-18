@@ -7,8 +7,7 @@ const Composer = require('telegraf/composer')
 const WizardScene = require('telegraf/scenes/wizard')
 const Stage = require('telegraf/stage')
 
-const Bithumb = require('bithumb.js')
-const bithumb = new Bithumb('', '');
+
 
 var mongo = require('mongodb');
 
