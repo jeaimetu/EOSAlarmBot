@@ -153,7 +153,11 @@ function saveBlockInfo(){
     }); //end of insert one
    }); //end of connect
   */
-  }); // end of getblock
+  })
+ .catch((err) => {
+  idx++;
+  console.log(err);
+ }); // end of getblock
 
 } //end of function
                         
