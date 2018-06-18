@@ -33,6 +33,28 @@ const keyboard = Markup.inlineKeyboard([
 ], {column: 3})
 
 
+function makePriceMessage(res){
+ 
+ msg = "EOS 가격 : " + "$" + res[0].usd;
+ msg += "\n";
+ msg += "EOS 가격 : " + Math.floor(res[0].krw) + "KRW";
+ msg += "\n";
+ msg += "Provided by ";
+ msg += res[0].exchange;
+ msg += "\n";
+ msg += "EOS 팔때 가격 : " + res[1].krw + "KRW";
+ msg += "\n";
+ msg += "EOS 살떄 가격 : " + res[1].krwbuy + "KRW";
+  msg += "\n";
+ msg += "Provided by " + res[1].exchange;
+ diff =  res[0].krw - res[1].krw;
+ msg += "\n";
+ msg += "시세 차이 : " + ath.floor(diff) + "KRW";
+ return msg;
+
+ 
+}
+
 function makeMessage(ctx){
   
   var finalResult;
@@ -41,7 +63,7 @@ function makeMessage(ctx){
     finalResult = "곧 계정 이력과 주기적 정보 확인 기능이 추가 됩니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp에 투표해 주세요.";
+  finalResult += "eoscafeblock, eosyskoreabp, eosnodeone에 투표해 주세요.";
    finalResult += "\n";
   finalResult += "copyright EOS.Cafe Korea";
   
@@ -220,17 +242,20 @@ bot.action('id',(ctx) => {
 });
 
 bot.action('price',(ctx) => {
-  ctx.reply("EOS시세를 조회하고 있습니다...");
+  ctx.reply("EOS시세를 조회하고 있습니다....");
       //get price
-   (async function () {
-  const orderBook = await bithumb.getTicker('EOS')
-  console.log(orderBook)
-    msg = "EOS팔때 : " + orderBook.data.sell_price + "\n";
-    msg+= "EOS살때 : " + orderBook.data.buy_price + "\n";
-    msg += "Provided by Bithumb"
-    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
-}())
-  ctx.session.step = 2;
+   MongoClient.connect(url, function(err, db) {
+    var dbo = db.db("heroku_9472rtd6");       
+    dbo.collection("price").find().toArray(function(err, res){
+     console.log(res)
+     msg = makePriceMessage(res);
+     ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard));
+     ctx.session.step = 2;
+     db.close();
+    });
+   });
+
+
 });
 
 bot.action('balance',(ctx) => {
