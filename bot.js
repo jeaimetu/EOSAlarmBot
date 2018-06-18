@@ -48,7 +48,7 @@ function makePriceMessage(res){
  msg += "Provided by " + res[1].exchange;
  diff =  res[0].krw - res[1].krw;
  msg += "\n";
- msg += "시세 차이 : " + ath.floor(diff) + "KRW";
+ msg += "시세 차이 : " + Math.floor(diff) + "KRW";
  return msg;
 
  
