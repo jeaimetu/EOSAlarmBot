@@ -2,85 +2,160 @@ Eos = require('eosjs') // Eos = require('./src')
 
 var mongo = require('mongodb');
 
+var botClient = require('./bot.js');
+
+
 var MongoClient = require('mongodb').MongoClient;
 var url = process.env.MONGODB_URI;
 
  
-config = {
+eosConfig = {
 httpEndpoint: "http://mainnet.eoscalgary.io"
 }
  
-eos = Eos(config) // 127.0.0.1:8888
+eos = Eos(eosConfig) // 127.0.0.1:8888
 
 //getting starting block id
-var idx = 0;
+idx = 0;
+
+
+
+
+//set initial block
 eos.getInfo({}).then(result => {
  console.log(result);
- startIndex = result.last_irreversible_block_num;
- idx = startIndex;
+ startIndex = result.head_block_num;
+ idx = startIndex - 3;
 });
+
+function formatData(data, type){
+  if(type == "transfer"){
+   msg = "송금 이벤트 발생";
+   msg += "\n";
+   msg += "받는 계정 : " + data.to;
+   msg += "\n";
+   msg += "송금 수량 : " + data.quantity;
+   msg += "\n";
+   msg += "송금 메모 : " + data.memo
+  }else if(type == "newaccount"){
+   msg = "신규 계정 생성 이벤트 발생";
+   msg += "\n";
+   msg += "생성한 계정 : " + data.name;
+  }else if(type == "voteproducer"){
+   msg = "투표 이벤트 발생";
+   msg += "\n";
+   msg += "투표한 곳"
+   msg += "\n";
+   for(i = 0;i < data.producers.length;i++){
+    msg += data.producers[i] + ", ";
+   }
+  }else if(type == "undelegatebw"){
+   msg = "EOS 점유 해제 이벤트 발생";
+   msg += "\n";
+   msg += "점유해제한 네트워크 : " + data.unstake_net_quantity
+   msg += "\n";
+   msg += "점유해제한 CPU : " + data.unstake_cpu_quantity
+   
+  }else if(type == "delegatebw"){
+   msg = "EOS 점유 이벤트 발생";
+   msg += "\n";
+   msg += "점유한 네트워크 : " + data.stake_net_quantity
+   msg += "\n";
+   msg += "점유한 CPU : " + data.stake_cpu_quantity
+  }else{
+   console.log("need to be implemented");
+   msg = "곧 지원 예정입니다.(현재 미지원 이벤트)";
+   msg += type;
+   msg += "\n";
+   msg += data;
+  }
  
+ return msg;
+ 
+}
+
+function saveData(block, account, data, type){
+  MongoClient.connect(url, function(err, db) {
+   var dbo = db.db("heroku_9cf4z9w3");
+   var fData = formatData(data, type);
+   botClient.sendAlarm(account, fData);
+   var myobj = { block : block, account : account, data : fData, report : false };
+   dbo.collection("alarm").insertOne(myobj, function(err, res){
+    if (err) throw err;
+    //console.log("1 document inserted");
+    db.close();   
+   });
+  }); 
+}
+ 
+function checkAccount(result){
+   idx++;
+ if(result.transactions.length == 0){
+  return;
+ }else{
+  //check transaction type
+  var trx = result.transactions[0].trx.transaction;
+  if(trx == undefined)
+   return;
+  var type = trx.actions[0].name;
+  var data = trx.actions[0].data;
+  var account = null;
+  if(type == "transfer"){
+   account = data.from;
+  }else if(type == "newaccount"){
+   account = data.creator;
+  }else if(type == "voteproducer"){
+   account = data.voter;  
+  }else if(type == "undelegatebw"){
+   account = data.from;
+  }else if(type == "delegatebw"){
+   account = data.from;
+  }else{
+   console.log("need to be implemented", type);
+  }
+  
+  //save data to proper account or new table?
+  if(account != null){
+   //save data to database
+   saveData(result.block_num, account, data, type);
+  }
+ }
+ 
+}
 
  
 function saveBlockInfo(){
+ //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
+  //console.log(result);
   //console.log(result.transactions[0].trx.transaction.actions[0]);
   //save data to Mongo DB with block number
+  console.log("read Block info ", idx);
+  checkAccount(result);
+
+  /* save raw data
   MongoClient.connect(url, function(err, db) {
-   if (err) throw err;
+   
+   if (err){
+    console.log(err);
+    throw err;
+   }
    var dbo = db.db("heroku_9cf4z9w3");
-   var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
+   //var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
+   var myobj = { bno : idx, info : result }
+   
    dbo.collection("eosblockinfo").insertOne(myobj, function(err, res) {
         if (err) throw err;
-          console.log("1 document inserted");
+          //console.log("1 document inserted");
+       idx++;
               db.close();
     }); //end of insert one
    }); //end of connect
-   idx++;
+  */
   }); // end of getblock
+
 } //end of function
                         
 
 
-//setInterval(saveBlockInfo, 5000);
-
-
-
-
-return;
-
-/*
-bithumb.ticker('EOS').then(function(response){
-  console.log(response.data)
-})
-*/
-
- 
-// All API methods print help when called with no-arguments.
-eos.getBlock()
- 
-// Next, you're going to need nodeosd running on localhost:8888 (see ./docker)
- 
-// If a callback is not provided, a Promise is returned
-eos.getBlock(1).then(result => {console.log(result)})
- 
-// Parameters can be sequential or an object
-eos.getBlock({block_num_or_id: 1}).then(result => console.log(result))
- 
-// Callbacks are similar
-callback = (err, res) => {err ? console.error(err) : console.log(res)}
-eos.getBlock(1, callback)
-eos.getBlock({block_num_or_id: 1}, callback)
- 
-// Provide an empty object or a callback if an API call has no arguments
-eos.getInfo({}).then(result => {console.log(result)})
-
-eos.getAccount("gyydoojzgige").then(result => {console.log(result)})
-
-
-console.log("calling getAcion");
-eos.getActions("gyydoojzgige", 1000, 0).then(result => {
- console.log(result)
- console.log(result.actions)
- eos.getBlock(5000, callback);
-})
+setInterval(saveBlockInfo, 500);
