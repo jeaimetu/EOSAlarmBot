@@ -43,7 +43,7 @@ function makePriceMessage(res){
  msg += "\n";
  msg += "EOS 팔때 가격 : " + res[1].krw + "KRW";
  msg += "\n";
- msg += "EOS 살떄 가격 : " + res[1].krwbuy + "KRW";
+ msg += "EOS 살때 가격 : " + res[1].krwbuy + "KRW";
   msg += "\n";
  msg += "Provided by " + res[1].exchange;
  diff =  res[0].krw - res[1].krw;
