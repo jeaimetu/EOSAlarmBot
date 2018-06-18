@@ -76,7 +76,7 @@ function formatData(data, type){
 
 function saveData(block, account, data, type){
   MongoClient.connect(url, function(err, db) {
-   var dbo = db.db("heroku_9cf4z9w3");
+   var dbo = db.db("heroku_dtfpf2m1");
    var fData = formatData(data, type);
    botClient.sendAlarm(account, fData);
    var myobj = { block : block, account : account, data : fData, report : false };
@@ -140,7 +140,7 @@ function saveBlockInfo(){
     console.log(err);
     throw err;
    }
-   var dbo = db.db("heroku_9cf4z9w3");
+   var dbo = db.db("heroku_dtfpf2m1");
    //var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
    var myobj = { bno : idx, info : result }
    
