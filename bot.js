@@ -245,7 +245,7 @@ bot.action('price',(ctx) => {
   ctx.reply("EOS시세를 조회하고 있습니다....");
       //get price
    MongoClient.connect(url, function(err, db) {
-    var dbo = db.db("heroku_9472rtd6");       
+    var dbo = db.db("heroku_dtfpf2m1");       
     dbo.collection("price").find().toArray(function(err, res){
      console.log(res)
      msg = makePriceMessage(res);
