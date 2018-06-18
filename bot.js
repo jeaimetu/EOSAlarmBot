@@ -214,6 +214,7 @@ module.exports.sendAlarm = function(account, msg){
     console.log("no matched account for ", account);
    }else{
      //send message
+    console.log("send message to ",account);
     bot.telegram.sendMessage(result.chatid, msg);
    }
    db.close();
