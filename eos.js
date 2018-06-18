@@ -26,6 +26,7 @@ eos.getInfo({}).then(result => {
  console.log(result);
  startIndex = result.head_block_num;
  idx = startIndex - 3;
+ setInterval(saveBlockInfo, 500);
 });
 
 function formatData(data, type){
@@ -158,4 +159,4 @@ function saveBlockInfo(){
                         
 
 
-setInterval(saveBlockInfo, 500);
+
