@@ -32,7 +32,7 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
      var myobj = { exchange : "coinmarketcap", usd : result.data.quotes.USD.price, krw : result.data.quotes.KRW.price }
      dbo.collection("price").insertOne(myobj, function(err, res) {
         if (err) throw err;
-          console.log("1 document inserted");
+          //console.log("1 document inserted");
               db.close();
         });
     }else{
@@ -40,7 +40,7 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
      var myobj = { $set : {exchange : "coinmarketcap", usd : result.data.quotes.USD.price, krw : result.data.quotes.KRW.price}  }
      dbo.collection("price").updateOne(findquery, myobj, function(err, res) {
         if (err) throw err;
-          console.log("1 document updated");
+          //console.log("1 document updated");
               db.close();
         });//end of updateone
     }//end of else
@@ -76,7 +76,7 @@ bithumb.ticker('all').then(function(result){
      var myobj = { exchange : "bithumb", krw : sellPrice, krwbuy : buyPrice }
      dbo.collection("price").insertOne(myobj, function(err, res) {
         if (err) throw err;
-          console.log("1 document inserted getPriceBithumb");
+          //console.log("1 document inserted getPriceBithumb");
               db.close();
         });
     }else{
@@ -84,7 +84,7 @@ bithumb.ticker('all').then(function(result){
      var myobj = { $set : {exchange : "bithumb", krw : sellPrice, krwbuy : buyPrice}  }
      dbo.collection("price").updateOne(findquery, myobj, function(err, res) {
         if (err) throw err;
-          console.log("1 document updated getPriceBithumb");
+          //console.log("1 document updated getPriceBithumb");
               db.close();
         });//end of updateone
     }//end of else
