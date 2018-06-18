@@ -23,7 +23,7 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
  }
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
-  var dbo = db.db("heroku_9472rtd6");
+  var dbo = db.db("heroku_dtfpf2m1");
    
    var findquery = { exchange : "coinmarketcap" };
    dbo.collection("price").findOne(findquery, function(err, res){
@@ -67,7 +67,7 @@ bithumb.ticker('all').then(function(result){
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
    if(err) throw err;
-  var dbo = db.db("heroku_9472rtd6");
+  var dbo = db.db("heroku_dtfpf2m1");
    
    var findquery = { exchange : "bithumb" };
    dbo.collection("price").findOne(findquery, function(err, res){
