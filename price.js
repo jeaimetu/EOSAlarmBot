@@ -52,10 +52,10 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
 }
 
 function getPriceBithumb(){
- console.log("calling getPriceBithumb");
+
  
 bithumb.ticker('all').then(function(result){
-  console.log(result.data.data.EOS);
+
   if(debug == true){
  console.log(result);
  console.log(result.data.data.EOS.sell_price);
