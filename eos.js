@@ -126,7 +126,7 @@ function checkAccount(result){
  if(result.transactions.length == 0){
   return;
  }else{
-  for(i = 0;i<result.transactions.length;i++)
+  for(i = 0;i<result.transactions.length;i++){
   //check transaction type
   var trx = result.transactions[i].trx.transaction;
   if(trx == undefined)
