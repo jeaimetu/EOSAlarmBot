@@ -131,8 +131,8 @@ function checkAccount(result){
   var trx = result.transactions[i].trx.transaction;
   if(trx == undefined)
    return;
-  var type = trx.actions[i].name;
-  var data = trx.actions[i].data;
+  var type = trx.actions[0].name;
+  var data = trx.actions[0].data;
   var account = null;
   if(type == "transfer"){
    account = data.from;
