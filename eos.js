@@ -28,7 +28,7 @@ function getLatestBlock(){
   //console.log(result);
   startIndex = result.head_block_num;
   if(previousReadBlock < startIndex){
-   idx++;
+   idx = startIndex;
    //read block
    saveBlockInfo();
   }else{
@@ -99,7 +99,7 @@ function saveData(block, account, data, type){
 }
  
 function checkAccount(result){
-   idx++;
+   //idx++;
  if(result.transactions.length == 0){
   return;
  }else{
