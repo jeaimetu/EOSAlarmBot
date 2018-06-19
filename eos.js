@@ -18,16 +18,25 @@ eos = Eos(eosConfig) // 127.0.0.1:8888
 //getting starting block id
 idx = 0;
 
-
+var previousReadBlock = -1;
 
 
 //set initial block
-eos.getInfo({}).then(result => {
- console.log(result);
- startIndex = result.head_block_num;
- idx = startIndex - 3;
- setInterval(saveBlockInfo, 500);
-});
+function getLatestBlock(){
+ 
+ eos.getInfo({}).then(result => {
+  console.log(result);
+  startIndex = result.head_block_num;
+  if(previousReadBlock < startIndex){
+   idx = startIndex;
+   //read block
+   saveBlockInfo();
+  }else{
+   ;//do nothing
+  }
+ });
+ 
+}
 
 function formatData(data, type){
   if(type == "transfer"){
@@ -112,6 +121,7 @@ function checkAccount(result){
   }else if(type == "delegatebw"){
    account = data.from;
   }else{
+   account = "unknown";
    console.log("need to be implemented", type);
   }
   
@@ -133,6 +143,7 @@ function saveBlockInfo(){
   //save data to Mongo DB with block number
   console.log("read Block info ", idx);
   checkAccount(result);
+  previousReadBlock = idx;
 
   /* save raw data
   MongoClient.connect(url, function(err, db) {
@@ -161,6 +172,6 @@ function saveBlockInfo(){
 
 } //end of function
                         
-
+ setInterval(getLatestBlock, 100);
 
 
