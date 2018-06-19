@@ -59,7 +59,7 @@ function makeMessage(ctx){
   var finalResult;
  
  if(ctx.session.id != "nil"){
-    finalResult = "곧 계정 이력과 주기적 정보 확인 기능이 추가 됩니다.";
+    finalResult = "eosnodeone에";
   finalResult += "\n";
  finalResult += "\n";
   finalResult += "eoscafeblock, eosyskoreabp, eosnodeone에 투표해 주세요.";
@@ -70,10 +70,10 @@ function makeMessage(ctx){
  else{
   finalResult = "아이디를 눌러서 EOS 아이디를 입력해 주세요.";
   finalResult += "\n";
-  finalResult += "다음 버전에서는 계정  변화가 생기면 자동으로 받아보실 수있습니다.";
+  finalResult += "자동 상태 알림 기능이 추가되었습니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp에 투표해 주세요.";
+  finalResult += "eoscafeblock, eosyskoreabp, eosnodeone에에 투표해 주세요.";
    finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
