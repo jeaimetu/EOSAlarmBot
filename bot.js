@@ -62,7 +62,7 @@ function makeMessage(ctx){
     finalResult = "eosnodeone에";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp, eosnodeone에 투표해 주세요.";
+  finalResult += "eoscafeblock, eosyskoreabp, eosnodeonebp에 투표해 주세요.";
    finalResult += "\n";
   finalResult += "copyright EOS.Cafe Korea";
   
@@ -73,7 +73,7 @@ function makeMessage(ctx){
   finalResult += "자동 상태 알림 기능이 추가되었습니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp, eosnodeone에에 투표해 주세요.";
+  finalResult += "eoscafeblock, eosyskoreabp, eosnodeonebp에 투표해 주세요.";
    finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
@@ -321,7 +321,7 @@ bot.action('balance',(ctx) => {
       //v4 = result.voter_info.unstaking.split(" ");
       //console.log(parseInt(v1[0],10) + parseInt(v2[0],10));
       msg = "총 잔고 : ";
-      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseInt(v3[0]) + refund;   
+      msg += parseFloat(v1[0]) + parseFloat(v2[0]) + parseFloat(v3[0]) + refund;   
       msg += " EOS\n";
       msg += "자유로운 거래 가능 양 : " + parseFloat(v3[0]);
       msg += " EOS\n";
