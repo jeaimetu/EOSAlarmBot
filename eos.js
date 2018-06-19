@@ -126,12 +126,13 @@ function checkAccount(result){
  if(result.transactions.length == 0){
   return;
  }else{
+  for(i = 0;i<result.transactions.length;i++)
   //check transaction type
-  var trx = result.transactions[0].trx.transaction;
+  var trx = result.transactions[i].trx.transaction;
   if(trx == undefined)
    return;
-  var type = trx.actions[0].name;
-  var data = trx.actions[0].data;
+  var type = trx.actions[i].name;
+  var data = trx.actions[i].data;
   var account = null;
   if(type == "transfer"){
    account = data.from;
@@ -167,7 +168,8 @@ function checkAccount(result){
    //save data to database
    saveData(result.block_num, account, data, type);
   }
- }
+ }//end of for
+ }//end of else
  
 }
 
