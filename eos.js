@@ -87,6 +87,14 @@ function formatData(data, type){
   }else if(type == "createpet"){
    msg = data.pet_name;
    msg += "펫을 만드셨습니다.";
+  }else if(type == "feedpet"){
+   msg = "펫에게 먹이를 주셨습니다.";
+  }else if(type == "refund"){
+   msg = "Refund 이벤트 발생";
+  }else if(type == "updateauth"){
+   msg = "권한정보 갱신 이벤트 발생";
+   msg += "\n";
+   msg += "공개 키 " + data.auth.keys[0].key;
   }else{
    console.log("need to be implemented");
    msg = "곧 지원 예정입니다.(현재 미지원 이벤트)";
@@ -141,8 +149,14 @@ function checkAccount(result){
    account = data.bidder;
   }else if(type == "awakepet"){
    account = trx.actions[0].authorization[0].actor;
+  }else if(type == "feedpet"){
+   account = trx.actions[0].authorization[0].actor;
   }else if(type == "createpet"){
    account = trx.actions[0].authorization[0].actor;
+  }else if(type == "refund"){
+   account = data.owner;
+  }else if(type == "updateauth"){
+   account = data.xxxxxxoooooo;
   }else{
    account = "unknown";
    console.log("need to be implemented", type);
