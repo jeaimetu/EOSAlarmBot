@@ -28,7 +28,7 @@ function getLatestBlock(){
   //console.log(result);
   startIndex = result.head_block_num;
   if(previousReadBlock < startIndex){
-   idx = startIndex;
+   idx++;
    //read block
    saveBlockInfo();
   }else{
