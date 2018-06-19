@@ -72,6 +72,21 @@ function formatData(data, type){
    msg += "점유한 네트워크 : " + data.stake_net_quantity
    msg += "\n";
    msg += "점유한 CPU : " + data.stake_cpu_quantity
+  }else if(type == "ddos"){
+   msg = "DDOS 이벤트 발생";
+   msg += "\n";
+   msg += "메모 : " + data.memo
+  }else if(type == "bidname"){
+   msg = "이름 경매 이벤트 발생";
+   msg += "\n";
+   msg += "이름 : " + data.newname   
+   msg += "\n";
+   msg += "입찰금액 : " + data.bid
+  }else if(type == "awakepet"){
+   msg = "펫을 깨우셨습니다.";
+  }else if(type == "createpet"){
+   msg = data.pet_name;
+   msg += "펫을 만드셨습니다.";
   }else{
    console.log("need to be implemented");
    msg = "곧 지원 예정입니다.(현재 미지원 이벤트)";
@@ -120,6 +135,14 @@ function checkAccount(result){
    account = data.from;
   }else if(type == "delegatebw"){
    account = data.from;
+  }else if(type == "ddos"){
+   account = trx.actions[0].account;
+  }else if(type == "bidname"){
+   account = data.bidder;
+  }else if(type == "awakepet"){
+   account = trx.actions[0].authorization[0].actor;
+  }else if(type == "createpet"){
+   account = trx.actions[0].authorization[0].actor;
   }else{
    account = "unknown";
    console.log("need to be implemented", type);
