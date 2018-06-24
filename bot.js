@@ -207,7 +207,7 @@ function stepCheck(ctx){
      var msg = "token balance is " + result;
      ctx.telegram.sendMessage(ctx.from.id, msg)
     });
-    };
+    });
      
   }
 }
