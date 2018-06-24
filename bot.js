@@ -563,7 +563,7 @@ bot.hears('ymca', (ctx) => {
 
 bot.hears('test', (ctx) => {    
  console.log("calling test", ctx.session.id);
-    eos.getCurrencyBalance(ctx.session.id, ctx.session.id, 'TOK', function(err, data){
+    eos.getCurrencyBalance(ctx.session.id, ctx.session.id, 'ADD', function(err, data){
      console.log(err);
      console.log(data);
      msg = "token balance is " + data;
