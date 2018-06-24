@@ -561,7 +561,7 @@ bot.hears('ymca', (ctx) => {
     ctx.session.date = new Date();
     ctx.reply("*sing* It's fun to stay at the Y.M.C.A.!")});
 
-bot.hears('test', (ctx) => {    
+bot.command('test', (ctx) => {    
  console.log("calling test", ctx.session.id);
     eos.getCurrencyBalance(ctx.session.id, ctx.session.id, 'ADD').then(result => {
      console.log(result);
