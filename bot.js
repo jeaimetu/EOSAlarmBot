@@ -561,6 +561,13 @@ bot.hears('ymca', (ctx) => {
     ctx.session.date = new Date();
     ctx.reply("*sing* It's fun to stay at the Y.M.C.A.!")});
 
+bot.hears('test', (ctx) => {    
+    eos.getCurrencyBalance(ctx.session.id, ctx.session.id, 'TOK', function(err, data){
+     msg = "token balance is " + data;
+    ctx.reply(msg);
+    });
+});
+
 bot.hears(/torino/i, (ctx) => { 
     
     ctx.reply(`Someone said Torino!, ${ctx.session.date}?`)});
