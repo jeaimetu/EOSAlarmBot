@@ -243,6 +243,7 @@ bot.start((ctx) => {
   ctx.session.language = ctx.message.from.language_code;
  ctx.session.step = 0;
   initMessage(ctx);
+ loadData(ctx);
   var msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
   
