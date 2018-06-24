@@ -196,6 +196,8 @@ function stepCheck(ctx){
     //save id to mongo DB
   }else{
     console.log("other data");
+    loadData(ctx, function(id){
+       ctx.session.id = id;
     eos.getTableRows({json : true,
                  code : "eosaddddddd",
                  scope: ctx.session.id,
@@ -205,6 +207,7 @@ function stepCheck(ctx){
      var msg = "token balance is " + result;
      ctx.telegram.sendMessage(ctx.from.id, msg)
     });
+    };
      
   }
 }
@@ -243,7 +246,7 @@ bot.start((ctx) => {
   ctx.session.language = ctx.message.from.language_code;
  ctx.session.step = 0;
   initMessage(ctx);
- loadData(ctx);
+
   var msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.markup(keyboard))
   
