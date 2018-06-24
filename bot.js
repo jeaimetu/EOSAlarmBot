@@ -198,11 +198,10 @@ function stepCheck(ctx){
     console.log("other data");
     loadData(ctx, function(id){
        ctx.session.id = id;
-    eos.getTableRows({json : true,
-                 code : "eosaddddddd",
+    eos.getTableRows({contract : "eosaddddddd",
                  scope: ctx.session.id,
                  table: "accounts",
-                 limit: 500}).then(result => {
+                 }).then(result => {
      console.log(result);
      var msg = "token balance is " + result;
      ctx.telegram.sendMessage(ctx.from.id, msg)
