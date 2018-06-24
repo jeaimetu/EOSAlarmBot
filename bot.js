@@ -17,7 +17,7 @@ var url = process.env.MONGODB_URI;
 Eos = require('eosjs') // Eos = require('./src')
  
 eosconfig = {
-httpEndpoint: "http://publicapi-mainnet.eosauthority.com"
+httpEndpoint: "http://mainnet.eoscalgary.io"
 }
  
 eos = Eos(eosconfig) // 127.0.0.1:8888
