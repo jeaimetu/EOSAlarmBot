@@ -196,7 +196,7 @@ function stepCheck(ctx){
     //save id to mongo DB
   }else{
     console.log("other data");
-    eos.getCurrencyBalance(ctx.session.id, ctx.session.id, 'ADD').then(result => {
+    eos.getCurrencyBalance("eosio.token", ctx.session.id, 'ADD').then(result => {
      console.log(result);
      var msg = "token balance is " + result;
      ctx.telegram.sendMessage(ctx.from.id, msg)
