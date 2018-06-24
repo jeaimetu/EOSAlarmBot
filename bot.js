@@ -205,7 +205,10 @@ function stepCheck(ctx){
      console.log(result);
      var msg = "token balance is " + result;
      ctx.telegram.sendMessage(ctx.from.id, msg)
-    });
+    }).catch(err){
+     var msg = "토큰 잔고 조회 실패;
+     ctx.telegram.sendMessage(ctx.from.id, msg)
+    }
     });
      
   }
