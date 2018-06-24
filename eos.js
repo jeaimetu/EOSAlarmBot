@@ -10,7 +10,7 @@ var url = process.env.MONGODB_URI;
 
  
 eosConfig = {
-httpEndpoint: "http://publicapi-mainnet.eosauthority.com"
+httpEndpoint: "http://mainnet.eoscalgary.io"
 }
  
 eos = Eos(eosConfig) // 127.0.0.1:8888
