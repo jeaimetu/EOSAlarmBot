@@ -563,10 +563,9 @@ bot.hears('ymca', (ctx) => {
 
 bot.hears('test', (ctx) => {    
  console.log("calling test", ctx.session.id);
-    eos.getCurrencyBalance(ctx.session.id, ctx.session.id, 'ADD', function(err, data){
-     console.log(err);
-     console.log(data);
-     msg = "token balance is " + data;
+    eos.getCurrencyBalance(ctx.session.id, ctx.session.id, 'ADD').then(result => {
+     console.log(result);
+     var msg = "token balance is " + result;
     ctx.reply(msg);
     });
 });
