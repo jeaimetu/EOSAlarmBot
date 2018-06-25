@@ -153,7 +153,7 @@ async function getDacBalance(account){
 }
 
 async function getTokenBalance(account, cb){
- let [addBalance, dacBalance] = await Promise.all([getAddBalance(), getDacBalance()]);
+ let [addBalance, dacBalance] = await Promise.all([getAddBalance(account), getDacBalance(account)]);
 console.log(addBalance(account), dacBalance(account));
  msg = "토큰 잔고";
  msg += "\n";
