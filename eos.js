@@ -125,7 +125,7 @@ function saveData(block, account, data, type){
  
 function checkAccount(result){
    //idx++;
- var accountTo == null;
+ var accountTo = null;
  if(result.transactions.length == 0){
   return;
  }else{
