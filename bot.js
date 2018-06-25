@@ -62,7 +62,7 @@ function makeMessage(ctx){
  if(ctx.session.id != "nil"){
  finalResult += "\n";
   finalResult += "eoscafeblock, eosyskoreabp, eosnodeonebp, eoseouldotio에 투표해 주세요.";
-   finalResult += "\n\";
+   finalResult += "\n\n";
   finalResult += "copyright EOS.Cafe Korea";
   
  }
