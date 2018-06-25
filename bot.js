@@ -302,9 +302,10 @@ bot.on('message', (ctx) => {
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
 
 bot.action('token',(ctx) => {
- ctx.reply("토큰 잔고를 조회하고 있습니다....");
+ ctx.reply("토큰 잔고를 조회하고 있습니다....);
  loadData(ctx, function(id){
   ctx.session.id = id;
+  console.log("Token balance", ctx.session.id);
   getTokenBalance(ctx.session.id,(result)=>{
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
    });
