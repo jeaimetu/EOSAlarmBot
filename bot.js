@@ -141,7 +141,10 @@ async function getAddBalance(account){
                  table: "accounts",
                  }).catch((err) => {
   return null});
+ if(bal != undefined)
  return bal.rows[0].balance;
+ else
+  return null;
 }
 
 async function getDacBalance(account){
@@ -151,7 +154,10 @@ async function getDacBalance(account){
                  table: "accounts",
                  }).catch((err) => {
   return null});;
+  if(bal != undefined)
  return bal.rows[0].balance;
+ else
+  return null;
 }
 
 async function getTokenBalance(account, cb){
