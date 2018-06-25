@@ -158,9 +158,23 @@ async function getDacBalance(account){
   return null;
 }
 
+async function getCetosBalance(account){
+ let bal = await eos.getTableRows({json : true,
+                      code : "gyztomjugage",
+                 scope: account,
+                 table: "accounts",
+                 }).catch((err) => {
+  return null});;
+  if(bal.rows.length != 0)
+ return bal.rows[0].balance;
+ else
+  return null;
+}
+
+
 async function getTokenBalance(account, cb){
- let [addBalance, dacBalance] = await Promise.all([getAddBalance(account), getDacBalance(account)]);
-console.log(addBalance, dacBalance);
+ let [addBalance, dacBalance, cetosBalance] = await Promise.all([getAddBalance(account), getDacBalance(account), getCetosBalance(account)]);
+console.log(addBalance, dacBalance, cetosBalance);
  msg = "토큰 잔고";
  msg += "\n";
  if(addBalance != null)
@@ -172,6 +186,10 @@ console.log(addBalance, dacBalance);
  msg += dacBalance;
 else
   msg += " 0 EOSDAC";
+  if(cetosBalance != null)
+ msg += dacBalance;
+else
+  msg += " 0 CETOS";
  cb(msg);
 }
 
