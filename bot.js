@@ -141,7 +141,7 @@ async function getAddBalance(account){
                  table: "accounts",
                  }).catch((err) => {
   return null});
- if(bal.rows[0].length != 0)
+ if(bal.rows.length != 0)
  return bal.rows[0].balance;
  else
   return null;
@@ -154,7 +154,7 @@ async function getDacBalance(account){
                  table: "accounts",
                  }).catch((err) => {
   return null});;
-  if(bal.rows[0].length != 0)
+  if(bal.rows.length != 0)
  return bal.rows[0].balance;
  else
   return null;
