@@ -139,7 +139,8 @@ async function getAddBalance(account){
                       code : "eosadddddddd",
                  scope: account,
                  table: "accounts",
-                 });
+                 }).catch((err) => {
+  return null});
  return bal.rows[0].balance;
 }
 
@@ -148,7 +149,8 @@ async function getDacBalance(account){
                       code : "eosdactokens",
                  scope: account,
                  table: "accounts",
-                 });
+                 }).catch((err) => {
+  return null});;
  return bal.rows[0].balance;
 }
 
