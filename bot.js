@@ -60,21 +60,19 @@ function makeMessage(ctx){
   var finalResult;
  
  if(ctx.session.id != "nil"){
-    finalResult = "eosnodeone에";
-  finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp, eosnodeonebp에 투표해 주세요.";
-   finalResult += "\n";
+  finalResult += "eoscafeblock, eosyskoreabp, eosnodeonebp, eoseouldotio에 투표해 주세요.";
+   finalResult += "\n\";
   finalResult += "copyright EOS.Cafe Korea";
   
  }
  else{
   finalResult = "아이디를 눌러서 EOS 아이디를 입력해 주세요.";
   finalResult += "\n";
-  finalResult += "자동 상태 알림 기능이 추가되었습니다.";
+  finalResult += "자동 상태 알림 기능이 추가되었습니다. EOSDAC, ADD 토큰 잔고 조회를 지원합니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp, eosnodeonebp에 투표해 주세요.";
+  finalResult += "eoscafeblock, eosyskoreabp, eosnodeonebp, eoseouldotio에에 투표해 주세요.";
    finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
