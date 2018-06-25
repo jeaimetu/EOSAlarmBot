@@ -44,6 +44,8 @@ function formatData(data, type){
    msg += "\n";
    msg += "받는 계정 : " + data.to;
    msg += "\n";
+   msg += "보낸 계정 : " + data.from;
+   msg += "\n";
    msg += "송금 수량 : " + data.quantity;
    msg += "\n";
    msg += "송금 메모 : " + data.memo
@@ -123,6 +125,7 @@ function saveData(block, account, data, type){
  
 function checkAccount(result){
    //idx++;
+ var accountTo == null;
  if(result.transactions.length == 0){
   return;
  }else{
@@ -136,6 +139,7 @@ function checkAccount(result){
   var account = null;
   if(type == "transfer"){
    account = data.from;
+   accountTo = data.to;
   }else if(type == "newaccount"){
    account = data.creator;
   }else if(type == "voteproducer"){
@@ -166,7 +170,11 @@ function checkAccount(result){
   //save data to proper account or new table?
   if(account != null){
    //save data to database
-   saveData(result.block_num, account, data, type);
+   saveData(result.block_num, account, data, type);   
+  }
+      //this is only for transfer case currently
+  if(accountTo != null){
+   saveData(result.block_num, accountTo, data, type);
   }
  }//end of for
  }//end of else
