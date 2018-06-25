@@ -203,6 +203,10 @@ function stepCheck(ctx){
                  table: "accounts",
                  }).then(result => {
      console.log(result);
+     console.log(result[0]);
+     console.log(result[0].rows);
+     console.log(result.rows);
+     console.log(result.rows[0]);
      var msg = "token balance is " + result.rows[0].balance;
      ctx.telegram.sendMessage(ctx.from.id, msg)
     }).catch((err)=>{
