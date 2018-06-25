@@ -186,8 +186,9 @@ console.log(addBalance, dacBalance, cetosBalance);
  msg += dacBalance;
 else
   msg += " 0 EOSDAC";
+  msg += "\n";
   if(cetosBalance != null)
- msg += dacBalance;
+ msg += cetosBalance;
 else
   msg += " 0 CETOS";
  cb(msg);
