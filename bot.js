@@ -72,7 +72,7 @@ function makeMessage(ctx){
   finalResult += "자동 상태 알림 기능이 추가되었습니다. EOSDAC, ADD 토큰 잔고 조회를 지원합니다.";
   finalResult += "\n";
  finalResult += "\n";
-  finalResult += "eoscafeblock, eosyskoreabp, eosnodeonebp, eoseouldotio에에 투표해 주세요.";
+  finalResult += "eoscafeblock, eosyskoreabp, eosnodeonebp, eoseouldotio에 투표해 주세요.";
    finalResult += "\n\n";
     finalResult += "copyright EOS.Cafe Korea";
  }
