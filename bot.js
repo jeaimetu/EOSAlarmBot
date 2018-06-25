@@ -165,9 +165,15 @@ async function getTokenBalance(account, cb){
 console.log(addBalance, dacBalance);
  msg = "토큰 잔고";
  msg += "\n";
+ if(addBalance != null)
  msg += addBalance;
+ else
+  msg += " 0 ADD";
  msg += "\n";
+ if(dacBalance != null)
  msg += dacBalance;
+else
+  msg += " 0 EOSDAC";
  cb(msg);
 }
 
