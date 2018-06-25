@@ -203,7 +203,7 @@ function stepCheck(ctx){
                  table: "accounts",
                  }).then(result => {
      console.log(result);
-     var msg = "token balance is " + result;
+     var msg = "token balance is " + result.rows[0].balance;
      ctx.telegram.sendMessage(ctx.from.id, msg)
     }).catch((err)=>{
      var msg = "토큰 잔고 조회 실패";
