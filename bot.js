@@ -26,7 +26,8 @@ eos = Eos(eosconfig) // 127.0.0.1:8888
 const keyboard = Markup.inlineKeyboard([
   Markup.callbackButton('아이디', 'id'),
   Markup.callbackButton('EOS가격', 'price'),
-  Markup.callbackButton('EOS보유량', 'balance')
+  Markup.callbackButton('EOS보유량', 'balance'),
+  Markup.callbackButton('토큰잔고', 'token')
   //Markup.callbackButton('History','history')
   //Markup.callbackButton('Confirm','confirm')
 ], {column: 3})
@@ -133,6 +134,37 @@ function setEosBalance(ctx){
 
 }
 
+async function getAddBalance(account){
+ let bal = await eos.getTableRows({json : true,
+                      code : "eosadddddddd",
+                 scope: account,
+                 table: "accounts",
+                 });
+ return bal.rows[0].balance;
+}
+
+async function getDacBalance(account){
+ let bal = await eos.getTableRows({json : true,
+                      code : "eosdactokens",
+                 scope: account,
+                 table: "accounts",
+                 });
+ return bal.rows[0].balance;
+}
+
+async function getTokenBalance(account, cb){
+ let [addBalance, dacBalance] = await Promise.all([getAddBalance(), getDacBalance()]);
+console.log(addBalance(account), dacBalance(account));
+ msg = "토큰 잔고";
+ msg += "\n";
+ msg += addBalance;
+ msg += "\n";
+ msg += dacBalance;
+ cb(msg);
+}
+
+
+
 function loadData(ctx, cb){
  MongoClient.connect(url, function(err, db) {
  var dbo = db.db("heroku_dtfpf2m1");
@@ -195,26 +227,7 @@ function stepCheck(ctx){
     ctx.telegram.sendMessage(ctx.from.id, msg)
     //save id to mongo DB
   }else{
-    console.log("other data");
-    loadData(ctx, function(id){
-       ctx.session.id = id;
-    eos.getTableRows({code : "eosadddddddd",
-                 scope: ctx.session.id,
-                 table: "accounts",
-                 }).then(result => {
-     console.log(result);
-     console.log(result[0]);
-     console.log(result[0].rows);
-     console.log(result.rows);
-     console.log(result.rows[0]);
-     var msg = "token balance is " + result.rows[0].balance;
-     ctx.telegram.sendMessage(ctx.from.id, msg)
-    }).catch((err)=>{
-     var msg = "토큰 잔고 조회 실패";
-     ctx.telegram.sendMessage(ctx.from.id, msg)
-    });
-    });
-     
+    console.log("other data");     
   }
 }
 
@@ -273,6 +286,16 @@ bot.on('message', (ctx) => {
 
 
 bot.action('delete', ({ deleteMessage }) => deleteMessage())
+
+bot.action('token',(ctx) => {
+ ctx.reply("토큰 잔고를 조회하고 있습니다....");
+ loadData(ctx, function(id){
+  ctx.session.id = id;
+  getTokenBalance(ctx.session.id,(result)=>{
+  ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
+   });
+ });
+});
 
 bot.action('id',(ctx) => {
   ctx.reply("EOS 아이디를 넣어주세요. http://eosflare.io 에서 EOS 퍼블릭키로 조회하실수 있습니다.");
