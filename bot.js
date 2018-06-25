@@ -198,7 +198,7 @@ function stepCheck(ctx){
     console.log("other data");
     loadData(ctx, function(id){
        ctx.session.id = id;
-    eos.getTableRows({code : "eosaddddddd",
+    eos.getTableRows({code : "eosadddddddd",
                  scope: ctx.session.id,
                  table: "accounts",
                  }).then(result => {
