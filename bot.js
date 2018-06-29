@@ -204,9 +204,9 @@ if(cetosBalance != null)
  msg += cetosBalance;
 else
   msg += " 0 CETOS";
- 
+  msg += "\n"; 
  if(cetBalance != null)
- msg += cetosBalance;
+ msg += cetBalance;
 else
   msg += " 0 CET";
  cb(msg);
