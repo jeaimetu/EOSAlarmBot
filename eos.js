@@ -174,7 +174,7 @@ function checkAccount(result){
   }
       //this is only for transfer case currently
   if(accountTo != null){
-   saveData(result.block_num, accountTo, data, type);
+   ;//saveData(result.block_num, accountTo, data, type);
   }
  }//end of for
  }//end of else
