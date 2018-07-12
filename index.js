@@ -1,5 +1,5 @@
 require('./bot');
-require('./eos');
+//require('./eos');
 require('./price');
 
 var http = require('http'); 
