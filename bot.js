@@ -42,7 +42,7 @@ function makeMessage(ctx){
   return `${ctx.session.id == 'nil' 
                ? 'Current account: ' + ctx.session.id 
                : 'Click Add Account button to get started.'}
-<b>Please vote for eoscafeblock</b>, eosyskoreabp, eosnodeonebp, and acroeos12345.
+<b>Please vote for eoscafeblock</b>, eosyskoreabp, <b>eosnodeonebp</b>, and acroeos12345.
 © EOS Cafe Korea`
 }
 
