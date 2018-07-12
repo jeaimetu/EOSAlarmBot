@@ -1,29 +1,21 @@
-Eos = require('eosjs') // Eos = require('./src')
+const Eos = require('eosjs') // Eos = require('./src')
+const mongo = require('mongodb');
+const MongoClient = require('mongodb').MongoClient;
+const botClient = require('./bot.js');
+const url = process.env.MONGODB_URI;
 
-var mongo = require('mongodb');
-
-var botClient = require('./bot.js');
-
-
-var MongoClient = require('mongodb').MongoClient;
-var url = process.env.MONGODB_URI;
-
- 
+// EOS
 eosConfig = {
-httpEndpoint: "http://mainnet.eoscalgary.io"
+ httpEndpoint: "https://mainnet.eoscalgary.io"
 }
- 
 eos = Eos(eosConfig) // 127.0.0.1:8888
 
-//getting starting block id
+// Getting starting block id
 idx = 0;
-
 var previousReadBlock = -1;
-
 
 //set initial block
 function getLatestBlock(){
- 
  eos.getInfo({}).then(result => {
   //console.log(result);
   startIndex = result.head_block_num;
@@ -35,26 +27,25 @@ function getLatestBlock(){
    ;//do nothing
   }
  });
- 
 }
 
 function formatData(data, type){
   if(type == "transfer"){
-   msg = "송금 이벤트 발생";
+   msg = "송금 이벤트";
    msg += "\n";
-   msg += "받는 계정 : " + data.to;
+   msg += "받는계정 : " + data.to;
    msg += "\n";
-   msg += "보낸 계정 : " + data.from;
+   msg += "보낸계정 : " + data.from;
    msg += "\n";
    msg += "송금 수량 : " + data.quantity;
    msg += "\n";
-   msg += "송금 메모 : " + data.memo
+   msg += "메모 : " + data.memo
   }else if(type == "newaccount"){
-   msg = "신규 계정 생성 이벤트 발생";
+   msg = "신규 계정 생성 이벤트";
    msg += "\n";
    msg += "생성한 계정 : " + data.name;
   }else if(type == "voteproducer"){
-   msg = "투표 이벤트 발생";
+   msg = "투표 이벤트";
    msg += "\n";
    msg += "투표한 곳"
    msg += "\n";
@@ -62,44 +53,50 @@ function formatData(data, type){
     msg += data.producers[i] + ", ";
    }
   }else if(type == "undelegatebw"){
-   msg = "EOS 점유 해제 이벤트 발생";
+   msg = "EOS 언스테이크 이벤트";
    msg += "\n";
-   msg += "점유해제한 네트워크 : " + data.unstake_net_quantity
+   msg += "네트웍에서 언스테이크 : " + data.unstake_net_quantity
    msg += "\n";
-   msg += "점유해제한 CPU : " + data.unstake_cpu_quantity
+   msg += "CPU에서 언스테이크 : " + data.unstake_cpu_quantity
    
   }else if(type == "delegatebw"){
-   msg = "EOS 점유 이벤트 발생";
+   msg = "EOS 스테이킹 이벤트";
    msg += "\n";
-   msg += "점유한 네트워크 : " + data.stake_net_quantity
+   msg += "네트웍에 스테이크 : " + data.stake_net_quantity
    msg += "\n";
-   msg += "점유한 CPU : " + data.stake_cpu_quantity
+   msg += "CPU에 스테이크 : " + data.stake_cpu_quantity
   }else if(type == "ddos"){
-   msg = "DDOS 이벤트 발생";
+   msg = "DDOS 이벤트";
    msg += "\n";
-   msg += "메모 : " + data.memo
+   msg += "Memo : " + data.memo
   }else if(type == "bidname"){
-   msg = "이름 경매 이벤트 발생";
+   msg = "계정 경매 이벤트";
    msg += "\n";
-   msg += "이름 : " + data.newname   
+   msg += "계정 : " + data.newname   
    msg += "\n";
-   msg += "입찰금액 : " + data.bid
+   msg += "경매 계정 : " + data.bid
   }else if(type == "awakepet"){
-   msg = "펫을 깨우셨습니다.";
+   msg = "펫을 깨웠습니다.";
   }else if(type == "createpet"){
-   msg = data.pet_name;
-   msg += "펫을 만드셨습니다.";
-  }else if(type == "feedpet"){
-   msg = "펫에게 먹이를 주셨습니다.";
+   msg = "펫을 만들었습니다. ";
+   msg += data.pet_name;   
   }else if(type == "refund"){
-   msg = "Refund 이벤트 발생";
+   msg = "리펀드 이벤트";
   }else if(type == "updateauth"){
-   msg = "권한정보 갱신 이벤트 발생";
+   msg = "당신의 계정 권한이 변경되었습니다.";
    msg += "\n";
    msg += "공개 키 " + data.auth.keys[0].key;
+  }else if(type == "sellram"){
+   msg = "램을 팔았습니다.";
+   msg += "\n";
+   msg += "판매 양 " + data.bytes;
+  }else if(type == "buyram"){
+   msg = "램을 샀습니다.";
+   msg += "\n";
+   msg += "구매 량 " + data.quant + " 램 소유자 " + data.receiver;
   }else{
-   console.log("need to be implemented");
-   msg = "곧 지원 예정입니다.(현재 미지원 이벤트)";
+   //console.log("need to be implemented");
+   msg = "이 이벤트는 곧 지원 에정입니다.)";
    msg += type;
    msg += "\n";
    msg += data;
@@ -108,10 +105,12 @@ function formatData(data, type){
  return msg;
  
 }
-
 function saveData(block, account, data, type){
+  var fData = formatData(data, type);
+  botClient.sendAlarm(account, fData);
+ /* Temporary disable saving data to MongoDB due to the size limit
   MongoClient.connect(url, function(err, db) {
-   var dbo = db.db("heroku_dtfpf2m1");
+   var dbo = db.db("heroku_9472rtd6");
    var fData = formatData(data, type);
    botClient.sendAlarm(account, fData);
    var myobj = { block : block, account : account, data : fData, report : false };
@@ -121,11 +120,11 @@ function saveData(block, account, data, type){
     db.close();   
    });
   }); 
+  */
 }
  
 function checkAccount(result){
    //idx++;
- var accountTo = null;
  if(result.transactions.length == 0){
   return;
  }else{
@@ -133,15 +132,23 @@ function checkAccount(result){
   //check transaction type
   var trx = result.transactions[i].trx.transaction;
   if(trx == undefined)
-   return;
-  var type = trx.actions[0].name;
-  var data = trx.actions[0].data;
+   continue;
+   for(j=0;j<trx.actions.length;j++){
+    if(trx.actions[j] ==  undefined)
+     continue;
+    
+  var type = trx.actions[j].name;
+  var data = trx.actions[j].data;
+    var accountTo = null;
+  
   var account = null;
   if(type == "transfer"){
    account = data.from;
    accountTo = data.to;
   }else if(type == "newaccount"){
    account = data.creator;
+  }else if(type == "issue"){
+   account = data.to;
   }else if(type == "voteproducer"){
    account = data.voter;  
   }else if(type == "undelegatebw"){
@@ -160,35 +167,41 @@ function checkAccount(result){
    account = trx.actions[0].authorization[0].actor;
   }else if(type == "refund"){
    account = data.owner;
+  }else if(type == "buyram"){
+   account = data.payer;
+  }else if(type == "sellram"){
+   account = data.account;
   }else if(type == "updateauth"){
-   account = data.xxxxxxoooooo;
+   account = data.account;
   }else{
    account = "unknown";
-   console.log("need to be implemented", type);
+   //console.log("need to be implemented", type);
   }
   
   //save data to proper account or new table?
   if(account != null){
-   //save data to database
-   saveData(result.block_num, account, data, type);   
+   //save data to database and sending notification message to telegram client
+   saveData(result.block_num, account, data, type);
   }
-      //this is only for transfer case currently
   if(accountTo != null){
-   ;//saveData(result.block_num, accountTo, data, type);
+   saveData(result.block_num, accountTo, data, type);
   }
- }//end of for
+   }//end of for, actions
+ }//end of for of transaction
  }//end of else
  
 }
 
+var retryCount = 0;
  
 function saveBlockInfo(){
  //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
+  retryCount = 0;
   //console.log(result);
   //console.log(result.transactions[0].trx.transaction.actions[0]);
   //save data to Mongo DB with block number
-  console.log("read Block info ", idx);
+  //console.log("read Block info ", idx);
   checkAccount(result);
   previousReadBlock = idx;
 
@@ -213,12 +226,15 @@ function saveBlockInfo(){
   */
   })
  .catch((err) => {
-  idx++;
+  idx;
+  retryCount++;
+  if(retryCount == 10){
+   retryCount = 0;
+   idx++;
+  }
   console.log(err);
  }); // end of getblock
 
 } //end of function
                         
  setInterval(getLatestBlock, 100);
-
-
