@@ -28,7 +28,7 @@ const keyboard = Markup.inlineKeyboard([
  [ Markup.callbackButton('📈 EOS 거래소 시세', 'price'),
    Markup.callbackButton('🔮 토큰 잔고','token'),
    Markup.callbackButton('💾 램 시세','ram'),
-   Markup.callbackButton('🔧 Settings', 'setting') ]
+   Markup.callbackButton('🔧 ', 'setting') ]
 ])
 
 // Reset
