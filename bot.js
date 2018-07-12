@@ -28,7 +28,7 @@ const keyboard = Markup.inlineKeyboard([
  [ Markup.callbackButton('📈 EOS 거래소 시세', 'price'),
    Markup.callbackButton('🔮 토큰 잔고','token'),
    Markup.callbackButton('💾 램 시세','ram'),
-   Markup.callbackButton('🔧 ', 'setting') ]
+   Markup.callbackButton('🔧 설정', 'setting') ]
 ])
 
 // Reset
@@ -114,7 +114,8 @@ async function getCetosBalance(account){
 
 
 async function getTokenBalance(account, cb){
- let [addBalance, dacBalance, cetosBalance,cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance, atdBalance] = 
+ let [addBalance, dacBalance, cetosBalance,cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance, atdBalance,
+      octBalance, iqBalance, pglBalance, poorBalance] = 
      await Promise.all([getAddBalance(account), 
                         getDacBalance(account), 
                         getCetosBalance(account),
@@ -124,12 +125,26 @@ async function getTokenBalance(account, cb){
                         getTokenBalanceEach(account, "eoxeoxeoxeox"),
                         getTokenBalanceEach(account, "eosvrtokenss"),
                         getTokenBalanceEach(account, "esbcointoken"),
-                        getTokenBalanceEach(account, "eosatidiumio")]);
+                        getTokenBalanceEach(account, "eosatidiumio"),
+                        getTokenBalanceEach(account, "octtothemoon"),
+                        getTokenBalanceEach(account, "everipediaiq"),
+                        getTokenBalanceEach(account, "prospectorsg"),
+                        getTokenBalanceEach(account, "poormantoken")
+                       ]);
 console.log(addBalance, dacBalance, cetosBalance);
- msg = "현재  : " + account;
+ msg = "현재 계정 : " + account;
  msg += "\n";
  msg += "<b>Token Balance</b>"; 
  msg += "\n";
+ 
+ 
+   if(iqBalance != null){
+  t = iqBalance.split(" ");
+  msg += t[1] + " : " + t[0];}
+ else
+  msg += "IQ : 0";
+ msg += "\n";
+ 
  if(addBalance != null){
   t = addBalance.split(" ");
  msg += t[1] + " : " + t[0];}
@@ -137,9 +152,23 @@ console.log(addBalance, dacBalance, cetosBalance);
   msg += "ADD : 0";
  msg += "\n";
  
+   if(atdBalance != null){
+    t = atdBalance.split(" ");
+   msg += t[1] + " : " + t[0];}
+ else
+  msg += "ATD : 0";
+   msg += "\n"; 
+ 
+  if(cetBalance != null){
+    t = cetBalance.split(" ");
+   msg += t[1] + " : " + t[0];}
+  else
+   msg += "CET : 0";
+   msg += "\n"; 
+ 
 
  
- if(eoxBalance != null){
+if(eoxBalance != null){
   t = eoxBalance.split(" ");
   msg += t[1] + " : " + t[0];}
  else
@@ -161,20 +190,24 @@ console.log(addBalance, dacBalance, cetosBalance);
  msg += "\n";
  
 
- if(cetBalance != null){
 
-    t = cetBalance.split(" ");
- msg += t[1] + " : " + t[0];}
-else
-  msg += "CET : 0";
-   msg += "\n"; 
+
  
-  if(atdBalance != null){
-    t = atdBalance.split(" ");
-   msg += t[1] + " : " + t[0];}
+   if(octBalance != null){
+  t = octBalanceOCT.split(" ");
+  msg += t[1] + " : " + t[0];}
  else
-  msg += "ATD : 0";
-   msg += "\n"; 
+  msg += "OCT : 0";
+ msg += "\n";
+ 
+   if(pglBalance != null){
+  t = pglBalance.split(" ");
+  msg += t[1] + " : " + t[0];}
+ else
+  msg += "PGL : 0";
+ msg += "\n";
+ 
+ 
  
    if(ednaBalance != null){
    t = ednaBalance.split(" ");
@@ -183,23 +216,29 @@ else
   msg += "EDNA : 0";
  msg += "\n";
  
-   if(horusBalance != null){
-
-    t = horusBalance.split(" ");
+    if(poorBalance != null){
+   t = poorBalance.split(" ");
  msg += t[1] + " : " + t[0];}
  else
-  msg += "HORUS : 0";
+  msg += "POOR : 0";
  msg += "\n";
  
-
-if(cetosBalance != null){
-
+ if(cetosBalance != null){
     t = cetosBalance.split(" ");
  msg += t[1] + " : " + t[0];}
 else
-  msg += "CETOS : 0";
- 
+  msg += "CETOS : 0"; 
     msg += "\n";
+ 
+   if(horusBalance != null){
+    t = horusBalance.split(" ");
+    msg += t[1] + " : " + t[0];}
+   else
+    msg += "HORUS : 0";
+   msg += "\n";
+ 
+
+
  
  if(dacBalance != null){
     t = dacBalance.split(" ");
@@ -222,7 +261,7 @@ function loadData(ctx, cb){
    var findqueryInTheLoop = {chatid : ctx.chat.id};
    dbo.collection("customers").findOne(findqueryInTheLoop, function(err, result){
     if(result == null){
-   var msg = "Please set your primary account in setting menu";
+   var msg = "설정 메뉴에서 주계정을 설정해 주세요.";
    ctx.telegram.sendMessage(ctx.from.id, msg)
    cb(-1);
     }else{
@@ -306,7 +345,7 @@ function setPrimary(ctx, account){
     dbo.collection("customers").updateOne(findquery, pValue, function(err, result){
      console.log("Primary flag update completed", ctx.session.id);
      msg = account;
-     msg += "<b>is primary account now setted</b>";
+     msg += "<b>이 주계정으로 설정되었습니다.</b>";
      ctx.session.id = account;
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
      db.close();  
@@ -486,7 +525,7 @@ function balance(ctx){
       msg += "NET에 잠김 : "
       msg += result.self_delegated_bandwidth.net_weight;
       msg += "\n";
-      msg += "Refund : ";
+      msg += " : ";
       msg += refund + " EOS";
       msg += "\n";
       msg += "\n";
@@ -556,7 +595,7 @@ function listAccounts(ctx){
       
    });
      const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});     
-    var msg = "Your registered accounts";
+    var msg = "등록한 계정은...";
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboardId));
       msg = makeMessage(ctx);
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
@@ -592,7 +631,7 @@ function accountAction(ctx){
       
    });
      const keyboardId = Markup.inlineKeyboard(idListString, {column: 3});     
-    var msg = "Select your account";
+    var msg = "계정을 선택해 주세요.";
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboardId));
     
      //ctx.session.step = 2;
