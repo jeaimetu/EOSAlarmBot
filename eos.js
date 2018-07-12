@@ -11,29 +11,25 @@ eosConfig = {
 eos = Eos(eosConfig) // 127.0.0.1:8888
 
 // Getting starting block id
-var idx = 0;
+//var idx = 0;
 var previousReadBlock = -1;
 
 //set initial block
 function getLatestBlock(){
  eos.getInfo({}).then(result => {
   startIndex = result.head_block_num;
-  if(idx == 0){
-   idx = startIndex;
-  }else{
-   ;//do nothing, using previous value
-  }
+
   if(chainLogging == true)
-   console.log("getinfo block", previousReadBlock, idx);
-  if(previousReadBlock < idx && idx <= startIndex){
+   console.log("getinfo block", previousReadBlock);
+  if(previousReadBlock <  startIndex){
    //idx = startIndex;
    //read block
    if(chainLogging == true)
-    console.log("callong saveBlockInfo for block number", idx);
-   saveBlockInfo();
+    console.log("callong saveBlockInfo for block number");
+   saveBlockInfo(startIndex);
   }else{
    if(chainLogging == true)
-    console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex, idx) ;//do nothing
+    console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex) ;//do nothing
   }
  });
 }
@@ -202,9 +198,8 @@ function checkAccount(result){
  
 }
 
-var retryCount = 0;
  
-function saveBlockInfo(){
+function saveBlockInfo(idx){
  //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
   retryCount = 0;
@@ -214,18 +209,19 @@ function saveBlockInfo(){
   //saving the latest success block number.
   previousReadBlock = idx;
   idx++;
+  setTimeout(getLatestBlock, 50);
   })
  .catch((err) => {
-  retryCount++;
+
   if(chainLogging == true)
-   console.log("getblockfailed", idx, retryCount);
-  if(retryCount == 10){
-   retryCount = 0;
-   idx++;
-  }
+   console.log("getblockfailed");
+
   console.log(err);
+  setTimeout(getLatestBlock, 50);
  }); // end of getblock
 } //end of function
                         
- setInterval(getLatestBlock, 150);
+ setTimeout(getLatestBlock, 50);
+ 
+
 
