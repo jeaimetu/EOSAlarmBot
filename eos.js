@@ -4,6 +4,8 @@ const MongoClient = require('mongodb').MongoClient;
 const botClient = require('./bot.js');
 const url = process.env.MONGODB_URI;
 
+const chainLogging = false;
+
 // EOS
 eosConfig = {
  httpEndpoint: "https://mainnet.eoscalgary.io"
@@ -11,20 +13,29 @@ eosConfig = {
 eos = Eos(eosConfig) // 127.0.0.1:8888
 
 // Getting starting block id
-idx = 0;
+var idx = 0;
 var previousReadBlock = -1;
 
 //set initial block
 function getLatestBlock(){
  eos.getInfo({}).then(result => {
-  //console.log(result);
   startIndex = result.head_block_num;
-  if(previousReadBlock < startIndex){
+  if(idx == 0){
    idx = startIndex;
+  }else{
+   ;//do nothing, using previous value
+  }
+  if(chainLogging == true)
+   console.log("getinfo block", previousReadBlock, idx);
+  if(previousReadBlock < idx && idx <= startIndex){
+   //idx = startIndex;
    //read block
+   if(chainLogging == true)
+    console.log("callong saveBlockInfo for block number", idx);
    saveBlockInfo();
   }else{
-   ;//do nothing
+   if(chainLogging == true)
+    console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex, idx) ;//do nothing
   }
  });
 }
@@ -105,6 +116,7 @@ function formatData(data, type){
  return msg;
  
 }
+
 function saveData(block, account, data, type){
   var fData = formatData(data, type);
   botClient.sendAlarm(account, fData);
@@ -198,43 +210,24 @@ function saveBlockInfo(){
  //console.log("saveBlockInfo for ",idx);
  eos.getBlock(idx).then(result => {
   retryCount = 0;
-  //console.log(result);
-  //console.log(result.transactions[0].trx.transaction.actions[0]);
-  //save data to Mongo DB with block number
-  //console.log("read Block info ", idx);
+  if(chainLogging == true)
+   console.log("read block suceess for block number", idx);
   checkAccount(result);
+  //saving the latest success block number.
   previousReadBlock = idx;
-
-  /* save raw data
-  MongoClient.connect(url, function(err, db) {
-   
-   if (err){
-    console.log(err);
-    throw err;
-   }
-   var dbo = db.db("heroku_dtfpf2m1");
-   //var myobj = { bno : idx, info : result.transactions[0].trx.transaction.actions[0] }
-   var myobj = { bno : idx, info : result }
-   
-   dbo.collection("eosblockinfo").insertOne(myobj, function(err, res) {
-        if (err) throw err;
-          //console.log("1 document inserted");
-       idx++;
-              db.close();
-    }); //end of insert one
-   }); //end of connect
-  */
+  idx++;
   })
  .catch((err) => {
-  idx;
   retryCount++;
+  if(chainLogging == true)
+   console.log("getblockfailed", idx, retryCount);
   if(retryCount == 10){
    retryCount = 0;
    idx++;
   }
   console.log(err);
  }); // end of getblock
-
 } //end of function
                         
- setInterval(getLatestBlock, 100);
+ setInterval(getLatestBlock, 150);
+
