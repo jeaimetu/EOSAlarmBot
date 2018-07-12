@@ -214,7 +214,7 @@ else
 
 function loadData(ctx, cb){
  MongoClient.connect(url, function(err, db) {
- var dbo = db.db("heroku_9472rtd6");
+ var dbo = db.db("heroku_dtfpf2m1");
  var findquery = {chatid : ctx.chat.id, primary : true};
  dbo.collection("customers").findOne(findquery, function(err, result){
   if(result == null){
@@ -268,7 +268,7 @@ eos.getTableRows({json : true,
 function saveData(ctx){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-    var dbo = db.db("heroku_9472rtd6");
+    var dbo = db.db("heroku_dtfpf2m1");
  
    var findquery = {chatid : ctx.chat.id, eosid : ctx.session.id, primary : true};
    dbo.collection("customers").findOne(findquery, function(err, result){
@@ -296,7 +296,7 @@ function saveData(ctx){
 function setPrimary(ctx, account){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-    var dbo = db.db("heroku_9472rtd6");
+    var dbo = db.db("heroku_dtfpf2m1");
  //, eosid : ctx.session.id, primary : true};
    var updateQuery = {chatid : ctx.chat.id };
    var newvalues = {$set : {primary : false}};
@@ -319,7 +319,7 @@ function setPrimary(ctx, account){
 function deleteAccount(ctx, account){
  MongoClient.connect(url, function(err, db) {
   if (err) throw err;
-  var dbo = db.db("heroku_9472rtd6");
+  var dbo = db.db("heroku_dtfpf2m1");
   var deleteQuery = {eosid : account};
   dbo.collection("customers").deleteOne(deleteQuery, function(err, res){
    if(err) throw err;
@@ -366,7 +366,7 @@ bot.use(session())
 module.exports.sendAlarm = function(account, msg){
  //get chatid
  MongoClient.connect(url, function(err, db) {
-  var dbo = db.db("heroku_9472rtd6");
+  var dbo = db.db("heroku_dtfpf2m1");
   var findquery = {eosid : account};
   dbo.collection("customers").find(findquery).toArray(function(err, result){
    if(result.length == 0){
@@ -415,7 +415,7 @@ function price(ctx){
 
    // Get price
    MongoClient.connect(url, function(err, connection) {
-     let db = connection.db("heroku_9472rtd6")
+     let db = connection.db("heroku_dtfpf2m1")
     
      db.collection("price").find().toArray(function(err, res){
        let partnetMessage = partner.makePartnerMessage();
@@ -539,7 +539,7 @@ function listAccounts(ctx){
  console.log("before making ", idListString);
  console.log("setting chat id ", ctx.from.id);
    MongoClient.connect(url, function(err, db) {
-    var dbo = db.db("heroku_9472rtd6");     
+    var dbo = db.db("heroku_dtfpf2m1");     
     var findquery = {chatid : ctx.from.id};
     dbo.collection("customers").find(findquery).toArray(function(err, res){
      console.log(res)
@@ -575,7 +575,7 @@ function accountAction(ctx){
  console.log("before making ", idListString);
  console.log("setting chat id ", ctx.from.id);
    MongoClient.connect(url, function(err, db) {
-    var dbo = db.db("heroku_9472rtd6");     
+    var dbo = db.db("heroku_dtfpf2m1");     
     var findquery = {chatid : ctx.from.id};
     dbo.collection("customers").find(findquery).toArray(function(err, res){
      console.log(res)
