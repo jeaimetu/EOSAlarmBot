@@ -40,9 +40,9 @@ function reset(ctx){
 // Initialization Message
 function makeMessage(ctx){
   return `${ctx.session.id == 'nil' 
-               ? 'Current account: ' + ctx.session.id 
-               : 'Click Add Account button to get started.'}
-<b>Please vote for eoscafeblock</b>, eosyskoreabp, <b>eosnodeonebp</b>, and acroeos12345.
+               ? '현재 계정: ' + ctx.session.id 
+               : 'EOS계정을 추가해 주세요.'}
+<b>eoscafeblock</b>, eosyskoreabp, <b>eosnodeonebp</b>, and acroeos12345 에 투표해 주세요.
 © EOS Cafe Korea`
 }
 
@@ -480,7 +480,7 @@ function balance(ctx){
  loadData(ctx, function(id){
   ctx.session.id = id;
  if(ctx.session.id == -1){
-  msg = "Please register your EOS account.";
+  msg = "EOS계정을 등록해 주세요.";
   ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard));
  }else{
   
