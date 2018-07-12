@@ -1,8 +1,6 @@
 const Eos = require('eosjs') // Eos = require('./src')
-const mongo = require('mongodb');
-const MongoClient = require('mongodb').MongoClient;
 const botClient = require('./bot.js');
-const url = process.env.MONGODB_URI;
+
 
 const chainLogging = false;
 
