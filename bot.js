@@ -39,7 +39,7 @@ function reset(ctx){
 
 // Initialization Message
 function makeMessage(ctx){
-  return `${ctx.session.id == 'nil' 
+  return `${ctx.session.id != 'nil' 
                ? '현재 계정: ' + ctx.session.id 
                : 'EOS계정을 추가해 주세요.'}
 <b>eoscafeblock</b>, eosyskoreabp, <b>eosnodeonebp</b>, and acroeos12345 에 투표해 주세요.
