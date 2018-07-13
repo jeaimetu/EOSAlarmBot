@@ -418,7 +418,7 @@ module.exports.sendAlarm = function(account, msg){
   var dbo = db.db("heroku_9472rtd6");
   var findquery = {eosid : account};
   dbo.collection("customers").find(findquery).toArray(function(err, result){
-   if(result.length == 0){
+   if(result == null){
     //console.log("no matched account for ", account);
     ;
    }else{
