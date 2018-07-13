@@ -109,10 +109,12 @@ function formatData(data, type){
    msg += "구매 량 " + data.quant + " 램 소유자 " + data.receiver;
   }else{
    //console.log("need to be implemented");
-   msg = "이 이벤트는 곧 지원 에정입니다.)";
-   msg += type;
+   msg = "이 이벤트는 곧 지원 예정입니다.";
    msg += "\n";
-   msg += data;
+   msg += "이벤트 종류 : " + type;
+   msg += "\n";
+   const buf = Buffer.from(JSON.stringify(data));
+   msg += buf;
   }
  
  return msg;
