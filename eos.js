@@ -1,9 +1,10 @@
 const Eos = require('eosjs') // Eos = require('./src')
+const blockParse = require('./blockParse');
 
 const botClient = require('./bot.js');
 const url = process.env.MONGODB_URI;
 
-const chainLogging = true;
+const chainLogging = false;
 
 // EOS
 eosConfig = {
@@ -76,6 +77,11 @@ function formatData(data, type){
    msg = "DDOS 이벤트";
    msg += "\n";
    msg += "Memo : " + data.memo
+  else if(type == "issue"){
+   msg = "이슈 이벤트";
+   msg += "\n";
+   msg += "수량 :" + data.quantity;
+   msg += "메모 : " + data.memo
   }else if(type == "bidname"){
    msg = "계정 경매 이벤트";
    msg += "\n";
@@ -182,7 +188,9 @@ function checkAccount(result){
   }else if(type == "updateauth"){
    account = data.account;
   }else{
-   account = "unknown";
+   account = trx.actions[j].account //always exist
+   //setting accountto from data with testing.
+   accountTo = blockParse.getAccountInfo (data);
    //console.log("need to be implemented", type);
   }
   
