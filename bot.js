@@ -169,8 +169,8 @@ console.log(addBalance, dacBalance, cetosBalance);
    msg += "\n"; 
  
   
-  if(challengedac != null){
-    t = challengedac.split(" ");
+  if(chlBalance != null){
+    t = chlBalance.split(" ");
    msg += t[1] + " : " + t[0];}
   else
    msg += "CHL : 0";
