@@ -377,7 +377,7 @@ function deleteAccount(ctx, account){
    msg += " is deleted";
    ctx.session.id = "nil";
    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
-   db.close
+   db.close();
   });
  });
  
