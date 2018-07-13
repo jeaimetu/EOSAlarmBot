@@ -1,8 +1,9 @@
 const Eos = require('eosjs') // Eos = require('./src')
+
 const botClient = require('./bot.js');
+const url = process.env.MONGODB_URI;
 
-
-const chainLogging = false;
+const chainLogging = true;
 
 // EOS
 eosConfig = {
@@ -28,6 +29,7 @@ function getLatestBlock(){
     console.log("callong saveBlockInfo for block number");
    saveBlockInfo(startIndex);
   }else{
+   setTimeout(getLatestBlock, 50);
    if(chainLogging == true)
     console.log("Do nothing", "previousReadBlock", "startIndex", "idx",previousReadBlock,startIndex) ;//do nothing
   }
@@ -198,6 +200,7 @@ function checkAccount(result){
  
 }
 
+
  
 function saveBlockInfo(idx){
  //console.log("saveBlockInfo for ",idx);
@@ -222,6 +225,3 @@ function saveBlockInfo(idx){
 } //end of function
                         
  setTimeout(getLatestBlock, 50);
- 
-
-
