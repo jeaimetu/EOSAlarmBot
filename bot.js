@@ -116,7 +116,7 @@ async function getCetosBalance(account){
 
 async function getTokenBalance(account, cb){
  let [addBalance, dacBalance, cetosBalance,cetBalance, ednaBalance, horusBalance,eoxBalance, evrBalance, esbBalance, atdBalance,
-      octBalance, iqBalance, pglBalance, poorBalance] = 
+      octBalance, iqBalance, pglBalance, poorBalance, chlBalance] = 
      await Promise.all([getAddBalance(account), 
                         getDacBalance(account), 
                         getCetosBalance(account),
@@ -130,10 +130,11 @@ async function getTokenBalance(account, cb){
                         getTokenBalanceEach(account, "octtothemoon"),
                         getTokenBalanceEach(account, "everipediaiq"),
                         getTokenBalanceEach(account, "prospectorsg"),
-                        getTokenBalanceEach(account, "poormantoken")
+                        getTokenBalanceEach(account, "poormantoken"),
+                        getTokenBalanceEach(account, "challengedac")
                        ]);
 console.log(addBalance, dacBalance, cetosBalance);
- msg = "현재 계정 : " + account;
+ msg = "Current account : " + account;
  msg += "\n";
  msg += "<b>Token Balance</b>"; 
  msg += "\n";
@@ -165,6 +166,14 @@ console.log(addBalance, dacBalance, cetosBalance);
    msg += t[1] + " : " + t[0];}
   else
    msg += "CET : 0";
+   msg += "\n"; 
+ 
+  
+  if(challengedac != null){
+    t = challengedac.split(" ");
+   msg += t[1] + " : " + t[0];}
+  else
+   msg += "CHL : 0";
    msg += "\n"; 
  
 
