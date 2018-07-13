@@ -411,11 +411,10 @@ bot.use(session())
 //bot.use(Telegraf.log())
 
 
-
 module.exports.sendAlarm = function(account, msg){
  //get chatid
  MongoClient.connect(url, function(err, db) {
-  var dbo = db.db("heroku_dtfpf2m1");
+  var dbo = db.db("heroku_9472rtd6");
   var findquery = {eosid : account};
   dbo.collection("customers").find(findquery).toArray(function(err, result){
    if(result.length == 0){
@@ -424,15 +423,19 @@ module.exports.sendAlarm = function(account, msg){
    }else{
      //send message
     for(i = 0;i < result.length; i++){
-     bot.telegram.sendMessage(result[i].chatid, msg);
-    }
-   }
+     try{
+     bot.telegram.sendMessage(result[i].chatid, msg)
+     }catch(error){
+      console.log(error);
+      console.log("remove user with chatid ", result[i].chatid);
+     }//end of catch
+    }//end of for
+   }//end of else
    db.close();
   });//end of findOne
-   
  });//end of mongoclient
- 
 }
+
 
 
 
