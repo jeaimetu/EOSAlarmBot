@@ -77,7 +77,7 @@ function formatData(data, type){
    msg = "DDOS 이벤트";
    msg += "\n";
    msg += "Memo : " + data.memo
-  else if(type == "issue"){
+  }else if(type == "issue"){
    msg = "이슈 이벤트";
    msg += "\n";
    msg += "수량 :" + data.quantity;
