@@ -526,7 +526,7 @@ function balance(ctx){
       msg += "NET에 잠김 : "
       msg += result.self_delegated_bandwidth.net_weight;
       msg += "\n";
-      msg += " : ";
+      msg += "언스테이킹중 : ";
       msg += refund + " EOS";
       msg += "\n";
       msg += "\n";
