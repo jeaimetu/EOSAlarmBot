@@ -413,6 +413,7 @@ bot.use(session())
 
 module.exports.sendAlarm = function(account, msg){
  //get chatid
+ console.log("account msg",account, msg);
  MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
   var findquery = {eosid : account};
@@ -423,18 +424,15 @@ module.exports.sendAlarm = function(account, msg){
    }else{
      //send message
     for(i = 0;i < result.length; i++){
+     console.log("try to send message to ", result[i].chatid);
      bot.telegram.sendMessage(result[i].chatid, msg).catch((error) => {
       console.log(error);
-      console.log("remove user with chatid ", result[i].chatid);
      });
-
     }//end of for
    }//end of else
    db.close();
-  });//end of findOne
-   
- });//end of mongoclient
- 
+  });//end of findOne   
+ });//end of mongoclient 
 }
 
 
