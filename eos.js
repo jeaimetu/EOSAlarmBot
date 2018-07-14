@@ -1,12 +1,11 @@
-const Eos = require('eosjs') // Eos = require('./src')
-const blockParse = require('./blockParse');
+var Eos = require('eosjs') // Eos = require('./src')
+var blockParse = require('./blockParse.js');
 
-const botClient = require('./bot.js');
-const url = process.env.MONGODB_URI;
+var botClient = require('./bot.js');
+var url = process.env.MONGODB_URI;
 
 const chainLogging = false;
 const runTimer = 350;
-
 
 // EOS
 eosConfig = {
@@ -37,7 +36,6 @@ function getLatestBlock(){
   }
  });
 }
-
 
 
 function saveData(block, account, data, type){
@@ -103,12 +101,18 @@ function checkAccount(result){
   			}else if(type == "sellram" || type == "updateauth"){
   				account = data.account;
   			}else{
-   				account = blockParse.getAccountInfo(data);
+   				;
+      /* delete this to save memory
+      account = blockParse.getAccountInfo(data);
+      */
   			}//end of else
   
   			if(account != null && type != "ddos" && type != "tweet"){     
    				//console.log("calling sendalarm in eosjs", account);
-   				saveData(result.block_num, account, data, type);
+   				//saveData(result.block_num, account, data, type);
+      //change to direct to call to save memory
+       var fData = formatData(data, type);
+       botClient.sendAlarm(account, fData);
    				account = null;
  			  }//end of if
    		}//end of for, actions
