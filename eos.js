@@ -8,10 +8,12 @@ const chainLogging = false;
 const runTimer = 350;
 
 // EOS
-eosConfig = {
+EosApi = require('eosjs-api')
+eosconfig = {
  httpEndpoint: "https://mainnet.eoscalgary.io"
 }
-eos = Eos(eosConfig) // 127.0.0.1:8888
+
+eos = EosApi(eosconfig)
 
 // Getting starting block id
 //var idx = 0;
