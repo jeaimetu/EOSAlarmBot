@@ -411,16 +411,21 @@ bot.use(session())
 //bot.use(Telegraf.log())
 
 
+
 module.exports.sendAlarm = function(account, msg){
+ 
+ console.log("Memory heap usage ", process.memoryUsage().heapTotal/(1024*1024));
+ console.log("Memory rss usage ", process.memoryUsage().rss/(1024*1024));
  //get chatid
- console.log("account msg",account, msg);
+ //console.log("account msg",account, msg);
  MongoClient.connect(url, function(err, db) {
   var dbo = db.db("heroku_9472rtd6");
   var findquery = {eosid : account};
   dbo.collection("customers").find(findquery).toArray(function(err, result){
-   if(result == null){
+   if(result == null || result.length == 0){
     //console.log("no matched account for ", account);
-    ;
+    db.close();
+    return true;
    }else{
      //send message
     for(i = 0;i < result.length; i++){
@@ -429,12 +434,13 @@ module.exports.sendAlarm = function(account, msg){
       console.log(error);
      });
     }//end of for
+    db.close();
+    return false;
    }//end of else
-   db.close();
-  });//end of findOne   
+  });//end of findOne
+   
  });//end of mongoclient 
 }
-
 
 
 
