@@ -1,25 +1,22 @@
-const Telegraf = require('telegraf');   // Module to use Telegraf API.
-const config = require('./config'); // Configuration file that holds telegraf_token API key.
-const session = require('telegraf/session')
-const Extra = require('telegraf/extra')
-const Markup = require('telegraf/markup')
-const Composer = require('telegraf/composer')
-const WizardScene = require('telegraf/scenes/wizard')
-const Stage = require('telegraf/stage')
-const tl = require('common-tags')
-const partner = require('./partner.js');
+var Telegraf = require('telegraf');   // Module to use Telegraf API.
+var config = require('./config'); // Configuration file that holds telegraf_token API key.
+var session = require('telegraf/session')
+var Extra = require('telegraf/extra')
+var Markup = require('telegraf/markup')
+var tl = require('common-tags')
+var partner = require('./partner.js');
 
 // Mongo
-let mongo = require('mongodb');
-let MongoClient = require('mongodb').MongoClient;
-let url = process.env.MONGODB_URI;
+var MongoClient = require('mongodb').MongoClient;
+var url = process.env.MONGODB_URI;
 
 // EOS
-Eos = require('eosjs')
+EosApi = require('eosjs-api')
 eosconfig = {
  httpEndpoint: "https://mainnet.eoscalgary.io"
 }
-eos = Eos(eosconfig)
+
+eos = EosApi(eosconfig)
 
 // Menu
 const keyboard = Markup.inlineKeyboard([
