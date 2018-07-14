@@ -102,9 +102,9 @@ function checkAccount(result){
   				account = data.account;
   			}else{
    				;
-      /* delete this to save memory
+      
       account = blockParse.getAccountInfo(data);
-      */
+      
   			}//end of else
   
   			if(account != null && type != "ddos" && type != "tweet"){     
