@@ -133,7 +133,7 @@ async function getTokenBalance(account, cb){
                         getTokenBalanceEach(account, "poormantoken"),
                         getTokenBalanceEach(account, "challengedac")
                        ]);
-console.log(addBalance, dacBalance, cetosBalance);
+//console.log(addBalance, dacBalance, cetosBalance);
  msg = "Current account : " + account;
  msg += "\n";
  msg += "<b>Token Balance</b>"; 
