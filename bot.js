@@ -725,4 +725,4 @@ function sendAlarm(){
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
-setInterval(sendAlarm, 50);
+//setInterval(sendAlarm, 50);
