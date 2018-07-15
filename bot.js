@@ -81,9 +81,8 @@ async function getTokenBalanceEach(account, tokenCode){
  return bal.rows[0].balance;
  else
   return null;
- });
-                         .catch((err) => {
-  return null});;
+ }).catch((err) => {
+  return null});
 
 }
 
