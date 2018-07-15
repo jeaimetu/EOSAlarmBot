@@ -204,7 +204,7 @@ if(eoxBalance != null){
 
  
    if(octBalance != null){
-  t = octBalanceOCT.split(" ");
+  t = octBalance.split(" ");
   msg += t[1] + " : " + t[0];}
  else
   msg += "OCT : 0";
@@ -514,7 +514,7 @@ function balance(ctx){
      console.log("calling getAccount", ctx.session.id);
      eos.getAccount(ctx.session.id).then(result => {
       console.log("getAccount", result);
-      console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
+      //console.log(result.self_delegated_bandwidth.net_weight, result.self_delegated_bandwidth.cpu_weight, result.voter_info.unstaking)
       v1 = result.self_delegated_bandwidth.net_weight.split(" ");
       v2 = result.self_delegated_bandwidth.cpu_weight.split(" ");
      eos.getTableRows({json : true,
@@ -539,9 +539,11 @@ function balance(ctx){
       msg += "자유롭게 사용가능 : " + parseFloat(v3[0]);
       msg += " EOS\n";
       msg += "CPU에 잠김 : "
+      if(result.self_delegated_bandwidth != null)
       msg += result.self_delegated_bandwidth.cpu_weight;
       msg += "\n";
       msg += "NET에 잠김 : "
+      if(result.self_delegated_bandwidth != null)
       msg += result.self_delegated_bandwidth.net_weight;
       msg += "\n";
       msg += "언스테이킹중 : ";
