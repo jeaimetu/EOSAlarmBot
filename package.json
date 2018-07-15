@@ -4,13 +4,13 @@
   "description": "Telegram bot example using Telegraf with easy configuration steps. Node v8+.",
   "main": "index.js",
   "scripts": {
-    "start": "node --optimize_for_size --max_old_space_size=920 index.js"
+    "start": "node index.js"
   },
   "author": "Finalgalaxy",
   "license": "ISC",
   "dependencies": {
     "telegraf": "^3.21.2",
-    "mongodb": "3.1.1",
+    "mongodb": "3.0.7",
     "eosjs" : "15.0.3",
     "bithumbapi" : "1.0.0",
     "coinmarketcap-api" : "2.3.2",
