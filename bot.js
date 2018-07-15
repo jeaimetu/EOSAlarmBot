@@ -709,7 +709,9 @@ function sendAlarm(){
 					bot.telegram.sendMessage(res.chatid, result.data).catch((error) => {
 						console.log(error);
 					});
-					var updateQuery = { _id : ObjectID(result._id)};
+					var ObjectID = require('mongodb').ObjectID;
+					var o_id = new ObjectID(result._id);
+					var updateQuery = { _id : o_id };
 					var updateObj = { $set: {report : true}};
 					dbo.collection("alarm").updateOne(updateQuery, updateObj).then((obj)=>{
 						console.log("update success", obj);
