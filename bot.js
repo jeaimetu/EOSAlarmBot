@@ -76,13 +76,13 @@ async function getTokenBalanceEach(account, tokenCode){
                       code : tokenCode,
                  scope: account,
                  table: "accounts",
-                 }).then((bal) => {
-    if(bal.rows.length != 0)
- return bal.rows[0].balance;
- else
-  return null;
- }).catch((err) => {
-  return null});
+                 }).catch((err) => {
+                  return null});
+ 
+    if(bal != undefined && bal.rows.length != 0)
+     return bal.rows[0].balance;
+    else
+     return null;
 
 }
 
@@ -119,7 +119,7 @@ async function getTokenBalance(account, cb){
      await Promise.all([getTokenBalanceEach(account, "eosadddddddd"),
                         getTokenBalanceEach(account, "eosdactokens"),
                         getTokenBalanceEach(account, "gyztomjugage"),
-                        getTokenBalanceEach(account,"eosiochaince"),
+                        getTokenBalanceEach(account, "eosiochaince"),
                         getTokenBalanceEach(account, "ednazztokens"),
                         getTokenBalanceEach(account, "horustokenio"),            
                         getTokenBalanceEach(account, "eoxeoxeoxeox"),
