@@ -713,7 +713,7 @@ function sendAlarm(){
 				var updateQuery = { _id : o_id };
 				var updateObj = { $set: {report : true}};
 				dbo.collection("alarm").updateOne(updateQuery, updateObj).then((obj)=>{
-					console.log("update success", obj);
+					console.log("update success", result.account);
 					db.close();
 				});													   
 
