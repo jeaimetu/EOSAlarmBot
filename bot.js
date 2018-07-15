@@ -704,20 +704,19 @@ function sendAlarm(){
 				db.close();
 			}else{
 				//get chatid
-				var customersQuery = {eosid : result.account};
-				dbo.collection("customers").findOne(customersQuery, function(err, res){
-					bot.telegram.sendMessage(res.chatid, result.data).catch((error) => {
-						console.log(error);
-					});
-					var ObjectID = require('mongodb').ObjectID;
-					var o_id = new ObjectID(result._id);
-					var updateQuery = { _id : o_id };
-					var updateObj = { $set: {report : true}};
-					dbo.collection("alarm").updateOne(updateQuery, updateObj).then((obj)=>{
-						console.log("update success", obj);
-						db.close();
-					});													   
-				}); //end of findone customer
+
+				bot.telegram.sendMessage(result.chatid, result.data).catch((error) => {
+					console.log(error);
+				});
+				var ObjectID = require('mongodb').ObjectID;
+				var o_id = new ObjectID(result._id);
+				var updateQuery = { _id : o_id };
+				var updateObj = { $set: {report : true}};
+				dbo.collection("alarm").updateOne(updateQuery, updateObj).then((obj)=>{
+					console.log("update success", obj);
+					db.close();
+				});													   
+
 			} //end of else
 		}); //end of findone alarm
 	});//end of MongoClient
@@ -725,4 +724,4 @@ function sendAlarm(){
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
-//setInterval(sendAlarm, 50);
+setInterval(sendAlarm, 70);
