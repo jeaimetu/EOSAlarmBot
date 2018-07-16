@@ -375,7 +375,7 @@ function deleteAccount(ctx, account){
    if(err) throw err;
    console.log("delete account", account);
    msg = account;
-   msg += " is deleted";
+   msg += " 이 삭제되었습니다.";
    ctx.session.id = "nil";
    ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
    db.close();
@@ -724,4 +724,4 @@ function sendAlarm(){
 
 // Start bot polling in order to not terminate Node.js application.
 bot.startPolling();
-setInterval(sendAlarm, 70);
+setInterval(sendAlarm, 100);
