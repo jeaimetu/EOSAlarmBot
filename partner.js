@@ -5,7 +5,7 @@ module.exports.makePartnerMessage = function(){
   msg += "www.tokenbank.co.kr" + "\n\n" ;
   msg += "-헥스비피는 헥슬란트에서 자체 개발한 투표툴로 다양한 BP공약확인 및 투표를 지원합니다.";
   msg += "\n";
-  msg += "www.tokenbank.co.kr";
+  msg += "www.hexbp.com";
  
 
   return msg;
