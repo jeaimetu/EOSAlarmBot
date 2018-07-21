@@ -454,6 +454,8 @@ function price(ctx){
      let db = connection.db("heroku_6wpccsrg")
     
      db.collection("price").find().toArray(function(err, res){
+	     if(res === "undefined")
+		     return;
        let partnetMessage = partner.makePartnerMessage();
        ctx.telegram.sendMessage(ctx.from.id, partnetMessage, Extra.HTML());
        let message = tl.stripIndents`현재 계정: ${ctx.session.id ? ctx.session.id : '선택안됨'}
