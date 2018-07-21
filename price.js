@@ -23,7 +23,7 @@ client.getTicker({id : 1765, convert : "KRW"}).then(result => {
  }
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
-  var dbo = db.db("heroku_dtfpf2m1");
+  var dbo = db.db("heroku_6wpccsrg");
    
    var findquery = { exchange : "coinmarketcap" };
    dbo.collection("price").findOne(findquery, function(err, res){
