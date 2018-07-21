@@ -355,7 +355,7 @@ function saveData(ctx){
 function setPrimary(ctx, account){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-    var dbo = db.db("heroku_dtfpf2m1");
+    var dbo = db.db("heroku_6wpccsrg");
  //, eosid : ctx.session.id, primary : true};
    var updateQuery = {chatid : ctx.chat.id };
    var newvalues = {$set : {primary : false}};
@@ -378,7 +378,7 @@ function setPrimary(ctx, account){
 function deleteAccount(ctx, account){
  MongoClient.connect(url, function(err, db) {
   if (err) throw err;
-  var dbo = db.db("heroku_dtfpf2m1");
+  var dbo = db.db("heroku_6wpccsrg");
   var deleteQuery = {eosid : account};
   dbo.collection("customers").deleteOne(deleteQuery, function(err, res){
    if(err) throw err;
@@ -577,7 +577,7 @@ function listAccounts(ctx){
  console.log("before making ", idListString);
  console.log("setting chat id ", ctx.from.id);
    MongoClient.connect(url, function(err, db) {
-    var dbo = db.db("heroku_dtfpf2m1");     
+    var dbo = db.db("heroku_6wpccsrg");     
     var findquery = {chatid : ctx.from.id};
     dbo.collection("customers").find(findquery).toArray(function(err, res){
      console.log(res)
@@ -613,7 +613,7 @@ function accountAction(ctx){
  console.log("before making ", idListString);
  console.log("setting chat id ", ctx.from.id);
    MongoClient.connect(url, function(err, db) {
-    var dbo = db.db("heroku_dtfpf2m1");     
+    var dbo = db.db("heroku_6wpccsrg");     
     var findquery = {chatid : ctx.from.id};
     dbo.collection("customers").find(findquery).toArray(function(err, res){
      console.log(res)
@@ -706,7 +706,7 @@ function sendAlarm(){
 	console.log("Memory rss usage ", process.memoryUsage().rss/(1024*1024));
 
 	MongoClient.connect(url, function(err, db) {
-		var dbo = db.db("heroku_dtfpf2m1");
+		var dbo = db.db("heroku_6wpccsrg");
 		var findquery = {report  : false};
 		dbo.collection("alarm").findOne(findquery, function(err, result){
 			if(result == null){
