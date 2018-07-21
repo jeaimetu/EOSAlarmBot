@@ -67,7 +67,7 @@ bithumb.ticker('all').then(function(result){
  //writing this value to DB
   MongoClient.connect(url, function(err, db) {
    if(err) throw err;
-  var dbo = db.db("heroku_dtfpf2m1");
+  var dbo = db.db("heroku_6wpccsrg");
    
    var findquery = { exchange : "bithumb" };
    dbo.collection("price").findOne(findquery, function(err, res){
