@@ -273,7 +273,7 @@ else
 
 function loadData(ctx, cb){
  MongoClient.connect(url, function(err, db) {
- var dbo = db.db("heroku_dtfpf2m1");
+ var dbo = db.db("heroku_6wpccsrg");
  var findquery = {chatid : ctx.chat.id, primary : true};
  dbo.collection("customers").findOne(findquery, function(err, result){
   if(result == null){
@@ -327,7 +327,7 @@ eos.getTableRows({json : true,
 function saveData(ctx){
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-    var dbo = db.db("heroku_dtfpf2m1");
+    var dbo = db.db("heroku_6wpccsrg");
  
    var findquery = {chatid : ctx.chat.id, eosid : ctx.session.id, primary : true};
    dbo.collection("customers").findOne(findquery, function(err, result){
@@ -451,7 +451,7 @@ function price(ctx){
 
    // Get price
    MongoClient.connect(url, function(err, connection) {
-     let db = connection.db("heroku_dtfpf2m1")
+     let db = connection.db("heroku_6wpccsrg")
     
      db.collection("price").find().toArray(function(err, res){
        let partnetMessage = partner.makePartnerMessage();
