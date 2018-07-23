@@ -360,12 +360,12 @@ function setPrimary(ctx, account){
    var updateQuery = {chatid : ctx.chat.id };
    var newvalues = {$set : {primary : false}};
    dbo.collection("customers").updateMany(updateQuery, newvalues,function(err, res){
-    var findquery = {eosid : account};
+    var findquery = {eosid : account, chatid : ctx.chat.id};
     var pValue = {$set : {primary : true }};
     dbo.collection("customers").updateOne(findquery, pValue, function(err, result){
      console.log("Primary flag update completed", ctx.session.id);
      msg = account;
-     msg += "<b>이 주계정으로 설정되었습니다.</b>";
+     msg += " <b>이 주계정으로 설정되었습니다.</b>";
      ctx.session.id = account;
      ctx.telegram.sendMessage(ctx.from.id, msg, Extra.HTML().markup(keyboard))
      db.close();  
