@@ -15,7 +15,7 @@ module.exports.makePartnerMessage = function(){
   
   let msg = "제1회 EOSIO CDD(Community x DAPP x DAC) Meetup 개최 " + "\n\n" ;
   msg += "8월 18일(토) 오후 5시, 마루180(강남구 역삼로 180)" + "\n";
-  msg += "https://goo.gl/G1wUbA" + "\n\n" ;
+  msg += "https://goo.gl/ZsXFAA" + "\n\n" ;
   msg += "많은 참석 부탁 드립니다! 자세한 사항은 링크를 확인해 주세요.";
   msg += "\n";
  
