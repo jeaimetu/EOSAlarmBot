@@ -40,7 +40,7 @@ function makeMessage(ctx){
                ? '현재 계정: ' + ctx.session.id 
                : 'EOS계정을 추가해 주세요.'}
 
-<b>eoscafeblock</b>, eosyskoreabp, <b>eosnodeonebp</b>, and acroeos12345 에 투표해 주세요.
+<b>eoscafeblock</b>,eoseouldotio, eosyskoreabp, <b>eosnodeonebp</b>, and acroeos12345 에 투표해 주세요.
 © EOS Cafe Korea`
 }
 
