@@ -27,7 +27,7 @@ module.exports.makePartnerMessage = function(){
   
   let msg = "DEXEOS dexeos.io " + "\n\n" ;
   msg += "세계 최초 EOS기반 탈중앙화 거래소" + "\n";
-  msg += "dexeos.io 에서 에드랍 토큰을 거래하세요." + "\n\n" ;
+  msg += "dexeos.io 에서 에어드랍 토큰을 거래하세요." + "\n\n" ;
   msg += "\n";
  
 
