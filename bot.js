@@ -13,7 +13,7 @@ var url = process.env.MONGODB_URI;
 // EOS
 EosApi = require('eosjs-api')
 eosconfig = {
- httpEndpoint: "https://mainnet.eoscalgary.io"
+ httpEndpoint: "https://proxy.eosnode.tools"
 }
 
 eos = EosApi(eosconfig)
